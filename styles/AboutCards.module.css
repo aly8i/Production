@@ -19,13 +19,16 @@
 .first{
     /* background-image: url("../public/About1.jpg") !important; */
     background-image: url('../public/7.jpg');
+    content: '';
     
 }
 .second{
     background-image: url("../public/8.jpg");
+    content: '';
 }
 .third{
     background-image: url("../public/9.jpg");
+    content: '';
 }
 .flip {
   position: relative;

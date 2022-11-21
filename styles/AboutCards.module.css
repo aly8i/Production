@@ -18,14 +18,14 @@
 }
 .first{
     /* background-image: url("../public/About1.jpg") !important; */
-    background-image: url('../public/about1.jpg');
+    background-image: url('../public/7.jpg');
     
 }
 .second{
-    background-image: url("../public/about2.jpg");
+    background-image: url("../public/8.jpg");
 }
 .third{
-    background-image: url("../public/about3.jpg");
+    background-image: url("../public/9.jpg");
 }
 .flip {
   position: relative;

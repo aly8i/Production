@@ -18,18 +18,18 @@
 }
 .first{
     /* background-image: url("../public/About1.jpg") !important; */
-    background-image: url('https://cdn.dribbble.com/users/5031/screenshots/7008431/dribbble.png') !important;
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/hfc-resto.appspot.com/o/lightstudio%2FAbout1.jpg?alt=media&token=5a999d3a-4380-42b1-890f-94be422be745') !important;
     content: '';
     width: 100%;
     height: 100%;
     
 }
 .second{
-    background-image: url("../public/8.jpg") !important;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hfc-resto.appspot.com/o/lightstudio%2FAbout2.jpg?alt=media&token=4aa73fcc-255c-425b-8a09-01889379d7ae") !important;
     content: '';
 }
 .third{
-    background-image: url("../public/9.jpg") !important;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hfc-resto.appspot.com/o/lightstudio%2FAbout3.jpg?alt=media&token=bf61b5de-34ba-4518-aaeb-408b6d52a11e") !important;
     content: '';
 }
 .flip {

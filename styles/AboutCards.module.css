@@ -1,20 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
-/* * {
-  box-sizing: border-box;
-  font-weight: normal;
-} */
-
-/* body {
-  color: #555;
-  background: #222;
-  text-align: center;
-  font-family: "Roboto Mono";
-  padding: 1em;
-} */
-
-/* h1 {
-  font-size: 2.2em;
-} */
 .container2{
     display: flex;
     flex-direction: row;
@@ -33,14 +17,14 @@
     gap: 5px;
 }
 .first{
-    background-image: url("../public/About1.jpg")!important;
+    background-image: url("../public/About1.jpg") !important;
     
 }
 .second{
-    background-image: url("../public/About2.jpg")!important;
+    background-image: url("../public/About2.jpg") !important;
 }
 .third{
-    background-image: url("../public/About3.jpg")!important;
+    background-image: url("../public/About3.jpg") !important;
 }
 .flip {
   position: relative;
@@ -98,7 +82,7 @@
   background-position: center !important;
   height: 220px;
   padding: 1em 2em;
-  background: #313131;
+  /* background: #313131; */
   border-radius: 10px;
 }
 .flip > .front p,

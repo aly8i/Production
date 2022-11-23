@@ -3,8 +3,19 @@ import styles from "../styles/Navbar.module.css"
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import logo from "../public/lightstudiosmall.png"
 import Image from 'next/image';
+import MenuIcon from '@mui/icons-material/Menu';
+import { useState } from 'react';
 const Navbar = () => {
+    const [showMenu,setShowMenu] = useState("false");
+    const toggleMenu = ()=>{
+        if(showMenu=="true"){
+            setShowMenu("false");
+        }else{
+            setShowMenu("true")
+        }
+    }
   return (
+    <>
     <div className={styles.header}>
             <div className={styles.logo}>
                 <Image src={logo} alt="" width={180} height={50}/>
@@ -16,8 +27,8 @@ const Navbar = () => {
                 <div className={`${styles.menuLink} ${styles.a} ${styles.notify}`}>Employeers</div>
                 <div className={`${styles.menuLink} ${styles.a} ${styles.notify}`}>News</div>
             </div>
-            <div className={styles.searchBar}>
-                <input className={styles.input} type="text" placeholder="Search"/>
+            <div className={styles.hamburger}>
+                <MenuIcon className={styles.hamburgerImage} onClick={()=>toggleMenu()}/>
             </div>
             <div className={styles.headerProfile}>
             <div className={styles.message}>
@@ -32,6 +43,18 @@ const Navbar = () => {
                 <img className={`${styles.profileImg} ${styles.img}`} src="https://images.unsplash.com/photo-1600353068440-6361ef3a86e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt=""/>
             </div>
         </div>
+        {showMenu=="true"?(
+        <div className={styles.subHeader}>
+            <div className={styles.subHeaderMenu}>
+                <div className={`${styles.menuLink} ${styles.a} ${styles.isActive}`}>Home</div>
+                <div className={`${styles.menuLink} ${styles.a} ${styles.notify}`}>Jobs</div>
+                <div className={`${styles.menuLink} ${styles.a}`}>Talents</div>
+                <div className={`${styles.menuLink} ${styles.a} ${styles.notify}`}>Employeers</div>
+                <div className={`${styles.menuLink} ${styles.a} ${styles.notify}`}>News</div>
+            </div>
+        </div>
+        ):(<></>)}
+    </>
   )
 }
 

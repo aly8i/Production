@@ -4,8 +4,10 @@ import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import logo from "../public/lightstudiosmall.png"
 import Image from 'next/image';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
-const Navbar = () => {
+const Navbar = ({nav}) => {
+    const router= useRouter();
     const [showMenu,setShowMenu] = useState("false");
     const toggleMenu = ()=>{
         if(showMenu=="true"){
@@ -21,11 +23,11 @@ const Navbar = () => {
                 <Image src={logo} alt="" width={180} height={50}/>
             </div>
             <div className={styles.headerMenu}>
-                <div className={`${styles.menuLink} ${styles.a} ${styles.isActive}`}>Home</div>
-                <div className={`${styles.menuLink} ${styles.a} ${styles.notify}`}>Jobs</div>
-                <div className={`${styles.menuLink} ${styles.a}`}>Talents</div>
-                <div className={`${styles.menuLink} ${styles.a} ${styles.notify}`}>Employeers</div>
-                <div className={`${styles.menuLink} ${styles.a} ${styles.notify}`}>News</div>
+                <div onClick={()=>{router.push("/")}} className={nav=="/"?(`${styles.menuLink} ${styles.a} ${styles.isActive}`):(`${styles.menuLink} ${styles.a}`)}>Home</div>
+                <div onClick={()=>{router.push("/jobs")}} className={nav=="/jobs"?(`${styles.menuLink} ${styles.a} ${styles.isActive}`):(`${styles.menuLink} ${styles.a}`)}>Jobs</div>
+                <div onClick={()=>{router.push("/talents")}} className={nav=="/talents"?(`${styles.menuLink} ${styles.a} ${styles.isActive}`):(`${styles.menuLink} ${styles.a}`)}>Talents</div>
+                <div onClick={()=>{router.push("/employeers")}} className={nav=="/employeers"?(`${styles.menuLink} ${styles.a} ${styles.isActive}`):(`${styles.menuLink} ${styles.a}`)}>Employeers</div>
+                <div onClick={()=>{router.push("/news")}} className={nav=="/news"?(`${styles.menuLink} ${styles.a} ${styles.isActive}`):(`${styles.menuLink} ${styles.a}`)}>News</div>
             </div>
             <div className={styles.hamburger}>
                 <MenuIcon className={styles.hamburgerImage} onClick={()=>toggleMenu()}/>

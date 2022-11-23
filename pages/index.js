@@ -1,10 +1,10 @@
 import Head from "next/head";
-import { useState } from "react";
 import styles from "../styles/Home.module.css";
 import AboutCards from "../components/AboutCards";
 import CubeSlider from "../components/CubeSlider";
 import Mobile from "../components/Mobile";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 export default function Home() {
 
   return (
@@ -13,17 +13,16 @@ export default function Home() {
         <title>Light Studios</title>
         <meta name="description" content="#1 Production Crew" />
         <link rel="icon" href="/favicon.ico" />
-        <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
       </Head>
       <main className={styles.main}>
         <Navbar/>
-        {/* <Slider/> */}
         <CubeSlider/>
         <div className={styles.grid}>
           <AboutCards/>
         </div>
         <Mobile/>
       </main>
+      <Footer/>
     </div>
   );
 }

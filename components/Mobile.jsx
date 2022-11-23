@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import apic from '../public/images/appstore.png'
 import gpic from '../public/images/googleplay.png'
+import styles from '../styles/Mobile.module.css'
 
 const Mobile = () => {
   return (
@@ -9,10 +10,10 @@ const Mobile = () => {
         <div id="wrapper">
             <div id="iconscontainer">
                 <div id="apic">
-                    <Image src={apic} alt="" width={255} height={255}/>
+                    <Image className={styles.icon} src={apic} alt="" width={255} height={255}/>
                 </div>   
                 <div id="gpic">
-                    <Image src={gpic} alt="" width={255} height={255}/>
+                    <Image className={styles.icon} src={gpic} alt="" width={255} height={255}/>
                 </div> 
             </div>
         <div id="iphone">

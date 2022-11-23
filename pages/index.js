@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.css";
 import AboutCards from "../components/AboutCards";
 import CubeSlider from "../components/CubeSlider";
 import Mobile from "../components/Mobile";
+import Navbar from "../components/Navbar";
 export default function Home() {
 
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
       </Head>
       <main className={styles.main}>
+        <Navbar/>
         {/* <Slider/> */}
         <CubeSlider/>
         <div className={styles.grid}>

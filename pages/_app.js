@@ -4,17 +4,18 @@ import "../styles/globals.css";
 // import { Provider } from "react-redux";
 // import { StyledEngineProvider } from '@mui/material/styles';
 // import {SessionProvider} from "next-auth/react";
+import { StyledEngineProvider } from '@mui/material/styles';
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
     {/* <SessionProvider session={session}> */}
-      {/* <StyledEngineProvider> */}
+      <StyledEngineProvider>
         {/* <Provider store={store}> */}
           {/* <Layout> */}
             <Component {...pageProps} />
           {/* </Layout> */}
         {/* </Provider> */}
-      {/* </StyledEngineProvider> */}
+      </StyledEngineProvider>
     {/* </SessionProvider> */}
     </>
   )

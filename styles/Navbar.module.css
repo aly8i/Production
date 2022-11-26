@@ -7,6 +7,7 @@
     border-bottom: 1px solid var(--border-color);
     padding: 0 30px;
     white-space: nowrap;
+    z-index: 10;
   }
   .subHeaderMenu{
     display: flex;
@@ -40,6 +41,11 @@
     margin-right: 20px;
     text-align: center;
     justify-items: center;
+    cursor: pointer;
+    transition: cubic-bezier(.34,-0.02,.43,.97) 0.3s;
+  }
+  .message:hover{
+    opacity: 0.7;
   }
   .menuLink{
     cursor: pointer;
@@ -103,11 +109,6 @@
     right: 20px;
     top: 16px;
   }
-  /* @media screen and (max-width: 1055px) {
-    .notify {
-      display: none;
-    }
-  } */
   
   .menuCircle {
     width: 15px;
@@ -203,13 +204,24 @@
   }
   .notification + .svg {
     margin-left: 22px;
+    cursor: pointer;
+    transition: cubic-bezier(.34,-0.02,.43,.97) 4s;
+    opacity: 1;
   }
-  @media screen and (max-width: 945px) {
-    .notification + svg {
-      display: none;
-    }
+  .notification{
+    transition: cubic-bezier(.34,-0.02,.43,.97) 0.3s;
   }
-  
+  .notification:hover{
+    opacity: 0.7;
+  }
+  .lock{
+    margin-left: 22px;
+    cursor: pointer;
+    transition: cubic-bezier(.34,-0.02,.43,.97) 0.3s;
+  }
+  .lock:hover{
+    opacity: 0.7;
+  }
   .profileImg {
     width: 32px;
     height: 32px;

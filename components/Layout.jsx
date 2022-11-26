@@ -12,12 +12,12 @@ const Layout = ({ children , url}) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.container}>
-      <main className={styles.main}>
-        <Navbar nav={url}/>
-      {children}
-      </main>
-      <Footer/>
-    </div>
+        <main className={styles.main}>
+          <Navbar nav={url}/>
+          {children}
+        </main>
+        <Footer/>
+      </div>
     </>
   );
 };

@@ -27,7 +27,7 @@ const Footer = () => {
 
 <div className={styles.row}>
     <div className={styles.copyright}></div>
-    <p>Powered by</p> <Image src={lt} alt="Lebanon Token" width={150} height={95}/>
+    <p>Powered by</p> <Image className={styles.logo} src={lt} alt="Lebanon Token" width={150} height={95}/>
 </div>
 </div>
 </footer>

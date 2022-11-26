@@ -21,7 +21,7 @@ const Navbar = ({nav}) => {
     const [showMenu,setShowMenu] = useState("false");
     const [showProfile,setShowProfile] = useState("false")
     const [showLogin,setShowLogin] = useState("false")
-    
+    //
     const dispatch = useDispatch();
     const postUser = async(u)=>{
         const newuser={

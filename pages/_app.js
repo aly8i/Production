@@ -1,6 +1,6 @@
 import "../styles/globals.css";
-// import store from "../components/redux/store";
-// import { Provider } from "react-redux";
+import store from "../redux/store";
+import { Provider } from "react-redux";
 import {SessionProvider} from "next-auth/react";
 import { useRouter } from "next/router";
 import { StyledEngineProvider } from '@mui/material/styles';
@@ -12,11 +12,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     <>
     <SessionProvider session={session}>
       <StyledEngineProvider>
-        {/* <Provider store={store}> */}
+        <Provider store={store}>
           <Layout url={url}>
             <Component {...pageProps} />
           </Layout>
-        {/* </Provider> */}
+        </Provider>
       </StyledEngineProvider>
     </SessionProvider>
     </>

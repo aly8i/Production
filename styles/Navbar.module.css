@@ -9,6 +9,17 @@
     white-space: nowrap;
     z-index: 10;
   }
+  .imageCon{
+    margin-left: 25px;
+  }
+  .profileImg {
+    min-width: 100px;
+    margin-left: 50px;
+    border-radius: 50%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    border: 2px solid var(--theme-color);
+}
   .subHeaderMenu{
     display: flex;
     justify-content: center;

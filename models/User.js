@@ -18,9 +18,7 @@ const UserSchema = new mongoose.Schema(
     phonenumber: {
       type: String,
       maxlength: 2000,
-      index: true,
-      sparse: true,
-      unique: true
+
     },
     address: {
       type: {
@@ -41,6 +39,8 @@ const UserSchema = new mongoose.Schema(
     email:{
       type: String,
       required:true,
+      index: true,
+      sparse: true,
       unique: true
     },
     url:{

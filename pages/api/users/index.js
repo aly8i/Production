@@ -1,6 +1,13 @@
 import dbConnect from "../../../util/mongo";
 import User from "../../../models/User";
+import NextCors from 'nextjs-cors';
+
 const handler = async(req, res) => {
+  await NextCors(req, res, {
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+    origin: '*',
+    optionsSuccessStatus: 200,
+ });
   const { method } = req;
   await dbConnect();
   

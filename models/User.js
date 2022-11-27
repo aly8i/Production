@@ -39,9 +39,8 @@ const UserSchema = new mongoose.Schema(
     },
     email:{
       type: String,
-      unique: true,
-      index: true,
-      sparse: true,
+      required:true,
+      unique: true
     },
     url:{
       type: String,

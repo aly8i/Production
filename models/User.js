@@ -19,8 +19,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: null,
       maxlength: 2000,
-      unique: true,
-      sparse: true,
+      unique: true
     },
     address: {
       type: {

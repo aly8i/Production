@@ -6,10 +6,16 @@ import { useState,useEffect } from "react";
 import Link from "next/link";
 import Search from "../Search";
 import { useRouter } from 'next/router';
+import { createTheme,ThemeProvider } from "@mui/material";
 const UserDatatable = ({users,token}) => {
   const [originalUsers,setOriginalUsers] = useState(users);
   const [rows, setRows] = useState(originalUsers);
   const [searched, setSearched] = useState("");
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
   const router = useRouter();
   const server = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
@@ -87,15 +93,17 @@ const UserDatatable = ({users,token}) => {
             <span className={styles.link}>Add New</span>
           </Link>
         </div>
-        <DataGrid
-          className={styles.datagrid}
-          getRowId={(row) => row._id}
-          rows={rows}
-          columns={userColumns.concat(actionColumn)}
-          pageSize={9}
-          rowsPerPageOptions={[9]}
-          checkboxSelection={false}
-        />
+        <ThemeProvider theme={darkTheme}>
+          <DataGrid
+            className={styles.datagrid}
+            getRowId={(row) => row._id}
+            rows={rows}
+            columns={userColumns.concat(actionColumn)}
+            pageSize={9}
+            rowsPerPageOptions={[9]}
+            checkboxSelection={false}
+          />
+        </ThemeProvider>
       </div>
   );
 };

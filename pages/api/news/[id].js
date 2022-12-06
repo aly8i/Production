@@ -18,10 +18,9 @@ export default async function handler(req, res) {
   }
 
   if (method === "PUT") {
-      const eq = await Equipment.findById(id);
       verify(token,process.env.NEXT_PUBLIC_JWT_SECRET,async function(err,decoded){
         if(!err && decoded) {
-          if(decoded.sub == eq.userid || decoded.role=='admin'){
+          if( decoded.role=='admin'){
             try {
               const neww = await New.findByIdAndUpdate(id, req.body,{new:true});
               res.status(200).json(neww);
@@ -36,10 +35,9 @@ export default async function handler(req, res) {
   }
 
   if (method === "DELETE") {
-    const eq = await Equipment.findById(id);
       verify(token,process.env.NEXT_PUBLIC_JWT_SECRET,async function(err,decoded){
         if(!err && decoded) {
-          if(decoded.sub == eq.userid || decoded.role=='admin'){
+          if( decoded.role=='admin'){
             try {
               await New.findByIdAndDelete(id);
               res.status(200).json("The equipment has been deleted!");

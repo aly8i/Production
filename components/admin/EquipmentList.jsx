@@ -1,16 +1,16 @@
 import styles from "../../styles/adminList.module.scss"
 import Sidebar from "./Sidebar"
-import ProductDatatable from "./ProductDatatable"
+import EquipmentsDatatable from "./EquipmentsDatatable"
 
-const ProductList = ({products,token}) => {
+const EquipmentList = ({equipments,token}) => {
   return (
     <div className={styles.list}>
       <Sidebar/>
       <div className={styles.listContainer}>
-        <ProductDatatable token={token} products={products}/>
+        <EquipmentsDatatable token={token} equipments={equipments}/>
       </div>
     </div>
   )
 }
 
-export default ProductList
+export default EquipmentList

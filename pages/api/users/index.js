@@ -1,13 +1,8 @@
 import dbConnect from "../../../util/mongo";
 import User from "../../../models/User";
-import NextCors from 'nextjs-cors';
 
 const handler = async(req, res) => {
-  await NextCors(req, res, {
-    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-    origin: '*',
-    optionsSuccessStatus: 200,
- });
+  
   const { method } = req;
   await dbConnect();
   
@@ -23,6 +18,7 @@ const handler = async(req, res) => {
   if (method === "POST") {
     try {
       const user = await User.create(req.body);
+      generateAccessToken(user);
       res.status(201).json(user);
     } catch (err) {
       res.status(500).json(err);

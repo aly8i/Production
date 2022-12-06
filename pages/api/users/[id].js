@@ -4,7 +4,11 @@ import { verify } from "jsonwebtoken";
 
 export default async function handler(req, res) {
 
-  const {method, query: { id }} = req;
+  const {
+    method,
+    query: { id }
+  } = req;
+
   const token = req.headers.authorization;
   await dbConnect();
 
@@ -18,10 +22,10 @@ export default async function handler(req, res) {
   }
 
   if (method === "PUT") {
-    const u = await User.findById(id);
     verify(token,process.env.NEXT_PUBLIC_JWT_SECRET,async function(err,decoded){
       if(!err && decoded) {
-        if(decoded.sub == u.userid || decoded.role=='admin'){
+        res
+        if(decoded.sub == id || decoded.role=='admin'){
           try {
             const user = await User.findByIdAndUpdate(id, req.body,{new:true});
             res.status(200).json(user);
@@ -31,15 +35,14 @@ export default async function handler(req, res) {
         }
         return res.status(500).json({message: 'Sorry you are not authorized'})
       }
-      res.status(600).json({message: "Sorry you are not authenticated"})
+      res.status(600).json({message: `Sorry you are not authenticated ${token}`})
     })
   }
 
   if (method === "DELETE") {
-    const u = await User.findById(id);
       verify(token,process.env.NEXT_PUBLIC_JWT_SECRET,async function(err,decoded){
         if(!err && decoded) {
-          if(decoded.sub == u.userid || decoded.role=='admin'){
+          if(decoded.sub == id || decoded.role=='admin'){
             try {
               await User.findByIdAndDelete(id);
               res.status(200).json("The user has been deleted!");

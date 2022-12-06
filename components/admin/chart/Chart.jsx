@@ -119,7 +119,7 @@ const Chart = ({ aspect, title, users, type }) => {
             </linearGradient>
           </defs>
           <XAxis dataKey="month" stroke="gray" />
-          <CartesianGrid strokeDasharray="3 3" className="chartGrid" />
+          {/* <CartesianGrid strokeDasharray="3 3" className="chartGrid" /> */}
           <Tooltip />
           <Area
             type="monotone"

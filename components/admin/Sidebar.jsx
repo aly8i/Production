@@ -1,7 +1,6 @@
-import styles from "../../styles/adminSidebar.module.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import styles from "../../styles/adminSidebar.module.scss";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import StoreIcon from "@mui/icons-material/Store";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
@@ -11,6 +10,8 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import FeedIcon from '@mui/icons-material/Feed';
+import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 import Link from "next/link";
 
 const Sidebar = () => {
@@ -36,22 +37,22 @@ const Sidebar = () => {
                 <span>Users</span>
               </li>
             </Link>
-            <Link href="/admin/products" passHref>
+            <Link href="/admin/equipments" passHref>
               <li>
-                <StoreIcon className={styles.icon} />
-                <span>Products</span>
+                <HomeRepairServiceIcon className={styles.icon} />
+                <span>Equipments</span>
               </li>
             </Link>
-            <Link href="/admin/orders" passHref>
+            <Link href="/admin/jobs" passHref>
               <li>
                 <CreditCardIcon className={styles.icon} />
-                <span>Orders</span>
+                <span>Jobs</span>
               </li>
           </Link>
-          <Link href="/admin/delivery" passHref>
+          <Link href="/admin/news" passHref>
             <li>
-              <LocalShippingIcon className={styles.icon} />
-              <span>Delivery</span>
+              <FeedIcon className={styles.icon} />
+              <span>News</span>
             </li>
           </Link>
           <p className={styles.title}>USEFUL</p>

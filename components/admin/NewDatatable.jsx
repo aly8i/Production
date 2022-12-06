@@ -1,15 +1,16 @@
 import styles from "../../styles/adminDatatable.module.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { productColumns } from "./datatablesource";
+import { newColumns } from "./datatablesource";
 import axios from "axios";
 import { useState,useEffect } from "react";
 import Link from "next/link";
 import Search from "../Search";
-
-const ProductsDatatable = ({products,token}) => {
-  const originalProducts = products;
-  const [rows, setRows] = useState(originalProducts);
+import { useRouter } from 'next/router';
+const NewDatatable = ({news,token}) => {
+  const [originalNews,setOriginalNews] = useState(news);
+  const [rows, setRows] = useState(originalNews);
   const [searched, setSearched] = useState("");
+  const router = useRouter();
   const server = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
     headers: {'Content-Type':'application/json'},
@@ -31,9 +32,10 @@ const ProductsDatatable = ({products,token}) => {
         return Promise.reject(error);
       },
     );
-  },[])
+    setOriginalNews(news);
+    setRows(news);
 
-
+  },[news]);
   const requestSearch = (searchedVal) => {
     if(searchedVal!=""){
       const filteredRows = rows.filter((row) => {
@@ -41,16 +43,18 @@ const ProductsDatatable = ({products,token}) => {
       });
       setRows(filteredRows);
     }else{
-      setRows(originalProducts)
+      setRows(originalNews)
     }
     
   };
 
   const handleDelete = async (id) => {
-    setRows(rows.filter((item) => item._id !== id));
-    const res = await server.delete("api/products/" + id);
+    await server.delete("api/news/" + id);
+    refreshData();
   };
-
+  const refreshData = () => {
+    router.reload(window.location.pathname)
+  }
   const actionColumn = [
     {
       field: "action",
@@ -59,7 +63,7 @@ const ProductsDatatable = ({products,token}) => {
       renderCell: (params) => {
         return (
           <div className={styles.cellAction}>
-            <Link href={`/admin/products/${params.row._id}`} passHref style={{ textDecoration: "none" }}>
+            <Link href={`/admin/news/${params.row._id}`} passHref style={{ textDecoration: "none" }}>
               <div className={styles.viewButton}>View</div>
             </Link>
             <div
@@ -79,7 +83,7 @@ const ProductsDatatable = ({products,token}) => {
           <div className={styles.search}>
             <Search setSearched={setSearched} searched={searched}/>
           </div>
-          <Link href="/admin/products/new" passHref >
+          <Link href="/admin/news/new" passHref >
             <span className={styles.link}>Add New</span>
           </Link>
         </div>
@@ -87,7 +91,7 @@ const ProductsDatatable = ({products,token}) => {
           className={styles.datagrid}
           getRowId={(row) => row._id}
           rows={rows}
-          columns={productColumns.concat(actionColumn)}
+          columns={newColumns.concat(actionColumn)}
           pageSize={9}
           rowsPerPageOptions={[9]}
           checkboxSelection={false}
@@ -96,4 +100,4 @@ const ProductsDatatable = ({products,token}) => {
   );
 };
 
-export default ProductsDatatable;
+export default NewDatatable;

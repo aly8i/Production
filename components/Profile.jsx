@@ -6,9 +6,10 @@ import ShareIcon from '@mui/icons-material/Share';
 import { signOut } from "next-auth/react"
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import Image from 'next/image';
+import Image from 'next/image'
+import Link from 'next/link';
 
-const Profile = () => {
+const Profile = ({toggleProfile}) => {
     const user = useSelector((state) => state.user);
     useEffect(()=>{
         console.log(user)
@@ -24,10 +25,14 @@ const Profile = () => {
             <div className={styles.info}>
                 <Image className={`${styles.profileImg} ${styles.img}`} width={180} height={180} src={user.image} alt=""/>
                 <div className={styles.section}>
-                    <p className={styles.name}>{user.username}</p>
+                    <div onClick={()=>toggleProfile()}>
+                        <Link href={`/users/edit/${user.id}`} >
+                            <p className={styles.name}>{user.username}</p>
+                        </Link>
+                    </div>
                     <div className={styles.sectionsub}>
                         <div className={styles.button}>
-                            <MeetingRoomIcon onClick={()=>{logout()}}/>
+                            <MeetingRoomIcon onClick={()=>{logout()}} />
                         </div>
                         <div className={styles.button}>
                             <ShareIcon/>

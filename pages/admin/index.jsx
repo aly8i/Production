@@ -6,7 +6,7 @@ const Home = dynamic(
 )
 const page = ({users,jobs,equipments,news}) => {
   return (
-        <Home users={users} jobs={jobs} equipments={equipments} news={news}/>
+    <Home users={users} jobs={jobs} equipments={equipments} news={news}/>
   );
 };
 export const getServerSideProps = async (context) => {

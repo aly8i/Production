@@ -48,14 +48,14 @@ const UserSchema = new mongoose.Schema(
       default: null,
       maxlength: 3000,
     },
+    view:{
+      type: String,
+      default: "talent",
+      maxlength: 3000,
+    },
     role:{
       type:String,
       default: "user",
-    },
-    url:{
-      type: String,
-      default: null,
-      maxlength: 300,
     },
     about:{
       type: String,
@@ -100,21 +100,6 @@ const UserSchema = new mongoose.Schema(
       default: null,
       maxlength: 3000,
     },
-    linkedin:{
-      type: String,
-      default: null,
-      maxlength: 300,
-    },
-    imdb:{
-      type: String,
-      default: null,
-      maxlength: 300,
-    },
-    vimeo:{
-      type: String,
-      default: null,
-      maxlength: 300,
-    },
     education:{
       type: {
         educationlevel:{
@@ -140,17 +125,12 @@ const UserSchema = new mongoose.Schema(
       maxlength: 500,
     },    
     languages:{
-      type: [
-        {
-          language: { type: String, required: true },
-          proficiency: { type: Number, required: true },
-        },
-      ],
+      type: [String],
       default: null,
       maxlength: 500,
     },
     showreel:{
-      type: Number,
+      type: [String],
       default: null,
       maxlength: 300,
     },

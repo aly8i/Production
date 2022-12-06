@@ -20,6 +20,11 @@ const JobSchema = new mongoose.Schema(
       default: null,
       maxlength: 50,
     },
+    category: {
+      type: String,
+      default: null,
+      maxlength: 50,
+    },
     description: {
       type: String,
       default: null,
@@ -36,11 +41,6 @@ const JobSchema = new mongoose.Schema(
       maxlength: 300,
     },
     salaryduration:{
-      type: Number,
-      default: null,
-      maxlength: 300,
-    },
-    workduration:{
       type: {
         unit: {
           type: String,
@@ -51,10 +51,9 @@ const JobSchema = new mongoose.Schema(
           type: Number,
           default: null,
           maxlength: 100,
-        }, 
+        },
       },
       default: null,
-      maxlength: 200,
     },
     workdays:{
       type: [String],
@@ -62,15 +61,15 @@ const JobSchema = new mongoose.Schema(
       maxlength: 300,
     },
     workhours:{
-      type: Number,
+      type: [String],
       default: null,
       maxlength: 300,
     },
-    workshift:{
+    image:{
       type: String,
       default: null,
       maxlength: 300,
-    },
+    }
   },
   { timestamps: true }
 );

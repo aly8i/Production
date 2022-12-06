@@ -10,8 +10,43 @@ export const cellFn =(status)=>{
   }
   
 }
+export const newColumns = [
+  { field: "_id", headerName: "ID", width: 120,
+  renderCell: (params) => {
+    return (
+      <Tooltip title={params.row._id} placement="bottom">
+        <div className={styles.id}>{params.row._id.substring(0,5)+"..."}</div>
+      </Tooltip>       
+      );
+  },},
+  {
+    field: "title",
+    headerName: "Title",
+    width: 410,
+    renderCell: (params) => {
+      return (
+        <div className={styles.cellWithImg}>
+          <img className={styles.cellImg} src={params.row.image[0]} alt="avatar" />
+          {params.row.title}
+        </div>
+      );
+    },
+  },
+  {
+    field: "description",
+    headerName: "Description",
+    width: 800,
+    renderCell: (params) => {
+      return (
+        <div className={styles.cellWithImg}>
+          <div className={styles.id}>{params.row.description.substring(0,60)+"..."}</div>
+        </div>       
+        );
+    },
+  },
+];
 export const userColumns = [
-  { field: "_id", headerName: "ID", width: 70,
+  { field: "_id", headerName: "ID", width: 120,
   renderCell: (params) => {
     return (
       <Tooltip title={params.row._id} placement="bottom">
@@ -26,20 +61,20 @@ export const userColumns = [
     renderCell: (params) => {
       return (
         <div className={styles.cellWithImg}>
-          <img className={styles.cellImg} src={params.row.img} alt="avatar" />
+          <img className={styles.cellImg} src={params.row.image} alt="avatar" />
           {params.row.username}
         </div>
       );
     },
   },
   {
-    field: "googleID",
-    headerName: "googleID",
-    width: 80,
+    field: "email",
+    headerName: "Email",
+    width: 200,
     renderCell: (params) => {
       return (
-        <Tooltip title={params.row.googleID} placement="bottom">
-          <div className={styles.id}>{params.row.googleID?params.row.googleID.substring(0,5)+"...":""}</div>
+        <Tooltip title={params.row.email} placement="bottom">
+          <div className={styles.id}>{params.row.email}</div>
         </Tooltip>       
         );
     },
@@ -48,25 +83,25 @@ export const userColumns = [
   {
     field: "phonenumber",
     headerName: "phonenumber",
-    width: 120,
+    width: 200,
   },
   {
     field: "role",
     headerName: "role",
     width: 90,
     renderCell: (params) => {
-        if(params.row.role=="user"){
-          return <div className={`${styles.cellWithStatus} ${styles.active}`}>user</div>;
-        }else if(params.row.role=="delivery"){
-          return <div className={`${styles.cellWithStatus} ${styles.passive}`}>delivery</div>;
-        }else if(params.row.role=="admin"){
-          return <div className={`${styles.cellWithStatus} ${styles.pending}`}>admin</div>;
-        }
+      if(params.row.role=="user"){
+        return <div className={`${styles.cellWithStatus} ${styles.active}`}>user</div>;
+      }else if(params.row.role=="delivery"){
+        return <div className={`${styles.cellWithStatus} ${styles.passive}`}>delivery</div>;
+      }else if(params.row.role=="admin"){
+        return <div className={`${styles.cellWithStatus} ${styles.pending}`}>admin</div>;
+      }
     },
   },
 ];
-export const productColumns = [
-  { field: "_id", headerName: "ID", width: 70,
+export const equipmentColumns = [
+  { field: "_id", headerName: "ID", width: 120,
   renderCell: (params) => {
     return (
       <Tooltip title={params.row._id} placement="bottom">
@@ -75,47 +110,63 @@ export const productColumns = [
       );
   },},
   {
-    field: "title",
-    headerName: "Title",
-    width: 160,
+    field: "name",
+    headerName: "name",
+    width: 210,
     renderCell: (params) => {
       return (
         <div className={styles.cellWithImg}>
-          <img className={styles.cellImg} src={params.row.img} alt="avatar" />
-          {params.row.title}
+          <img className={styles.cellImg} src={params.row.image} alt="avatar" />
+          {params.row.name}
         </div>
       );
     },
   },
   {
+    field: "ownedby",
+    headerName: "Owned By",
+    width: 200,
+    renderCell: (params) => {
+      return (
+        <div className={styles.cellWithImg}>
+          <img className={styles.cellImg} src={params.row.image} alt="avatar" />
+          <div className={styles.id}>{params.row.userid.username}</div>
+        </div>       
+        );
+    },
+  },
+
+  {
     field: "category",
     headerName: "Category",
-    width: 230,
+    width: 200,
   },
   {
-    field: "prices",
-    headerName: "Prices",
-    width: 160,
-    renderCell: (params) => {
-          return (
-            <>
-              <div className={`${styles.cellWithStatus} ${styles.active}`}>{params.row.prices[0]}</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <div className={`${styles.cellWithStatus} ${styles.passive}`}>{params.row.prices[1]}</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <div className={`${styles.cellWithStatus} ${styles.pending}`}>{params.row.prices[2]}</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-           </>
-          );
-        }
-    },
+    field: "price",
+    headerName: "Price",
+    width: 200,
+  },
+  {
+    field: "for",
+    headerName: "For",
+    width: 200,
+  },
+  {
+    field: "warranty",
+    headerName: "Warranty",
+    width: 200,
+  }
 ];
 export const orderColumns = [
   { field: "_id", headerName: "ID", width: 70,
-  renderCell: (params) => {
-    return (
-      <Tooltip title={params.row._id} placement="bottom">
-        <div className={styles.id}>{params.row._id.substring(0,5)+"..."}</div>
-      </Tooltip>       
-      );
-  }, },
+    renderCell: (params) => {
+      return (
+        <Tooltip title={params.row._id} placement="bottom">
+          <div className={styles.id}>{params.row._id.substring(0,5)+"..."}</div>
+        </Tooltip>       
+        );
+    }, 
+  },
   {
     field: "name",
     headerName: "Customer Name",

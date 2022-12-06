@@ -4,9 +4,7 @@ import cookie from "cookie";
 import generateAccessToken from "../../../../functions/generateAccessToken";
 export default async function handler(req, res) {
   const { method } = req;
-
   await dbConnect();
-
   if (method === "POST") {
     try {
       const user = await User.findOne({'email': req.body.email});

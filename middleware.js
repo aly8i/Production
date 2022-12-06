@@ -17,6 +17,4 @@ export default async function middleware(req) {
         return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}`);
     }
         return NextResponse.next();
-    
 }
-//

@@ -1,11 +1,6 @@
 import mongoose from "mongoose";
-const EquipmentSchema = new mongoose.Schema(
+const NewSchema = new mongoose.Schema(
   {
-    userid: {
-      type: String,
-      required: true,
-      maxlength: 60,
-    },
     title: {
         type: String,
         maxlength: 60,
@@ -15,13 +10,26 @@ const EquipmentSchema = new mongoose.Schema(
         default: null,
         maxlength: 8000,
     },
+    description: {
+      type: String,
+      default: null,
+    },
     tags: {
       type: [String],
       default: null,
       maxlength: 8000,
     },
     article:{
-      type: String,
+        type: [{
+          sectionTitle: {
+            type: String,
+            default: null,
+          },
+          sectionContent: {
+            type: String,
+            default: null,
+          },
+        }],
       default: null,
       maxlength: 50,
     },
@@ -29,5 +37,5 @@ const EquipmentSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.models.Equipment ||
-  mongoose.model("Equipment", EquipmentSchema);
+export default mongoose.models.New ||
+  mongoose.model("New", NewSchema);

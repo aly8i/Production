@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 const EquipmentSchema = new mongoose.Schema(
   {
     userid: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product',
       required: true,
       maxlength: 60,
     },

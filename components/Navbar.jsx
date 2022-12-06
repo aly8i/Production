@@ -6,7 +6,7 @@ import Image from 'next/image';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-import { useSession } from "next-auth/react"
+import { useSession } from "next-auth/react";
 import { useDispatch } from 'react-redux';
 import { addUser,resetUser } from '../redux/userSlice';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
@@ -14,6 +14,8 @@ import Profile from './Profile';
 import SignIn from '../components/SignIn';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { setCookie } from 'cookies-next';
+import generateAccessToken from '../functions/generateAccessToken';
 const Navbar = ({nav}) => {
     const { data: session } = useSession()
     const user = useSelector((state) => state.user);
@@ -21,7 +23,6 @@ const Navbar = ({nav}) => {
     const [showMenu,setShowMenu] = useState("false");
     const [showProfile,setShowProfile] = useState("false")
     const [showLogin,setShowLogin] = useState("false")
-    //
     const dispatch = useDispatch();
     const postUser = async(u)=>{
         const newuser={
@@ -32,11 +33,15 @@ const Navbar = ({nav}) => {
         };
         try {
           const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, newuser);
+          generateAccessToken(res.data)
+          setCookie('accessToken',access)
             return res.data._id;
         }catch(err){
           console.log("You have an account")
           try{
             const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/find`, newuser);
+            generateAccessToken(res.data)
+            setCookie('accessToken',access)
               return res.data._id
           }
           catch(err){
@@ -98,11 +103,12 @@ const Navbar = ({nav}) => {
     const getLinks = () =>{
         return(
             <>
-                <div onClick={()=>{router.push("/")}} className={nav=="/"?(`${styles.menuLink} ${styles.a} ${styles.isActive}`):(`${styles.menuLink} ${styles.a}`)}>Home</div>
-                <div onClick={()=>{router.push("/jobs")}} className={nav=="/jobs"?(`${styles.menuLink} ${styles.a} ${styles.isActive}`):(`${styles.menuLink} ${styles.a}`)}>Jobs</div>
-                <div onClick={()=>{router.push("/talents")}} className={nav=="/talents"?(`${styles.menuLink} ${styles.a} ${styles.isActive}`):(`${styles.menuLink} ${styles.a}`)}>Talents</div>
-                <div onClick={()=>{router.push("/employeers")}} className={nav=="/employeers"?(`${styles.menuLink} ${styles.a} ${styles.isActive}`):(`${styles.menuLink} ${styles.a}`)}>Employeers</div>
-                <div onClick={()=>{router.push("/news")}} className={nav=="/news"?(`${styles.menuLink} ${styles.a} ${styles.isActive}`):(`${styles.menuLink} ${styles.a}`)}>News</div>
+              <div onClick={()=>{router.push("/")}} className={nav=="/"?(`${styles.menuLink} ${styles.a} ${styles.isActive}`):(`${styles.menuLink} ${styles.a}`)}>Home</div>
+              <div onClick={()=>{router.push("/jobs")}} className={nav=="/jobs"?(`${styles.menuLink} ${styles.a} ${styles.isActive}`):(`${styles.menuLink} ${styles.a}`)}>Jobs</div>
+              <div onClick={()=>{router.push("/talents")}} className={nav=="/talents"?(`${styles.menuLink} ${styles.a} ${styles.isActive}`):(`${styles.menuLink} ${styles.a}`)}>Talents</div>
+              <div onClick={()=>{router.push("/employers")}} className={nav=="/employers"?(`${styles.menuLink} ${styles.a} ${styles.isActive}`):(`${styles.menuLink} ${styles.a}`)}>Employers</div>
+              <div onClick={()=>{router.push("/equipments")}} className={nav=="/equipments"?(`${styles.menuLink} ${styles.a} ${styles.isActive}`):(`${styles.menuLink} ${styles.a}`)}>Equipments</div>
+              <div onClick={()=>{router.push("/news")}} className={nav=="/news"?(`${styles.menuLink} ${styles.a} ${styles.isActive}`):(`${styles.menuLink} ${styles.a}`)}>News</div>
             </>
         )
     }
@@ -151,7 +157,7 @@ const Navbar = ({nav}) => {
         </div>
         ):(<></>)}
         {showProfile=="true"?(
-            <Profile/>
+            <Profile toggleProfile={toggleProfile}/>
         ):(<></>)}
         {showLogin=="true"?(
             <SignIn/>

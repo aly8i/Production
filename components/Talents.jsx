@@ -3,13 +3,11 @@ import styles from '../styles/Jobs.module.css'
 import TalentCard from './EmployeerCard'
 import Search from './Search'
 import { useState,useEffect } from 'react'
-import DropDown from './DropDown'
-import Link from 'next/link'
 
-const Talents = ({users}) => {
+const Talents = ({users,options}) => {
     const [searched,setSearched] = useState("");
-    const [type,setType] = useState("");
     const [filteredUsers,setFilteredUsers] = useState(users);
+    const [filteredOptions,setFilteredOptions] = useState([]);
     const requestSearch = (searchedVal) => {
       if(searchedVal == ""){
         setFilteredUsers(users);
@@ -17,29 +15,28 @@ const Talents = ({users}) => {
         const filter1 = users.filter((obj) => {
           return (obj.fullname?.toLowerCase().includes(searchedVal.toLowerCase())||obj.speciality?.toLowerCase().includes(searchedVal.toLowerCase()))&&obj.view?.toLowerCase().includes("talent");
         });
-        const filtered = filter1.filter((obj) => {
-          return obj.fullname?.toLowerCase().includes(type.toLowerCase());
-        });
-        setFilteredUsers(filtered);
+        setFilteredUsers(filter1);
+        const filter3 = options.filter((option)=>{return option.toLowerCase().includes(searchedVal.toLowerCase())})
+        setFilteredOptions(filter3);
     };
     useEffect(()=>{
       requestSearch(searched);
-      console.log(users)
-    },[searched,type])
+    },[searched])
   return (
       <div className={styles.container}>
         <main className={styles.main}>
-            <div className={styles.searchSection}>
-                <div className={styles.searchWrapper}>
-                    <Search searched={searched} setSearched={setSearched}/>
-                </div>
-                <div className={styles.dropDownWrapper}>
-                    <DropDown setType={setType} type={type}/>
-                </div>    
-            </div>
-            <div className={styles.grid}>
-              <TalentCard users={filteredUsers}/>
-            </div>
+          <div className={styles.searchSection}>
+            <div className={styles.searchWrapper}>
+              <Search searched={searched} setSearched={setSearched}/>
+              {
+                searched!=""?filteredOptions.length>0?filteredOptions[0].toLowerCase()!=searched.toLocaleLowerCase()?
+                <ul className={styles.autocomplete}>{filteredOptions.slice(0,5).map((option)=><li onClick={()=>{setSearched(option)}}className={styles.autocompleteoption}>{option}</li>)}</ul>:<></>:<></>:<></>
+              }
+            </div>   
+          </div>
+          <div className={styles.grid}>
+            <TalentCard users={filteredUsers}/>
+          </div>
         </main>
     </div>
   )

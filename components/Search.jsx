@@ -8,26 +8,27 @@ const Search = ({setSearched,searched})=>{
 
         return(
             <>
-            {searched==""?(
+            {
+            searched==""?(
             <div className={styles.search}>
-            <input type="text"className={styles.searchInput} value={searched} onChange={(e)=>setSearched(e.target.value)}/>
-            <div className={styles.searchIcon}>
-                <Roll left>
-                    <SearchIcon/>
-                </Roll>
-            </div>
+                <input type="text"className={styles.searchInput} value={searched} onChange={(e)=>setSearched(e.target.value)}/>
+                <div className={styles.searchIcon}>
+                    <Roll left>
+                        <SearchIcon/>
+                    </Roll>
+                </div>
             </div>
         ):(
             <div className={styles.search}>
-            <input type="text"className={styles.searchInput} value={searched} onChange={(e)=>setSearched(e.target.value)}/>
-            <div className={styles.searchIcon} onClick={()=>setSearched("")}>
-                <Flip right>
-                    <ClearIcon/>
-                </Flip>
-            </div>
+                <input type="text"className={styles.searchInput} value={searched} onChange={(e)=>setSearched(e.target.value)}/>
+                <div className={styles.searchIcon} onClick={()=>setSearched("")}>
+                    <Flip right>
+                        <ClearIcon/>
+                    </Flip>
+                </div>
             </div>
             )
-        }
+            }
         </> 
     )
 }

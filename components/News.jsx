@@ -31,10 +31,7 @@ const News = ({news}) => {
             <div className={styles.searchSection}>
                 <div className={styles.searchWrapper}>
                   <Search searched={searched} setSearched={setSearched}/>
-                </div>
-                <div className={styles.dropDownWrapper}>
-                  <DropDown setType={setType} type={type}/>
-                </div>    
+                </div>  
             </div>
             <div className={styles.grid}>
               <NewsCard news={filteredNews}/>

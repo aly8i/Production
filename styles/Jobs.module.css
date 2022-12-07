@@ -32,8 +32,9 @@
 .searchWrapper{
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  flex-direction: row;
+  align-items: center;
 }
 .searchSection{
   width: 40%;
@@ -42,6 +43,19 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
+}
+.autocomplete{
+  background-color: rgba(105,105,105,0.2);
+  width:50%;
+  list-style-type: none;
+  padding: 10px;
+}
+.autocompleteoption{
+  text-align: center;
+  cursor: pointer;
+}
+.autocompleteoption:hover{
+  background-color: rgba(105,105,105,0.1);
 }
 .select{
   height: 80%;

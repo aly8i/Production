@@ -2,6 +2,7 @@ import React from 'react'
 import styles from '../styles/Card.module.scss'
 import Link from 'next/link'
 import Image from 'next/image'
+import img from "../public/camera.jpg"
 import { useEffect,useState } from 'react'
 
 const EquipmentsCard = ({equipments}) => {
@@ -10,7 +11,7 @@ const EquipmentsCard = ({equipments}) => {
       <Link key={eq._id} href={`/equipments/${eq._id}`} passHref>
         <div className={styles.card} >
           <h2>{eq.name}</h2>
-          <Image src={eq.images[0]} alt="" width={100} height={100} className={styles.profileImg}/>
+          <Image src={eq.images[0] || img} alt="" width={100} height={100} className={styles.profileImg}/>
           <div className={styles.sectionD}>
             <p className={styles.col1}>Category</p>
             <p className={styles.col2}>{eq.category||"NAN"}</p>

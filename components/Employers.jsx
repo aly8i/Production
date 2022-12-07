@@ -3,13 +3,11 @@ import styles from '../styles/Jobs.module.css'
 import EmployeerCard from './EmployeerCard'
 import Search from './Search'
 import { useState,useEffect } from 'react'
-import DropDown from './DropDown'
-import Link from 'next/link'
 
-const Employeers = ({users}) => {
+const Employeers = ({users,options}) => {
     const [searched,setSearched] = useState("");
-    const [type,setType] = useState("");
     const [filteredUsers,setFilteredUsers] = useState(users);
+    const [filteredOptions,setFilteredOptions] = useState([]);
     const requestSearch = (searchedVal) => {
       if(searchedVal == ""){
         setFilteredUsers(users);
@@ -21,21 +19,23 @@ const Employeers = ({users}) => {
           return obj.fullname?.toLowerCase().includes(type.toLowerCase());
         });
         setFilteredUsers(filtered);
+        const filter3 = options.filter((option)=>{return option.toLowerCase().includes(searchedVal.toLowerCase())})
+        setFilteredOptions(filter3);
     };
     useEffect(()=>{
       requestSearch(searched);
-      console.log(users)
-    },[searched,type])
+    },[searched])
   return (
       <div className={styles.container}>
         <main className={styles.main}>
             <div className={styles.searchSection}>
                 <div className={styles.searchWrapper}>
-                    <Search searched={searched} setSearched={setSearched}/>
-                </div>
-                <div className={styles.dropDownWrapper}>
-                    <DropDown setType={setType} type={type}/>
-                </div>    
+                <Search searched={searched} setSearched={setSearched}/>
+            {
+              searched!=""?filteredOptions.length>0?filteredOptions[0].toLowerCase()!=searched.toLocaleLowerCase()?
+              <ul className={styles.autocomplete}>{filteredOptions.slice(0,5).map((option)=><li onClick={()=>{setSearched(option)}}className={styles.autocompleteoption}>{option}</li>)}</ul>:<></>:<></>:<></>
+            }
+          </div>
             </div>
             <div className={styles.grid}>
               <EmployeerCard users={filteredUsers} type="employeer"/>

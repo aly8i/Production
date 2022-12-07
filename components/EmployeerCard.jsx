@@ -37,12 +37,10 @@ const EmployeerCard = ({users}) => {
           </div>
           <div className={styles.sectionD}>
             <p className={styles.col1}>Field of Study</p>
-            <p className={styles.col2}>{user.education.fieldofstudy||"NAN"}</p>
+            <p className={styles.col2}>{user.education?.fieldofstudy||"NAN"}</p>
           </div>
-          {/* <div className={styles.section}> */}
             <p className={styles.col1}>About</p>
             <p className={styles.col2}>{user.about||"NAN"}</p>
-          {/* </div> */}
         </div>
       </Link>
     ))

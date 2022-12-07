@@ -21,19 +21,19 @@ const TalentCard = ({users}) => {
           <h2>{user.fullname}</h2>
           <div className={styles.sectionD}>
             <p className={styles.col1}>Phone Number</p>
-            <p className={styles.col2}>{user.phonenumber}</p>
+            <p className={styles.col2}>{user.phonenumber||"NAN"}</p>
           </div>
           <div className={styles.sectionD}>
             <p className={styles.col1}>Eduction Level</p>
-            <p className={styles.col2}>{user.education?.eductionlevel}</p>
+            <p className={styles.col2}>{user.education?.eductionlevel||"NAN"}</p>
           </div>
           <div className={styles.sectionD}>
             <p className={styles.col1}>Field of Study</p>
-            <p className={styles.col2}>{user.education?.fieldofstudy}</p>
+            <p className={styles.col2}>{user.education?.fieldofstudy ||"NAN"}</p>
           </div>
           <div className={styles.sectionD}>
             <p className={styles.col1}>Graduation year</p>
-            <p className={styles.col2}>{user.education?.graduationyear}</p>
+            <p className={styles.col2}>{user.education?.graduationyear ||"NAN"}</p>
           </div>
         </div>
       </Link>

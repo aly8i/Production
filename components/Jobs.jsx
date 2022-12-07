@@ -2,12 +2,12 @@ import styles from '../styles/Jobs.module.css'
 import Card from '../components/Card'
 import Search from '../components/Search'
 import { useState,useEffect } from 'react'
-import DropDown from '../components/DropDown'
 import Link from 'next/link'
-export default function Jobs({jobs}) {
+
+export default function Jobs({jobs,options}) {
   const [searched,setSearched] = useState("");
-  const [type,setType] = useState("");
   const [filteredJobs,setFilteredJobs] = useState(jobs);
+  const [filteredOptions,setFilteredOptions] = useState([]);
   const requestSearch = (searchedVal) => {
     if(searchedVal == ""){
       setFilteredJobs(jobs)
@@ -15,14 +15,13 @@ export default function Jobs({jobs}) {
       const filter1 = jobs.filter((obj) => {
         return obj.title.toLowerCase().includes(searchedVal.toLowerCase());
       });
-      const filtered = filter1.filter((obj) => {
-        return obj.speciality.toLowerCase().includes(type.toLowerCase());
-      });
-      setFilteredJobs(filtered);
+      setFilteredJobs(filter1);
+      const filter3 = options.filter((option)=>{return option.toLowerCase().includes(searchedVal.toLowerCase())})
+      setFilteredOptions(filter3);
   };
   useEffect(()=>{
     requestSearch(searched);
-},[searched,type])
+},[searched])
 
   return (
     <div className={styles.container}>
@@ -30,9 +29,10 @@ export default function Jobs({jobs}) {
         <div className={styles.searchSection}>
           <div className={styles.searchWrapper}>
             <Search searched={searched} setSearched={setSearched}/>
-          </div>
-          <div className={styles.dropDownWrapper}>
-            <DropDown setType={setType} type={type}/>
+            {
+              searched!=""?filteredOptions.length>0?filteredOptions[0].toLowerCase()!=searched.toLocaleLowerCase()?
+              <ul className={styles.autocomplete}>{filteredOptions.slice(0,5).map((option)=><li onClick={()=>{setSearched(option)}}className={styles.autocompleteoption}>{option}</li>)}</ul>:<></>:<></>:<></>
+            }
           </div>
         </div>
         <div className={styles.grid}>

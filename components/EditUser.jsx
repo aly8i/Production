@@ -464,9 +464,9 @@ const EditUser = ({user,token}) => {
               </div>
               <div className={styles.images}>
                 {files1[0]?(
-                  files1.map((file,i)=>(<motion.img  key={i} whileHover={{ scale: 1.2}} src={URL.createObjectURL(file)} alt=""/>))
+                  files1.map((file,i)=>(<motion.img  key={`${i}y`} whileHover={{ scale: 1.2}} src={URL.createObjectURL(file)} alt=""/>))
                 ):(
-                  showreel?.map((slide,i)=>(<motion.img key={i} whileHover={{ scale: 1.2}} src={slide} alt=""/>))
+                  showreel?.map((slide,i)=>(<motion.img key={`${i}x`} whileHover={{ scale: 1.2}} src={slide} alt=""/>))
                 )}
               </div>
               <motion.div whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.2}} className={styles.x} onClick={()=>handleClear()}>

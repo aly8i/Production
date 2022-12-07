@@ -23,6 +23,7 @@
     "firebaseui": "^6.0.2",
     "jose": "^4.11.0",
     "jquery": "^3.6.1",
+    "framer-motion": "^7.6.2",
     "jsonwebtoken": "^8.5.1",
     "mapbox-gl": "^2.11.0",
     "mongoose": "^6.7.2",

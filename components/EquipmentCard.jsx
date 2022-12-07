@@ -7,8 +7,8 @@ import { useEffect,useState } from 'react'
 const EquipmentsCard = ({equipments}) => {
   return (
     equipments.map((eq)=>(
-      <Link href={`/equipments/${eq._id}`} passHref>
-        <div className={styles.card} key={eq._id}>
+      <Link key={eq._id} href={`/equipments/${eq._id}`} passHref>
+        <div className={styles.card} >
           <h2>{eq.name}</h2>
           <Image src={eq.images[0]} alt="" width={100} height={100} className={styles.profileImg}/>
           <div className={styles.sectionD}>

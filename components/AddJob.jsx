@@ -3,6 +3,7 @@ import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUpload
 import { useEffect, useState } from "react";
 import TextField from '@mui/material/TextField';
 import { useRouter } from "next/router";
+import Image from "next/image";
 import {storage} from "../Firebase";
 import axios from 'axios';
 import {getDownloadURL, ref, uploadBytesResumable} from "@firebase/storage";
@@ -12,6 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
+import img from "../public/Camera.jpg"
 const AddJob = ({crews,talents,providers,token}) => {
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState("");
@@ -61,8 +63,8 @@ const AddJob = ({crews,talents,providers,token}) => {
             renderValue={(value) => `${value}`}
           >
             {
-              talents.map((value)=>(
-                <MenuItem value={value}>{value}</MenuItem>
+              talents.map((value,index)=>(
+                <MenuItem key={`${index} ${value}`} value={value}>{value}</MenuItem>
               ))
             }
           </Select>
@@ -80,8 +82,8 @@ const AddJob = ({crews,talents,providers,token}) => {
             renderValue={(value) => `${value}`}
           > 
             {
-              providers.map((value)=>(
-                <MenuItem value={value}>{value}</MenuItem>
+              providers.map((value,index)=>(
+                <MenuItem key={`${index} ${value}`} value={value}>{value}</MenuItem>
               ))
             }
           </Select>
@@ -99,8 +101,8 @@ const AddJob = ({crews,talents,providers,token}) => {
             renderValue={(value) => `${value}`}
           >
             {
-              crews?.map((value)=>(
-                <MenuItem value={value}>{value}</MenuItem>
+              crews?.map((value,index)=>(
+                <MenuItem key={`${index} ${value}`} value={value}>{value}</MenuItem>
               ))
             }
           </Select>
@@ -201,15 +203,19 @@ const AddJob = ({crews,talents,providers,token}) => {
           <h1>Edit Your Profile</h1>
         </div>
         <div className={styles.bottom}>
-          <div className={styles.left}>
-            <img
-              src={
-                file
-                  ? URL.createObjectURL(file)
-                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-              }
-              alt=""
-            />
+          <div className={styles.left}> 
+            <div className={styles.imgCon}>
+              <Image
+                src={
+                  file
+                    ? URL.createObjectURL(file)
+                    : img
+                }
+                alt=""
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
           </div>
           <div className={styles.right}>
             <div className={styles.form}>
@@ -321,8 +327,8 @@ const AddJob = ({crews,talents,providers,token}) => {
               <div className={styles.formInput}>
                 <div className={styles.scroll}>
                 {
-                  days.map((day)=>(
-                    <div onClick={()=>{toggleDay(day)}} className={workDays.includes(day)?`${styles.day} ${styles.selected}`:`${styles.day}`}>{day}</div>
+                  days.map((day,index)=>(
+                    <div key={`${index} ${day}`} onClick={()=>{toggleDay(day)}} className={workDays.includes(day)?`${styles.day} ${styles.selected}`:`${styles.day}`}>{day}</div>
                   ))
                 }
                 </div>
@@ -330,8 +336,8 @@ const AddJob = ({crews,talents,providers,token}) => {
               <div className={styles.formInput}>
                 <div className={styles.scroll}>
                 {
-                  hours.map((hour)=>(
-                    <div onClick={()=>{toggleHour(hour)}} className={workHours.includes(hour)?`${styles.day} ${styles.selected}`:`${styles.hour}`}>{hour}</div>
+                  hours.map((hour,index)=>(
+                    <div key={`${index} ${hour}`} onClick={()=>{toggleHour(hour)}} className={workHours.includes(hour)?`${styles.day} ${styles.selected}`:`${styles.hour}`}>{hour}</div>
                   ))
                 } 
                 </div>

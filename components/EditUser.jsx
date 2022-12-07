@@ -12,6 +12,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { motion } from "framer-motion";
 import { InputLabel } from "@mui/material";
+import Image from "next/image";
 import CancelIcon from '@mui/icons-material/Cancel';
 const EditUser = ({user,token}) => {
     const [file, setFile] = useState(null);
@@ -189,15 +190,19 @@ const EditUser = ({user,token}) => {
         </div>
         <div className={styles.bottom}>
           <div className={styles.left}>
-            <img
-              src={
-                file
-                  ? URL.createObjectURL(file)
-                  : user.image ? user.image
-                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-              }
-              alt=""
-            />
+            <div className={styles.imgCon}>
+              <Image
+                src={
+                  file
+                    ? URL.createObjectURL(file)
+                    : user.image ? user.image
+                    : img
+                }
+                alt=""
+                objectFit="cover"
+                layout="fill"
+              />
+            </div>
           </div>
           <div className={styles.right}>
             <div className={styles.form}>

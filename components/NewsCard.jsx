@@ -15,8 +15,8 @@ const NewsCard = ({news}) => {
   }
   return (
     news.map((n)=>(
-      <Link href={`/news/${n._id}`} passHref >
-        <div className={styles.card} key={n._id}>
+      <Link key={n._id} href={`/news/${n._id}`} passHref >
+        <div className={styles.card} >
           <h2>{n.title}</h2>
           <Image src={n.image[0]} alt="" width={100} height={100} className={styles.profileImg}/>
           <p>{n.description}</p>

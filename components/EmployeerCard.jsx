@@ -15,8 +15,8 @@ const EmployeerCard = ({users}) => {
   }
   return (
     users.map((user)=>(
-      <Link href={`/users/${user._id}`} passHref>
-        <div className={styles.card} key={user._id}>
+      <Link key={user._id} href={`/users/${user._id}`} passHref>
+        <div className={styles.card}>
           <h2>{user.fullname}</h2>
             <Image src={user.image} alt="" width={100} height={100} className={styles.profileImg}/>
           <div className={styles.sectionD}>

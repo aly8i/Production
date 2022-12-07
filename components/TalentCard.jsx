@@ -15,8 +15,8 @@ const TalentCard = ({users}) => {
   }
   return (
     users.map((user)=>(
-      <Link href={`/users/${user._id}`} passHref>
-        <div className={styles.card} key={user._id}>
+      <Link href={`/users/${user._id}`} key={user._id} passHref>
+        <div className={styles.card} >
           <Image className={styles.profileImg} width={180} height={180} src={user.image} alt=""/>
           <h2>{user.fullname}</h2>
           <div className={styles.sectionD}>

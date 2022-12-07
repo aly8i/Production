@@ -2,8 +2,7 @@ import React from 'react'
 import styles from '../styles/Card.module.scss'
 import Link from 'next/link'
 import Image from 'next/image'
-import img from "../public/camera.jpg"
-import { useEffect,useState } from 'react'
+import img from "../public/Camera.jpg"
 
 const EquipmentsCard = ({equipments}) => {
   return (

@@ -31,7 +31,7 @@ export default function Jobs({jobs,options}) {
             <Search searched={searched} setSearched={setSearched}/>
             {
               searched!=""?filteredOptions.length>0?filteredOptions[0].toLowerCase()!=searched.toLocaleLowerCase()?
-              <ul className={styles.autocomplete}>{filteredOptions.slice(0,5).map((option)=><li onClick={()=>{setSearched(option)}}className={styles.autocompleteoption}>{option}</li>)}</ul>:<></>:<></>:<></>
+              <ul className={styles.autocomplete}>{filteredOptions.slice(0,5).map((option,i)=><li key={i} onClick={()=>{setSearched(option)}}className={styles.autocompleteoption}>{option}</li>)}</ul>:<></>:<></>:<></>
             }
           </div>
         </div>

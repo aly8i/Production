@@ -10,7 +10,6 @@ import Progress from "./Progress";
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { motion } from "framer-motion";
 import { InputLabel } from "@mui/material";
 import Image from "next/image";
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -464,14 +463,14 @@ const EditUser = ({user,token}) => {
               </div>
               <div className={styles.images}>
                 {files1[0]?(
-                  files1.map((file,i)=>(<motion.img  key={`${i}y`} whileHover={{ scale: 1.2}} src={URL.createObjectURL(file)} alt=""/>))
+                  files1.map((file,i)=>(<img key={`${i}y`} src={URL.createObjectURL(file)} alt=""/>))
                 ):(
-                  showreel?.map((slide,i)=>(<motion.img key={`${i}x`} whileHover={{ scale: 1.2}} src={slide} alt=""/>))
+                  showreel?.map((slide,i)=>(<img key={`${i}x`} src={slide} alt=""/>))
                 )}
               </div>
-              <motion.div whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.2}} className={styles.x} onClick={()=>handleClear()}>
+              <div  className={styles.x} onClick={()=>handleClear()}>
                 {files1[0]?(<CancelIcon className={styles.xIcon}/>):(showreel?(<CancelIcon className={styles.xIcon}/>):(<></>))}
-              </motion.div>
+              </div>
             </div>
               <div className={styles.formInput}>
                 <button onClick={handleSave}>Save</button>

@@ -15,10 +15,7 @@ const Employeers = ({users,options}) => {
         const filter1 = users.filter((obj) => {
           return (obj.fullname?.toLowerCase().includes(searchedVal.toLowerCase())||obj.speciality?.toLowerCase().includes(searchedVal.toLowerCase()))&&obj.view?.toLowerCase().includes("employeer");
         });
-        const filtered = filter1.filter((obj) => {
-          return obj.fullname?.toLowerCase().includes(type.toLowerCase());
-        });
-        setFilteredUsers(filtered);
+        setFilteredUsers(filter1);
         const filter3 = options.filter((option)=>{return option.toLowerCase().includes(searchedVal.toLowerCase())})
         setFilteredOptions(filter3);
     };

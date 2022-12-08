@@ -33,14 +33,14 @@ const Navbar = ({nav}) => {
         };
         try {
           const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, newuser);
-          generateAccessToken(res.data)
+          const access = generateAccessToken(res.data);
           setCookie('accessToken',access)
             return res.data._id;
         }catch(err){
           console.log("You have an account")
           try{
             const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/find`, newuser);
-            generateAccessToken(res.data)
+            const access = generateAccessToken(res.data);
             setCookie('accessToken',access)
               return res.data._id
           }
@@ -58,7 +58,7 @@ const Navbar = ({nav}) => {
           console.log("You are not authenticated");
           if(session){
             postUser(session.user).then((id)=>{
-              dispatch(addUser({id:id,username:session.user.name,fullname:session.user.name,image:session.user.image}));
+              dispatch(addUser({id,username:session.user.name,fullname:session.user.name,image:session.user.image}));
             })
             .catch((err) => {
               console.log("failed to post user");

@@ -100,6 +100,7 @@ export const userColumns = [
     },
   },
 ];
+
 export const equipmentColumns = [
   { field: "_id", headerName: "ID", width: 120,
   renderCell: (params) => {

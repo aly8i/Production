@@ -9,42 +9,29 @@
     display: flex;
     z-index: 2;
     -webkit-user-drag: none;
+    .top{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .title{
+            margin-bottom: 25px;
+            margin-top: 25px;
+            z-index: 30;
+            position: relative;
+        }
+        flex:1;
+        margin-bottom: 30px;
     .imgContainer{
+        
         width: 200px;
         height: 200px;
         position: relative;
         overflow: hidden;
         border-radius: 12px;
     }
-    .swiper{
-        height: calc(40vh - 100px);
-        width: 100%;
-        background-color: transparent;
-        overflow-x: hidden;
-        position: relative;
-        
-        .arrowContainer {
-            position: absolute;
-            width: 10%;
-            height: 20%;
-            top: 0;
-            bottom: 0;
-            margin: auto;
-            cursor: pointer;
-            z-index: 2;
-        }
-        
-        .wrapper {
-            width: 300vw;
-            height: 100%;
-            display: flex;
-            overflow: hidden;
-            transition: all 1.5s ease-in-out ;
-        }
-        
-
-          
-    }
+    
+}
     @media screen and (max-width: 480px) {
         .swiper{
           height: 40vh;
@@ -61,20 +48,41 @@
         -webkit-user-drag: none;
         user-zoom: none;
     }
-    .title{
-        margin-bottom: 50px;
-        margin-top: 50px;
-        z-index: 30;
-        position: relative;
-    }
     .bottom{
+        margin-top: 30px;
         display: flex;
-        margin-top: 700px;
         flex-direction: column;
         align-items: center;
-        position: absolute;
+        position: static;
         justify-content: space-around;
         width: 70%;
+        flex:2;
+        .swiper{
+            height: calc(40vh - 100px);
+            width: 100%;
+            background-color: transparent;
+            overflow-x: hidden;
+            position: relative;
+            
+            .arrowContainer {
+                position: absolute;
+                width: 10%;
+                height: 20%;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                cursor: pointer;
+                z-index: 2;
+            }
+            
+            .wrapper {
+                width: 300vw;
+                height: 100%;
+                display: flex;
+                overflow: hidden;
+                transition: all 1.5s ease-in-out ;
+            }     
+        }
         .section{
             display: flex;
             margin-bottom: 10px;
@@ -83,7 +91,6 @@
             position: static;
             justify-content: space-between;
             width: 100%;
-           
             .contentWrapper{
                 width:40%;
                 display: flex;
@@ -117,8 +124,6 @@
                     background-color: rgba($color: grey, $alpha: 0.9);
                 }
             }
-
-
         }    
     }
   

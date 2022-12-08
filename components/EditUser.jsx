@@ -9,11 +9,14 @@ import {getDownloadURL, ref, uploadBytesResumable} from "@firebase/storage";
 import Progress from "./Progress";
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+import {fieldofstudyOptions,educationlevelOptions,languagesOptions,countriesOptions} from "./data"
 import Select from '@mui/material/Select';
 import { InputLabel } from "@mui/material";
 import Image from "next/image";
+import Autocomplete from '@mui/material/Autocomplete';
 import CancelIcon from '@mui/icons-material/Cancel';
-const EditUser = ({user,token}) => {
+import { useEffect } from "react";
+const EditUser = ({user,token,crews,providers,talents}) => {
     const [file, setFile] = useState(null);
     const [files1, setFiles1] = useState([]);
     const [country, setCountry] = useState(user.address?.country);
@@ -44,6 +47,17 @@ const EditUser = ({user,token}) => {
     const [role,setRole]= useState(user.role);
     const [loading,setLoading] = useState (false);
     const router = useRouter();
+    const [options,setOptions] = useState ([]);
+    useEffect(()=>{
+      if(department=="Talents"){
+        setOptions(talents)
+      }else if(department=="Service Providers"){
+        setOptions(providers)
+      }else{
+        setOptions(crews)
+      }
+    },[department])
+    
     const handleFile1 = (val) => {
       setFiles1((prev) => [...prev, val]);
     };
@@ -87,10 +101,12 @@ const EditUser = ({user,token}) => {
       setFiles1([]);
     }
     const addInterest = (e) => {
+      if(interest=="" || interests.includes(interest)) return;
       setInterests((prev) => [...prev, interest]);
       setInterest("");
     }
     const addLanguage = (e) => {
+      if(language=="" || languages.includes(language)) return;
       setLanguages((prev) => [...prev, language]);
       setLanguage("");
     }
@@ -207,7 +223,7 @@ const EditUser = ({user,token}) => {
             <div className={styles.form}>
               <div className={styles.formInput}>
                 <label htmlFor="file">
-                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
+                  Image: <DriveFolderUploadOutlinedIcon className={styles.icon} />
                 </label>    
                   <input
                     type="file"
@@ -235,13 +251,14 @@ const EditUser = ({user,token}) => {
                 />
               </div>
               <div className={styles.formInput}>
-                <TextField
-                    id="outlined-name"
-                    label="Country"
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
+              <Autocomplete
+                  disablePortal
+                  options={countriesOptions}
+                  value={country}
+                  onChange={(event,value) => setCountry(value)}
+                  renderInput={(params) => <TextField {...params} label="Country" />}
                 />
-              </div>
+                </div>
               <div className={styles.formInput}>
                 <TextField
                     id="outlined-name"
@@ -331,7 +348,6 @@ const EditUser = ({user,token}) => {
                       <MenuItem value={'5'}>5</MenuItem>
                       <MenuItem value={'6'}>6</MenuItem>
                       <MenuItem value={'7'}>7</MenuItem>
-                      <MenuItem value={'7+'}>7+</MenuItem>
                     </Select>
                   </FormControl>
                 </div>
@@ -345,19 +361,21 @@ const EditUser = ({user,token}) => {
               </div>
 
               <div className={styles.formInput}>  
-                <TextField
-                    onChange={(e)=>setFieldofstudy(e.target.value)}
-                    id="outlined-name"
-                    label="Field of Study"
-                    value={fieldofstudy}
+                <Autocomplete
+                  disablePortal
+                  value={fieldofstudy}
+                  options={fieldofstudyOptions}
+                  onChange={(event,value) => setFieldofstudy(value)}
+                  renderInput={(params) => <TextField {...params} label="Field of Study" />}
                 />
               </div>
               <div className={styles.formInput}>  
-                <TextField
-                  onChange={(e)=>setEducationlevel(e.target.value)}
-                  id="outlined-name"
-                  label="Education Level"
+                <Autocomplete
+                  disablePortal
                   value={educationlevel}
+                  options={educationlevelOptions}
+                  onChange={(event,value) => setEducationlevel(value)}
+                  renderInput={(params) => <TextField {...params} label="Education Level" />}
                 />
               </div>
               <div className={styles.formInput}>  
@@ -402,8 +420,25 @@ const EditUser = ({user,token}) => {
                   </FormControl>
                 </div>
               )}
+              <div className={styles.formInput}/>
                <div className={styles.formInput}>  
-               </div>
+                <Autocomplete
+                    disablePortal
+                    value={department}
+                    options={["Talents","Service Providers","Crews"]}
+                    onInputChange={(event,value) => setDepartment(value)}
+                    renderInput={(params) => <TextField {...params} label="Department" />}
+                  />
+                  </div>
+                <div className={styles.formInput}>  
+                  <Autocomplete
+                    value={speciality}
+                    disablePortal
+                    options={options}
+                    onChange={(event,value) => setSpeciality(value)}
+                    renderInput={(params) => <TextField {...params} label="Speciality" />}
+                  />
+                </div>
               <div className={styles.formInput}>  
                 <TextField
                   onChange={(e)=>setInterest(e.target.value)}
@@ -418,13 +453,14 @@ const EditUser = ({user,token}) => {
                 </div>
               </div>
 
-              <div className={styles.formInput}>  
-                <TextField
-                  onChange={(e)=>setLanguage(e.target.value)}
-                  id="outlined-name"
-                  label="Language"
+              <div className={styles.formInput}>
+                <Autocomplete
+                  disablePortal
+                  options={languagesOptions}
                   value={language}
-                />
+                  onChange={(event,value) => setLanguage(value)}
+                  renderInput={(params) => <TextField {...params} label="Language" />}
+                /> 
                 <div className={styles.extraItems}>
                   <div className={styles.btn} onClick={()=>{addLanguage()}}>
                     Add
@@ -451,15 +487,15 @@ const EditUser = ({user,token}) => {
                 </div>
                 <div className={styles.slider}>
               <div className={styles.text}>
-                  <label htmlFor="file1">
-                      Show Reel: <DriveFolderUploadOutlinedIcon className={styles.icon} />
-                  </label>
-                  <input
-                      type="file"
-                      id="file1"
-                      onChange={(e) => handleFile1(e.target.files[0])}
-                      style={{ display: "none" }}
-                  />
+                <label htmlFor="file1">
+                    Show Reel: <DriveFolderUploadOutlinedIcon className={styles.icon} />
+                </label>
+                <input
+                  type="file"
+                  id="file1"
+                  onChange={(e) => handleFile1(e.target.files[0])}
+                  style={{ display: "none" }}
+                />
               </div>
               <div className={styles.images}>
                 {files1[0]?(
@@ -472,10 +508,8 @@ const EditUser = ({user,token}) => {
                 {files1[0]?(<CancelIcon className={styles.xIcon}/>):(showreel?(<CancelIcon className={styles.xIcon}/>):(<></>))}
               </div>
             </div>
-              <div className={styles.formInput}>
-                <button onClick={handleSave}>Save</button>
-              </div>
-              <div className={styles.formInput}>
+              <div className={styles.saveSection}>
+                <button className={styles.save} onClick={handleSave}>Save</button>
                 {loading?(<Progress className={styles.progress}/>):null}
               </div>
             </div>

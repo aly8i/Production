@@ -8,10 +8,10 @@ const EditUser = dynamic(
   {ssr: false}
 )
 
-const User = ({ user,token }) => {
+const User = ({ user,token,crews,providers,talents }) => {
   return (
     <div className={styles.container}>
-        <EditUser user={user} token={token}/>
+      <EditUser user={user} token={token} crews={crews} providers={providers} talents={talents} />
     </div>
   );
 };
@@ -48,9 +48,13 @@ export const getServerSideProps = async (context) => {
     };
   }
 }
+const res2 = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/statics`);
   return {
     props: {
       user: res1.data,
+      crews:res2.data[0].crews,
+      talents: res2.data[0].talents,
+      providers: res2.data[0].providers,
       token: accessToken
     },
   };

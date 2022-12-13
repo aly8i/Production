@@ -67,6 +67,18 @@
       padding: 0 16px;
     }
   }
+  @media screen and (max-width: 522px) {
+    .subHeaderMenu{
+      scale: 0.7;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    .subHeaderMenu{
+      scale: 0.6;
+    }
+  }
+
+  
   .headerMenu {
     display: flex;
     justify-content: center;

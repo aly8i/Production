@@ -128,7 +128,7 @@ const AddJob = ({crews,talents,providers,token}) => {
       }
       setWorkHours(temp);
     }
-    const postUser = async (pay) => {
+    const postJob = async (pay) => {
       var res1 = {}
       const server = axios.create({
         baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
@@ -168,12 +168,11 @@ const AddJob = ({crews,talents,providers,token}) => {
         if(file!=null){
             img = await uploadFiles(file);
         }
-        const payload = {userId: user.id,title,department,speciality,category,description,employmenttype:employmentType,salary,salaryduration:{unit:salaryDurationUnit,value:salaryDurationValue},workdays:workDays,workhours:workHours,image:img};
+        const payload = {userid: user.id,title,department,speciality,category,description,employmenttype:employmentType,salary,salaryduration:{unit:salaryDurationUnit,value:salaryDurationValue},workdays:workDays,workhours:workHours,image:img};
         try{
-        postUser(payload);
-        console.log(payload);
+        postJob(payload);
         setLoading(false);
-        // router.push("/jobs");
+        router.push("/jobs");
         }catch(err){
         console.log(err);
         }  
@@ -200,7 +199,7 @@ const AddJob = ({crews,talents,providers,token}) => {
     <div className={styles.new}>
       <div className={styles.newContainer}>
         <div className={styles.top}>
-          <h1>Edit Your Profile</h1>
+          <h1>Add Job</h1>
         </div>
         <div className={styles.bottom}>
           <div className={styles.left}> 
@@ -298,6 +297,7 @@ const AddJob = ({crews,talents,providers,token}) => {
                   id="outlined-multiline-static"
                   label="Description"
                   multiline
+                  value={description}
                   rows={4}
                   onChange={(e) => setDescription(e.target.value)}
                 />
@@ -325,6 +325,12 @@ const AddJob = ({crews,talents,providers,token}) => {
                 </FormControl>
               </div>
               <div className={styles.formInput}>
+                  Days
+              </div>
+              <div className={styles.formInput}>
+                  Hours
+              </div>
+              <div className={styles.formInput}>
                 <div className={styles.scroll}>
                 {
                   days.map((day,index)=>(
@@ -342,9 +348,8 @@ const AddJob = ({crews,talents,providers,token}) => {
                 } 
                 </div>
               </div>
-              <div className={styles.formInput}>
-                <button onClick={handleSave}>Save</button>
-                {loading?(<Progress className={styles.progress}/>):null}
+              <div className={styles.saveSection}>
+              {loading?(<Progress className={styles.progress}/>):<button className={styles.save} onClick={handleSave}>Save</button>}
               </div>
             </div>
           </div>

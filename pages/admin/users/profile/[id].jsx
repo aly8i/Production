@@ -3,13 +3,13 @@ import React from "react";
 import {useState,useEffect} from "react";
 import dynamic from 'next/dynamic';
 const Single = dynamic(
-  () => import("../../../components/admin/single/Single"),
+  () => import("../../../../components/admin/single/Single"),
   {ssr: false}
 )
 
-const User = ({ user }) => {
+const User = ({ user,equipments,token }) => {
   return (
-      <Single user={user} type="admin"/>
+      <Single user={user} equipments={equipments} token={token} type="admin"/>
   );
 };
 
@@ -17,7 +17,6 @@ export const getServerSideProps = async (context) => {
   var accessToken= "";
   var res1 ={};
   var res2 ={};
-  var res3 ={};
   const server = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
     headers: {'Content-Type':'application/json'},
@@ -49,11 +48,21 @@ export const getServerSideProps = async (context) => {
       };
     }
   } 
+  try{
+    const res22 = await server.get(`api/equipments/find/${context.params.id}`);
+    res2=res22
+  }catch(err){
+    if(err.response.status>=300){
+        res2=[]
+      };
+    }
     return {
       props: {
         user: res1.data,
-      },
-    };
+        equipments: res2.data,
+        token: accessToken,
+    },
+  } 
 };
 
 

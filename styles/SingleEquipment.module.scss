@@ -9,12 +9,17 @@
     display: flex;
     z-index: 2;
     -webkit-user-drag: none;
+    .top{
+        width: 100%;
+        height: fit-content;
+        padding-bottom: 15px;
     .swiper{
         height: calc(40vh - 100px);
         width: 100%;
         background-color: transparent;
         overflow-x: hidden;
         position: relative;
+        scale:0.7;
         
         .arrowContainer {
             position: absolute;
@@ -42,8 +47,9 @@
             height: 100%;
             position: relative;
         }
-          
     }
+    
+}
     @media screen and (max-width: 480px) {
         .swiper{
           height: 40vh;
@@ -72,6 +78,7 @@
         flex-direction: column;
         align-items: center;
         position: absolute;
+        padding-bottom: 40px;
         justify-content: space-around;
         width: 70%;
         .section{
@@ -79,10 +86,42 @@
             margin-bottom: 10px;
             flex-direction: row;
             align-items: flex-start;
-            position: static;
             justify-content: space-between;
+            position: relative;
+
+            a {
+                color: inherit;
+                text-decoration: none;
+              }
             width: 100%;
-           
+            .gotowrapper{
+                .goto{
+                    background-color: transparent;
+                    border: 1px solid grey;
+                    width: fit-content;
+                    color: #fff;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    transition: 0.2s;
+                    white-space: nowrap;
+                    font-size: 15px;
+                    margin-top: -10px;
+                    padding: 6px 24px;
+                    margin-right: 5px;
+                    left: 0;
+                    right: 0;
+                
+                }
+                .goto:hover{
+                    border: 1px solid white;
+                }
+                left: 0;
+                position: absolute;
+                right: 0;
+                display: grid;
+                place-items: center;
+
+            }
             .contentWrapper{
                 width:40%;
                 display: flex;
@@ -116,6 +155,7 @@
                     background-color: rgba($color: grey, $alpha: 0.9);
                 }
             }
+            
 
 
         }    

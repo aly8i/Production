@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import {storage} from "../Firebase";
 import axios from 'axios';
 import {getDownloadURL, ref, uploadBytesResumable} from "@firebase/storage";
-import Progress from "./Progress";
+import Progress from "./Progress"; 
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import {fieldofstudyOptions,educationlevelOptions,languagesOptions,countriesOptions} from "./data"
@@ -18,9 +18,8 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { useEffect } from "react";
 const EditUser = ({user,token,crews,providers,talents}) => {
     const [file, setFile] = useState(null);
-    const [files1, setFiles1] = useState([]);
     const [country, setCountry] = useState(user.address?.country);
-    const [city, setCity] = useState(user.address?.city);
+    const [city, setCity] = useState(user.address?.city || "");
     const [lat, seLat] = useState(user.location?.lat);
     const [long, setLong] = useState(user.location?.long);
     const [url, setUrl] = useState(user.url);
@@ -36,7 +35,7 @@ const EditUser = ({user,token,crews,providers,talents}) => {
     const [educationlevel, setEducationlevel] = useState(user.education?.educationlevel);
     const [fieldofstudy,setFieldofstudy] = useState(user.education?.fieldofstudy);
     const [graduationyear,setGraduationyear] = useState(user.education?.graduationyear);
-    const [showreel, setShowreel] = useState(user.showreel);
+    const [showreel, setShowreel] = useState(user.showreel||[]);
     const [about,setAbout] = useState(user.about)
     const [languages,setLanguages] = useState(user.languages);
     const [language,setLanguage] = useState("");
@@ -46,6 +45,7 @@ const EditUser = ({user,token,crews,providers,talents}) => {
     const [username, setUsername] = useState(user.fullname);
     const [role,setRole]= useState(user.role);
     const [loading,setLoading] = useState (false);
+    const [loadingSR,setLoadingSR]= useState(false);
     const router = useRouter();
     const [options,setOptions] = useState ([]);
     useEffect(()=>{
@@ -58,8 +58,11 @@ const EditUser = ({user,token,crews,providers,talents}) => {
       }
     },[department])
     
-    const handleFile1 = (val) => {
-      setFiles1((prev) => [...prev, val]);
+    const handleFile1 = async (val) => {
+      setLoadingSR(true);
+      const img = await uploadFiles(val);
+      setShowreel((prev) => [...prev, img]);
+      setLoadingSR(false);
     };
 
     const postUser = async (pay) => {
@@ -98,7 +101,6 @@ const EditUser = ({user,token,crews,providers,talents}) => {
     }
     const handleClear = ()=>{
       setShowreel([]);
-      setFiles1([]);
     }
     const addInterest = (e) => {
       if(interest=="" || interests.includes(interest)) return;
@@ -122,63 +124,27 @@ const EditUser = ({user,token,crews,providers,talents}) => {
     const handleSave = async()=>{
         setLoading(true);
         var img="";
-        var rs = true;
-        var slider = [];
-        console.log("first")
         if(file!=null){
             img = await uploadFiles(file);
         }else{
             img = user.image;
         }
-        const promise1 = new Promise(async(resolve, reject) => {
-          if(files1.length!=0){
-            console.log("sec")
-            files1.map(async(file, i) => {
-                const promise2 = new Promise(async(resolve, reject) => {
-                  url = await uploadFiles(file);
-                  resolve(url);
-                });
-                promise2.then((url)=>{
-                  slider.push(url);
-                }).then(()=>{
-                  if(i+1==files1.length){
-                    resolve('finished');
-                  }
-                })
-          });
-          }else{
-            resolve('skipped');
-            rs=false;
-          }
-        });
-        promise1.then((res)=>{
-          console.log("th")
-          if(res=='finished'||res=='skipped'){
-            if(rs==true){
-              const payload = {username,fullname,image:img,phonenumber,address:{country,city},email,url,view,about,department,speciality,yearsofexperience,interests,links:[{provider:"linkedin",link:linkedin},{provider:"imdb",link:imdb},{provider:"vimeo",link:vimeo}],education:{educationlevel,fieldofstudy,graduationyear},languages,showreel:slider};
-              try{
-                postUser(payload);
-                console.log(payload);
-                setLoading(false);
-                router.push("/");
-              }catch(err){
-                console.log(err);
-              }  
-            }else{
-              console.log("fr")
-              const payload = {username,fullname,image:img,phonenumber,address:{country,city},email,url,view,about,department,speciality,yearsofexperience,interests,links:[{provider:"linkedin",link:linkedin},{provider:"imdb",link:imdb},{provider:"vimeo",link:vimeo}],education:{educationlevel,fieldofstudy,graduationyear},languages,showreel};
-              try{
-                postUser(payload);
-                console.log(payload)
-                setLoading(false);
-                router.push("/");
-              }catch(err){
-                console.log(err);
-              }  
-            }
-          }
-        })
+        const payload = {username,fullname,image:img,phonenumber,address:{country,city},email,url,view,about,department,speciality,yearsofexperience,interests,links:[{provider:"linkedin",link:linkedin},{provider:"imdb",link:imdb},{provider:"vimeo",link:vimeo}],education:{educationlevel,fieldofstudy,graduationyear},languages,showreel};
+        try{
+          postUser(payload);
+          setLoading(false);
+          router.push("/");
+        }catch(err){
+          console.log(err);
+        }  
+            
     }
+
+    const handleShowreel = (index) => {
+      const removedSlide = showreel.splice(index,1);
+      setShowreel(showreel.filter((option) =>(option!==removedSlide[0])));
+    };
+
       function uploadFiles (file){
         if(!file) return;
         return new Promise(resolve =>{
@@ -431,13 +397,12 @@ const EditUser = ({user,token,crews,providers,talents}) => {
                   />
                   </div>
                 <div className={styles.formInput}>  
-                  <Autocomplete
-                    value={speciality}
-                    disablePortal
-                    options={options}
-                    onChange={(event,value) => setSpeciality(value)}
-                    renderInput={(params) => <TextField {...params} label="Speciality" />}
-                  />
+                <TextField
+                  onChange={(e)=>setSpeciality(e.target.value)}
+                  id="outlined-name"
+                  label="Speciality"
+                  value={speciality}
+                />
                 </div>
               <div className={styles.formInput}>  
                 <TextField
@@ -498,19 +463,17 @@ const EditUser = ({user,token,crews,providers,talents}) => {
                 />
               </div>
               <div className={styles.images}>
-                {files1[0]?(
-                  files1.map((file,i)=>(<img key={`${i}y`} src={URL.createObjectURL(file)} alt=""/>))
-                ):(
-                  showreel?.map((slide,i)=>(<img key={`${i}x`} src={slide} alt=""/>))
-                )}
+                {
+                  showreel.length!=0?showreel.map((slide,i)=>(<img key={`${i}x`} onClick={()=>handleShowreel(i)} src={slide} alt=""/>)):<></>
+                }
+                {loadingSR?<div className={styles.loading}><Progress/></div>:<></>}
               </div>
               <div  className={styles.x} onClick={()=>handleClear()}>
-                {files1[0]?(<CancelIcon className={styles.xIcon}/>):(showreel?(<CancelIcon className={styles.xIcon}/>):(<></>))}
+                {showreel.length!=0?(<CancelIcon className={styles.xIcon}/>):(showreel?(<CancelIcon className={styles.xIcon}/>):(<></>))}
               </div>
             </div>
               <div className={styles.saveSection}>
-                <button className={styles.save} onClick={handleSave}>Save</button>
-                {loading?(<Progress className={styles.progress}/>):null}
+              {loading?(<Progress className={styles.progress}/>):<button className={styles.save} onClick={handleSave}>Save</button>}
               </div>
             </div>
           </div>

@@ -1,25 +1,17 @@
 import axios from "axios";
 import React from "react";
 import {useState,useEffect} from "react";
-import styles from "../../../../styles/User.module.css";
+import styles from "../../../../../styles/User.module.css";
 import dynamic from 'next/dynamic';
-import { createTheme,ThemeProvider } from "@mui/material";
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
 const EditUser = dynamic(
-  () => import("../../../../components/EditUser"),
+  () => import("../../../../../components/EditUser"),
   {ssr: false}
 )
 
 const User = ({ user,token }) => {
   return (
   <div className={styles.container}>
-    <ThemeProvider theme={darkTheme}>
       <EditUser user={user} token={token} type="admin"/>
-    </ThemeProvider>
   </div>
   );
 };

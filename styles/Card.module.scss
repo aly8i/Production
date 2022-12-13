@@ -1,8 +1,10 @@
 .section{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
+  padding-top: 5px;
+  justify-content:center;
+  text-align: justify;
 }
 .sectionD{
   font-size: small;
@@ -11,20 +13,55 @@
   flex-direction: row;
   justify-content: space-between;
 }
-
+.col11{
+  font-weight: 600;
+  color: lightblue;
+  margin-right: 10px;
+  text-align: center;
+}
+.col22{
+  justify-content: flex-end;
+  line-break:normal;
+  text-align: center;
+}
 .col1{
   font-weight: 600;
   color: lightblue;
   margin-right: 10px;
+  text-align: left;
 }
 .col2{
   justify-content: flex-end;
+  line-break:normal;
+  text-align: right;
 }
-
+.job{
+  min-height: 500px;
+  max-height: 500px;
+  min-width: 350px;
+  max-width: 350px;
+}
+.new{
+  min-height: 330px;
+  max-height: 330px;
+  min-width: 300px;
+  max-width: 300px;
+}
+.user{
+  min-height: 500px;
+  max-height: 500px;
+  min-width: 350px;
+  max-width: 350px;
+}
+.equ{
+  min-height: 320px;
+  min-width: 280px;
+  max-width: 280px;
+  max-height: 320px;
+}
 .card {
     margin: 1rem;
     padding: 1.5rem;
-    min-width: 250px;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -33,7 +70,6 @@
     border: 1px solid #eaeaea;
     border-radius: 10px;
     transition: color 0.15s ease, border-color 0.15s ease;
-    max-width: 400px;
     cursor: pointer;
     .profileImg {
       width: 100px;

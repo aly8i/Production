@@ -26,7 +26,7 @@ export const newColumns = [
     renderCell: (params) => {
       return (
         <div className={styles.cellWithImg}>
-          <img className={styles.cellImg} src={params.row.image[0]} alt="avatar" />
+          <img className={styles.cellImg} src={params.row.image} alt="avatar" />
           {params.row.title}
         </div>
       );
@@ -35,7 +35,7 @@ export const newColumns = [
   {
     field: "description",
     headerName: "Description",
-    width: 800,
+    width: 500,
     renderCell: (params) => {
       return (
         <div className={styles.cellWithImg}>
@@ -109,15 +109,16 @@ export const equipmentColumns = [
         <div className={styles.id}>{params.row._id.substring(0,5)+"..."}</div>
       </Tooltip>       
       );
-  },},
+  },
+},
   {
     field: "name",
-    headerName: "name",
+    headerName: "Name",
     width: 210,
     renderCell: (params) => {
       return (
         <div className={styles.cellWithImg}>
-          <img className={styles.cellImg} src={params.row.image} alt="avatar" />
+          <img className={styles.cellImg} src={params.row.images[0]} alt="avatar" />
           {params.row.name}
         </div>
       );
@@ -130,8 +131,8 @@ export const equipmentColumns = [
     renderCell: (params) => {
       return (
         <div className={styles.cellWithImg}>
-          <img className={styles.cellImg} src={params.row.image} alt="avatar" />
-          <div className={styles.id}>{params.row.userid.username}</div>
+          <img className={styles.cellImg} src={params.row.userid?.image} alt="avatar" />
+          <div className={styles.id}>{params.row.userid?.username}</div>
         </div>       
         );
     },
@@ -140,23 +141,99 @@ export const equipmentColumns = [
   {
     field: "category",
     headerName: "Category",
-    width: 200,
+    width: 100,
   },
   {
     field: "price",
     headerName: "Price",
-    width: 200,
+    width: 100,
   },
   {
-    field: "for",
+    field: "forr",
     headerName: "For",
-    width: 200,
+    width: 100,
   },
   {
     field: "warranty",
     headerName: "Warranty",
     width: 200,
   }
+];
+export const jobColumns = [
+  { field: "_id", headerName: "ID", width: 120,
+  renderCell: (params) => {
+    return (
+      <Tooltip title={params.row._id} placement="bottom">
+        <div className={styles.id}>{params.row._id.substring(0,5)+"..."}</div>
+      </Tooltip>       
+      );
+  },},
+  {
+    field: "title",
+    headerName: "Title",
+    width: 210,
+    renderCell: (params) => {
+      return (
+        <div className={styles.cellWithImg}>
+          <img className={styles.cellImg} src={params.row.image} alt="avatar" />
+          {params.row.title}
+        </div>
+      );
+    },
+  },
+  {
+    field: "postedby",
+    headerName: "Posted By",
+    width: 180,
+    renderCell: (params) => {
+      return (
+        <div className={styles.cellWithImg}>
+          <img className={styles.cellImg} src={params.row.userid?.image} alt="avatar" />
+          <div className={styles.id}>{params.row.userid?.username}</div>
+        </div>       
+        );
+    },
+  },
+
+  {
+    field: "speciality",
+    headerName: "Speciality",
+    width: 150,
+  },
+  {
+    field: "category",
+    headerName: "Category",
+    width: 150,
+    renderCell: (params) => {
+      return (
+        <Tooltip title={params.row.category} placement="bottom">
+           <div className={styles.id}>{params.row.category}</div>
+        </Tooltip>
+      );
+    },
+  },
+  {
+    field: "description",
+    headerName: "Description",
+    width: 150,
+    renderCell: (params) => {
+      return (
+        <Tooltip title={params.row.description} placement="bottom">
+          <div className={styles.id}>{params.row.description.substring(0,16)+"..."}</div>
+        </Tooltip>       
+        );
+    },
+  },
+  {
+    field: "salary",
+    headerName: "Salary",
+    width: 80,
+  },
+  {
+    field: "employmenttype",
+    headerName: "Emp. Type",
+    width: 100,
+  },
 ];
 export const orderColumns = [
   { field: "_id", headerName: "ID", width: 70,

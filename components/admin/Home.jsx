@@ -4,16 +4,11 @@ import Widget from "./Widget";
 import Chart from "./chart/Chart"; 
 
 const Home = ({users,jobs,equipments,news}) => {
-  const calcEarnings = ()=>{
-    let total = 0;
-    orders.map((order)=>{
-      total=total+order.total;
-    })
-    return total;
-  }
   return (  
     <div className={styles.home}>
-      <Sidebar />
+      <div className={styles.side}>
+        <Sidebar />
+      </div>
         <div className={styles.homeContainer}>
          <div className={styles.widgets}>
            <Widget type="user" amount={users.length}/>

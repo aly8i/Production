@@ -13,6 +13,13 @@ const News = ({news}) => {
       if(searchedVal == ""){
         setFilteredNews(news);
       }
+      if(searchedVal.toLowerCase().includes("#")){
+        const filter2 = news.filter((obj) => {
+          return obj.tags.includes(searchedVal.toLowerCase().substring(1,80));
+        });
+        setFilteredNews(filter2);
+        return
+      }
         const filter1 = news.filter((obj) => {
           return obj.title?.toLowerCase().includes(searchedVal.toLowerCase());
         });
@@ -23,7 +30,6 @@ const News = ({news}) => {
     };
     useEffect(()=>{
       requestSearch(searched);
-      console.log(news)
     },[searched,type])
   return (
       <div className={styles.container}>

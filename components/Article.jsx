@@ -13,7 +13,7 @@ const Article = ({article}) => {
             </>
         ))}
         <div className={styles.image}>
-            <Image src={article.image[0]} alt="" objectFit="contain" layout="fill" objectPosition="center center"/>
+            <Image src={article.image} alt="" objectFit="contain" layout="fill" objectPosition="center center"/>
         </div>
     </div>
   )

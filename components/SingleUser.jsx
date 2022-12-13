@@ -6,8 +6,6 @@ import { Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import SwiperCore, { Autoplay } from 'swiper/core';
-import {useState,useEffect} from 'react'
-import axios from "axios";
 const SingleEquipment = ({user}) => {
   SwiperCore.use([Autoplay]);
   return (
@@ -37,14 +35,6 @@ const SingleEquipment = ({user}) => {
             </div>
             <div className={styles.section}>
               <div className={styles.contentWrapper}>
-                <p className={styles.sectionHeading}>About :</p>
-              </div>
-              <div className={styles.contentWrapper}>
-                <p className={styles.sectionContent}>{user.about||"NAN"}</p>
-              </div>
-            </div>
-            <div className={styles.section}>
-              <div className={styles.contentWrapper}>
                 <p className={styles.sectionHeading}>Department :</p>
               </div>
               <div className={styles.contentWrapper}>
@@ -57,6 +47,14 @@ const SingleEquipment = ({user}) => {
               </div>
               <div className={styles.contentWrapper}>
                 <p className={styles.sectionContent}>{user.speciality||"NAN"}</p>
+              </div>
+            </div>
+            <div className={styles.sectionB}>
+              <div className={styles.contentWrapper}>
+                <p className={styles.sectionHeading}>About :</p>
+              </div>
+              <div className={styles.contentWrapper}>
+                <p className={styles.sectionContent}>{user.about||"NAN"}</p>
               </div>
             </div>
             <Swiper className={styles.swiper}

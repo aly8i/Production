@@ -3,7 +3,6 @@ import styles from '../styles/Jobs.module.css'
 import EquipmentCard from './EquipmentCard'
 import Search from './Search'
 import { useState,useEffect } from 'react'
-import DropDown from './DropDown'
 
 const Employeers = ({equipments}) => {
     const [searched,setSearched] = useState("");
@@ -12,6 +11,13 @@ const Employeers = ({equipments}) => {
     const requestSearch = (searchedVal) => {
       if(searchedVal == ""){
         setFilteredEquipments(equipments);
+      }
+      if(searchedVal.toLowerCase().includes("#")){
+        const filter2 = equipments.filter((obj) => {
+          return obj.tags.includes(searchedVal.toLowerCase().substring(1,80));
+        });
+        setFilteredEquipments(filter2);
+        return
       }
         const filter1 = equipments.filter((obj) => {
           return obj.name?.toLowerCase().includes(searchedVal.toLowerCase());
@@ -23,7 +29,6 @@ const Employeers = ({equipments}) => {
     };
     useEffect(()=>{
       requestSearch(searched);
-      console.log(equipments)
     },[searched,type])
   return (
       <div className={styles.container}>

@@ -63,7 +63,7 @@ const NewDatatable = ({news,token}) => {
       renderCell: (params) => {
         return (
           <div className={styles.cellAction}>
-            <Link href={`/admin/news/${params.row._id}`} passHref style={{ textDecoration: "none" }}>
+            <Link href={`/news/edit/${params.row._id}`} passHref style={{ textDecoration: "none" }}>
               <div className={styles.viewButton}>View</div>
             </Link>
             <div
@@ -83,7 +83,7 @@ const NewDatatable = ({news,token}) => {
           <div className={styles.search}>
             <Search setSearched={setSearched} searched={searched}/>
           </div>
-          <Link href="/admin/news/new" passHref >
+          <Link href="/news/add" passHref >
             <span className={styles.link}>Add New</span>
           </Link>
         </div>

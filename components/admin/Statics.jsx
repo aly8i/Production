@@ -8,26 +8,33 @@ import {storage} from "../../Firebase";
 import axios from 'axios';
 import {getDownloadURL, ref, uploadBytesResumable} from "@firebase/storage";
 import Progress from "../Progress";
+import Error from "../Error";
 import CancelIcon from '@mui/icons-material/Cancel';
-import { motion } from "framer-motion";
+
+
 const Statics = ({data,token}) => {
-    const [files1, setFiles1] = useState([]);
-    const [files2, setFiles2] = useState([]);
-    const [name, setName] = useState(data.name);
-    const [description, setDescription] = useState(data.description);
-    const [slider1, setSlider1] = useState(data.slider1);
-    const [slider2, setSlider2] = useState(data.slider2);
-    const [location,setLocation]= useState(data.location);
-    const [phonenumber1,setPhonenumber1]= useState(data.phonenumber1);
-    const [phonenumber2,setPhonenumber2]= useState(data.phonenumber2);
+    const [logo, setLogo] = useState(data.logo || "");
+    const [cubeslider, setCubeslider] = useState(data.cubeslider||[]);
+    const [servicecards, setServicecards] = useState(data.servicecards||[]);
+    const [talents,setTalents]= useState(data.talents||[]);
+    const [crews,setCrews]= useState(data.crews||[]);
+    const [providers,setProviders]= useState(data.providers||[]);
     const [facebook,setFacebook]= useState(data.facebook);
-    const [whatsapp,setWhatsapp]= useState(data.whatsapp);
+    const [instagram,setInstagram]= useState(data.instagram);
     const [linkedin,setLinkedin]= useState(data.linkedin);
     const [twitter,setTwitter]= useState(data.twitter);
-    const [gmail,setGmail]= useState(data.gmail);
-    const [instagram,setInstagram]= useState(data.instagram);
-    const [github,setGithub]= useState(data.github);
-    const[loading,setLoading] = useState(false);
+    const [files, setFiles] = useState([]);
+    const [logofile, setLogofile] = useState(null);
+    const [SCfile, setSCfile] = useState(null);
+    const [SCtitle, setSCtitle] = useState("");
+    const [SCdesc, setSCdesc] = useState("");
+    const [talent,setTalent]= useState("");
+    const [crew,setCrew]= useState("");
+    const [provider,setProvider]= useState("");
+    const [loading,setLoading] = useState(false);
+    const [loadingSC,setLoadingSC]= useState(false);
+    const [loadingCS,setLoadingCS]= useState(false);
+    const [error,setError]= useState("");
     const router = useRouter();
     const server = axios.create({
       baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
@@ -45,118 +52,43 @@ const Statics = ({data,token}) => {
         return Promise.reject(error);
       },
     );
-    const postData = async (pay) => {
+
+    const handleSave = async()=>{
+      const validated = validateCube();
+      if(!validated) return;
       setLoading(true);
+      var cs1 = true;
+      var arr = [];
+      var url;
+      var img="";
+      if(logofile!=null){
+          img = await uploadFiles(logofile);
+      }else{
+          img = data.logo;
+      }
+      const payload = {logo:img,cubeslider,servicecards,talents,crews,providers,facebook,instagram,linkedin,twitter};
+      try{
+        postData(payload);
+        setLoading(false);
+        router.push("/");
+      }catch(err){
+        console.log(err);
+      }  
+    }
+
+    const postData = async (pay) => {
       const res1={}
-    try{
-      const res11 = await server.put("api/static/", pay);
-      res1=res11;
-  }catch(err){
-    if(err.response.status>=300){
-      router.push("/");
-    }
-  }
-    return res1;
-  }
-    const handleSave = ()=>{
-        setLoading(true);
-        var url = "";
-        var cs1 = true;
-        var cs2 = true;
-        let s1 = [];
-        let s2 = [];
-        const promise1 = new Promise(async(resolve, reject) => {
-          if(files1.length!=0){
-            files1.map(async(file, i) => {
-              
-                const promise2 = new Promise(async(resolve, reject) => {
-                  url = await uploadFiles(file);
-                  resolve(url);
-                });
-                promise2.then((url)=>{
-                  s1.push(url);
-                }).then(()=>{
-                  if(i+1==files1.length){
-                    resolve('finished');
-                  }
-                })
-              
-          });
-        }else{
-          resolve('skipped1');
-          cs1=false;
+      try{
+        const res11 = await server.put("api/statics/", pay);
+        res1=res11;
+      }catch(err){
+        if(err.response.status>=300){
+          router.push("/");
         }
-        });
-        
-        promise1.then((res)=>{
-          if(res=='finished'||res=='skipped1'){
-            const promise3 = new Promise(async(resolve, reject) => {
-              if(files2.length!=0){
-              files2.map(async(file, i) => {
-
-                      const promise4 = new Promise(async(resolve, reject) => {
-                        url = await uploadFiles(file);
-                        resolve(url);
-                      });
-                      promise4.then((url)=>{
-                        s2.push(url);
-                      }).then(()=>{
-                        if(i+1==files2.length){
-                          resolve('finished');
-                        }
-                      })
-                })
-              }else{
-                resolve('skipped2');
-                cs2=false;
-              }
-              });
-            
-              promise3.then((res)=>{
-                if(res=='finished'|| res=='skipped2'){
-                  if(cs1==true&&cs2==true){
-                    const payload = {name,description,slider1:s1,slider2:s2,location,phonenumber1,phonenumber2,facebook,whatsapp,twitter,gmail,instagram,github,linkedin};
-                    try{
-                      postData(payload);
-                      setLoading(false);
-                      router.push("/");
-                    }catch(err){
-                      console.log(err);
-                    }  
-                  }else if(cs1==true&&cs2==false){
-                    const payload = {name,description,slider1:s1,slider2,location,phonenumber1,phonenumber2,facebook,whatsapp,twitter,gmail,instagram,github,linkedin};
-                    try{
-                      postData(payload);
-                      setLoading(false);
-                      router.push("/");
-                    }catch(err){
-                      console.log(err);
-                    }  
-                  }else if(cs1==false&&cs2==true){
-                    const payload = {name,description,slider1,slider2:s2,location,phonenumber1,phonenumber2,facebook,whatsapp,twitter,gmail,instagram,github,linkedin};
-                    try{
-                      postData(payload);
-                      setLoading(false);
-                      router.push("/");
-                    }catch(err){
-                      console.log(err);
-                    }  
-                  }else{
-                    const payload = {name,description,slider1,slider2,location,phonenumber1,phonenumber2,facebook,whatsapp,twitter,gmail,instagram,github,linkedin};
-                    try{
-                      postData(payload);
-                      setLoading(false);
-                      router.push("/");
-                    }catch(err){
-                      console.log(err);
-                    }  
-                  }
-                }
-              })
-            }
-        })
-
+      }
+      return res1;
     }
+   
       function uploadFiles (file){
         if(!file) return;
         return new Promise(resolve =>{
@@ -175,24 +107,88 @@ const Statics = ({data,token}) => {
           );
         })
       };
-      const handleClear = (slider)=>{
-        if(slider=='slider1'){
-          setSlider1([]);
-          setFiles1([]);
+      const validateCube = () => {
+        if(files.length==6){
+          return true;
+        }else if(cubeslider.length==6){
+          return true;  
         }else{
-          setSlider2([]);
-          setFiles2([]);
+          setError("Cube Slider must be 6 Pictures in total.")
+          return false;
         }
       }
-      const handleFile1 = (val) => {
-        setFiles1((prev) => [...prev, val]);
+      const handleClear = ()=>{
+          setCubeslider([]);
+          setFiles([]);
+      }
+      const handleFile = async(val) => {
+        setLoadingCS(true);
+        const img = await uploadFiles(val);
+        setCubeslider((prev) => [...prev, img]);
+        setLoadingCS(false);
       };
-      const handleFile2 = (val) => {
-        setFiles2((prev) => [...prev, val]);
+      const handleSCfile = (val) => {
+        setSCfile(val);
+      };
+      const addSC = async() => {
+        if (SCfile == null || SCdesc == "" || SCtitle == ""){
+          setError("Enter all the required information for the Service card.")
+          return;
+        }
+        setLoadingSC(true);
+        const img = await uploadFiles(SCfile);
+        const sc = {
+          title: SCtitle,
+          description: SCdesc,
+          image: img
+        }
+        setServicecards((prev) => [...prev, sc]);
+        setSCfile(null);
+        setSCdesc("");
+        setSCtitle("");
+        setLoadingSC(false);
+      }
+      const addTalent = (e) => {
+        if(talent=="" || talents?.includes(talent)) return;
+        setTalents((prev) => [...prev, talent]);
+        setTalent("");
+      }
+      const handleCubeslide = (index) => {
+          const removedSlide = cubeslider.splice(index,1);
+          setCubeslider(cubeslider.filter((option) =>(option!==removedSlide[0])));
+      };
+      const handleTalent = (index) => {
+        const removedTalent = talents.splice(index,1);
+        setTalents(talents.filter((option) =>(option!==removedTalent[0])));
+      };
+      const handleServicecard = (index) => {
+        const removedService = servicecards.splice(index,1);
+        setServicecards(servicecards.filter((option) =>(option!==removedService[0])));
+      }
+      const addProvider = (e) => {
+        if(provider=="" || providers?.includes(provider)) return;
+        setProviders((prev) => [...prev, provider]);
+        setProvider("");
+      }
+      const handleProvider = (index) => {
+        const removedProvider = providers.splice(index,1);
+        setProviders(providers.filter((option) =>(option!==removedProvider[0])));
+      };
+      const addCrew = (e) => {
+        if(crew=="" || crews?.includes(crew)) return;
+        setCrews((prev) => [...prev, crew]);
+        setCrew("");
+      }
+      const handleCrew = (index) => {
+        const removedCrew = crews.splice(index,1);
+        setCrews(crews.filter((option) =>(option!==removedCrew[0])));
       };
   return (
     <div className={styles.new}>
-      <Sidebar />
+      <div className={styles.side}>
+        <Sidebar/>
+      </div>
+      
       <div className={styles.newContainer}>
         <div className={styles.top}>
           <h1>Your Website Statics</h1>
@@ -202,133 +198,175 @@ const Statics = ({data,token}) => {
             <div className={styles.slider}>
               <div className={styles.text}>
                   <label htmlFor="file1">
-                      Slider 1: <DriveFolderUploadOutlinedIcon className={styles.icon} />
+                    Cube Slider: <DriveFolderUploadOutlinedIcon className={styles.icon} />
                   </label>
                   <input
-                      type="file"
-                      id="file1"
-                      onChange={(e) => handleFile1(e.target.files[0])}
-                      style={{ display: "none" }}
+                    type="file"
+                    id="file1"
+                    onChange={(e) => handleFile(e.target.files[0])}
+                    style={{ display: "none" }}
                   />
               </div>
               <div className={styles.images}>
-                {files1[0]?(
-                  files1.map((file,i)=>(<motion.img  key={i} whileHover={{ scale: 1.2}} src={URL.createObjectURL(file)} alt=""/>))
-                ):(
-                  slider1.map((slide,i)=>(<motion.img key={i} whileHover={{ scale: 1.2}} src={slide} alt=""/>))
-                )}
+                {
+                  cubeslider?.map((slide,i)=>(<img key={i} onClick={()=>handleCubeslide(i)} src={slide} alt=""/>))
+                }
+                {loadingCS?<div className={styles.loading}><Progress/></div>:<></>}
               </div>
-              <motion.div whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.2}} className={styles.x} onClick={()=>handleClear("slider1")}>
-                {files1[0]?(<CancelIcon className={styles.xIcon}/>):(slider1[0]?(<CancelIcon className={styles.xIcon}/>):(<></>))}
-              </motion.div>
+              <div   className={styles.x} onClick={()=>handleClear()}>
+                {files[0]?(<CancelIcon className={styles.xIcon}/>):(cubeslider?(<CancelIcon className={styles.xIcon}/>):(<></>))}
+              </div>
             </div>
-            <div className={styles.slider}>
-              <div className={styles.text}>
-                  <label htmlFor="file2">
-                      Slider 2: <DriveFolderUploadOutlinedIcon className={styles.icon} />
-                  </label>
-                  <input
-                      type="file"
-                      id="file2"
-                      onChange={(e) => handleFile2(e.target.files[0])}
-                      style={{ display: "none" }}
-                  />
+          </div>
+          <div className={styles.cardsSection}>
+            <div className={styles.input}>
+              <label htmlFor="SCfile">
+                Service Card: <DriveFolderUploadOutlinedIcon className={styles.icon} />
+              </label>
+              <input
+                  type="file"
+                  id="SCfile"
+                  onChange={(e) => handleSCfile(e.target.files[0])}
+                  style={{ display: "none" }}
+              />
+              <TextField
+                id="outlined-name"
+                label="Title"
+                value={SCtitle}
+                onChange={(e) => setSCtitle(e.target.value)}
+                />
+              <TextField
+                id="outlined-name"
+                label="Description"
+                multiline
+                rows={4}
+                value={SCdesc}
+                onChange={(e) => setSCdesc(e.target.value)}
+              />
+              <div className={styles.value} onClick={()=>{addSC()}}>
+                Add
               </div>
-              <div className={styles.images}>
-                {files2[0]?(
-                  files2.map((file,i)=>(<motion.img key={i} whileHover={{ scale: 1.2}} src={URL.createObjectURL(file)} alt=""/>))
-                ):(
-                  slider2.map((slide,i)=>(<motion.img key={i} whileHover={{ scale: 1.2}} src={slide} alt=""/>))
-                )}
+            </div>
+            <div className={styles.inputCard}>
+            {loadingSC==true?(
+            <Progress className={styles.progress}/>
+            ):(
+              SCfile?
+            <img
+              src={
+                 URL.createObjectURL(SCfile)
+              }
+              alt=""
+            />:<></>
+            )}
+            
+            </div>
+            <div className={styles.cards}>
+                <div className={styles.images}>
+                {
+                  servicecards?.map((slide,i)=>(<img key={i} onClick={()=>handleServicecard(i)} src={slide.image} alt=""/>))
+                }
               </div>
-
-              <motion.div whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.2}} className={styles.x} onClick={()=>handleClear("slider2")}>
-                {files2[0]?(<CancelIcon className={styles.xIcon}/>):(slider2[0]?(<CancelIcon className={styles.xIcon}/>):(<></>))}
-              </motion.div>
+            </div>
+          </div>
+          <div className={styles.middle}>
+            <div className={styles.input}>
+              <TextField
+                id="outlined-name"
+                label="Talent"
+                value={talent}
+                onChange={(e) => setTalent(e.target.value)}
+                />
+                <div className={styles.value} onClick={()=>{addTalent()}}>
+                Add
+              </div>
+            </div>
+            <div className={styles.inputs}>
+            { 
+              talents?.map((value,i)=>(
+                <div key={i+value} onClick={()=>handleTalent(i)} className={styles.value}>{value}</div>
+              ))
+            }
+            </div>
+          </div>
+          <div className={styles.middle}>
+            <div className={styles.input}>
+              <TextField
+                id="outlined-name"
+                label="Crew"
+                value={crew}
+                onChange={(e) => setCrew(e.target.value)}
+                />
+                <div className={styles.value} onClick={()=>{addCrew()}}>
+                Add
+              </div>
+            </div>
+            <div className={styles.inputs}>
+            { 
+              crews?.map((value,i)=>(
+                <div key={i+value} onClick={()=>handleCrew(i)} className={styles.value}>{value}</div>
+              ))
+            }
+            </div>
+          </div>
+          <div className={styles.middle}>
+            <div className={styles.input}>
+              <TextField
+                id="outlined-name"
+                label="Provider"
+                value={provider}
+                onChange={(e) => setProvider(e.target.value)}
+                />
+                <div className={styles.value} onClick={()=>{addProvider()}}>
+                Add
+              </div>
+            </div>
+            <div className={styles.inputs}>
+            { 
+              providers?.map((value,i)=>(
+                <div key={i+value} onClick={()=>handleProvider(i)} className={styles.value}>{value}</div>
+              ))
+            }
             </div>
           </div>
           <div className={styles.down}>
             <div className={styles.form}>
+            <div className={styles.formInput}>
+            <label htmlFor="file">
+            Logo: <DriveFolderUploadOutlinedIcon className="icon" />
+          </label> 
+          <input
+            type="file"
+            id="file"
+            onChange={(e) => setLogofile(e.target.files[0])}
+            style={{ display: "none" }}
+          />
+          </div>
+            <div className={styles.formInput}>
+            { logofile || data.logo == "" ? 
+            <img
+              src={
+                logofile
+                  ? URL.createObjectURL(logofile)
+                  : data.logo
+              }
+              alt=""
+            />:<></>
+            }
+            </div>
               <div className={styles.formInput}>
-              <TextField
-                id="outlined-name"
-                label="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                color="error"
-              />
-              </div>
-              <div className={styles.formInput}>
-              <TextField
-                id="outlined-multiline-static"
-                label="Description"
-                value={description}
-                multiline
-                color="error"
-                rows={4}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-              </div>
-              <div className={styles.formInput}>
-              <TextField
-                id="outlined-name"
-                label="Location"
-                value={location}
-                color="error"
-                onChange={(e) => setLocation(e.target.value)}
-              />
-              </div>
-              <div className={styles.formInput}>
-              <TextField
-                id="outlined-name"
-                label="Phonenumber 1"
-                value={phonenumber1}
-                color="error"
-                onChange={(e) => setPhonenumber1(e.target.value)}
-              />
-              </div>
-              <div className={styles.formInput}>
-              <TextField
-                id="outlined-name"
-                label="Phonenumber 2"
-                value={phonenumber2}
-                color="error"
-                onChange={(e) => setPhonenumber2(e.target.value)}
-              />
-              </div>
-              <div className={styles.formInput}>
-              <TextField
-                id="outlined-name"
-                label="Github"
-                value={github}
-                color="error"
-                onChange={(e) => setGithub(e.target.value)}
-              />
-              </div>
-              <div className={styles.formInput}>
-              <TextField
-                id="outlined-name"
-                label="Facebook"
-                value={facebook}
-                color="error"
-                onChange={(e) => setFacebook(e.target.value)}
-              />
-              </div>
-              <div className={styles.formInput}>
-              <TextField
-                id="outlined-name"
-                label="Gmail"
-                value={gmail}
-                color="error"
-                onChange={(e) => setGmail(e.target.value)}
-              />
+                <TextField
+                  id="outlined-name"
+                  label="Facebook"
+                  value={facebook}
+                  onChange={(e) => setFacebook(e.target.value)}
+                />
               </div>
               <div className={styles.formInput}>
               <TextField
                 id="outlined-name"
                 label="Twitter"
                 value={twitter}
-                color="error"
                 onChange={(e) => setTwitter(e.target.value)}
               />
               </div>
@@ -337,7 +375,6 @@ const Statics = ({data,token}) => {
                 id="outlined-name"
                 label="Instagram"
                 value={instagram}
-                color="error"
                 onChange={(e) => setInstagram(e.target.value)}
               />
               </div>
@@ -346,25 +383,16 @@ const Statics = ({data,token}) => {
                 id="outlined-name"
                 label="Linkedin"
                 value={linkedin}
-                color="error"
                 onChange={(e) => setLinkedin(e.target.value)}
               />
               </div>
-              <div className={styles.formInput}>
-              <TextField
-                id="outlined-name"
-                label="Whatsapp"
-                value={whatsapp}
-                color="error"
-                onChange={(e) => setWhatsapp(e.target.value)}
-              />
-              </div>
-              <div className={styles.formInput}>
-              <motion.button whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.2}} onClick={handleSave}>Save</motion.button>
-              </div>
-              
-              {loading?(<Progress className={styles.progress}/>):null}
+
             </div>
+            <div className={styles.saveCon}>
+            {loading?(<Progress className={styles.progress}/>):<button onClick={handleSave}>Save</button>}
+            </div>
+             
+              <Error error={error} setError={setError}/>
           </div>
         </div>
       </div>

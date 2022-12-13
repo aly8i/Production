@@ -3,7 +3,6 @@ import Card from '../components/Card'
 import Search from '../components/Search'
 import { useState,useEffect } from 'react'
 import Link from 'next/link'
-
 export default function Jobs({jobs,options}) {
   const [searched,setSearched] = useState("");
   const [filteredJobs,setFilteredJobs] = useState(jobs);
@@ -16,6 +15,7 @@ export default function Jobs({jobs,options}) {
         return obj.title.toLowerCase().includes(searchedVal.toLowerCase());
       });
       setFilteredJobs(filter1);
+      
       const filter3 = options.filter((option)=>{return option.toLowerCase().includes(searchedVal.toLowerCase())})
       setFilteredOptions(filter3);
   };
@@ -38,9 +38,6 @@ export default function Jobs({jobs,options}) {
         <div className={styles.grid}>
           <Card jobs={filteredJobs}/>
         </div>
-        <Link href={`/jobs/add`} passHref>
-            <button className={`${styles.contentButton} ${styles.button} ${styles.statusButton}`}>Add</button>
-        </Link>
       </main>
     </div>
   )

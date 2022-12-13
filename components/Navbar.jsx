@@ -141,7 +141,6 @@ const Navbar = ({nav}) => {
               (
                 <div className={styles.imageCon}>
                   <Image className={`${styles.profileImg} ${styles.img}`} onClick={()=>toggleProfile()} alt="" width={25} height={25}
-                  // className={`${styles.profileImg} ${styles.img}`}
                   src={user.image}/>
                 </div>
               )
@@ -157,7 +156,7 @@ const Navbar = ({nav}) => {
         </div>
         ):(<></>)}
         {showProfile=="true"?(
-            <Profile toggleProfile={toggleProfile}/>
+            <Profile toggleProfile={toggleProfile}/>      
         ):(<></>)}
         {showLogin=="true"?(
             <SignIn/>

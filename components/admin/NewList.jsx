@@ -5,7 +5,9 @@ import NewDatatable from "./NewDatatable"
 const NewList = ({news,token}) => {
   return (
     <div className={styles.list}>
-      <Sidebar/>
+      <div className={styles.side}>
+        <Sidebar/>
+      </div>
       <div className={styles.listContainer}>
         <NewDatatable news={news} token={token}/>
       </div>

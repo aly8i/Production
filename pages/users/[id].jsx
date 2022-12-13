@@ -7,22 +7,24 @@ const SingleUser = dynamic(
   {ssr: false}
 )
 
-const Page = ({ user }) => {
+const User = ({ user }) => {
   return (
-      <SingleUser user={user}/>
+    <SingleUser user={user}/>
   );
 };
 
 export const getServerSideProps = async (context) => {
-  var accessToken = context.req.cookies.accessToken || "";
-  var res1={};
+  var accessToken= "";
+  var res ={};
+
   const server = axios.create({
-    baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}/`,    
+    baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
     headers: {'Content-Type':'application/json'},
     withCredentials: true
   });
   server.interceptors.request.use(
     async function (config) {
+      accessToken =  context.req.cookies.accessToken || Cookies.get("accessToken");
       if (accessToken) {
         config.headers.authorization = accessToken;
       }
@@ -32,25 +34,27 @@ export const getServerSideProps = async (context) => {
       return Promise.reject(error);
     },
   );
+  
   try{
     const res11 = await server.get(`api/users/${context.params.id}`);
-    res1=res11;
-}catch(err){
+    res=res11
+  }catch(err){
   if(err.response.status>=300){
+      return {
+        redirect: {
+          permanent: false,
+          destination: "/"
+        },
+      };
+    }
+  } 
+
     return {
-      redirect: {
-        permanent: false,
-        destination: "/"
-      },
-    };
-  }
-}
-  return {
-    props: {
-      user: res1.data
+      props: {
+        user: res.data,
     },
-  };
+  } 
 };
 
 
-export default Page;
+export default User;

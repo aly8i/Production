@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
+import User from "./User";
 const EquipmentSchema = new mongoose.Schema(
   {
     userid: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
+      ref: 'User',
       required: true,
       maxlength: 60,
     },
@@ -27,17 +28,17 @@ const EquipmentSchema = new mongoose.Schema(
       maxlength: 50,
     },
     price:{
-      type: Number,
+      type: String,
       default: null,
       maxlength: 300,
     },
-    for:{
+    forr:{
       type: String,
-      default: null,
+      default: "sell or rent",
       maxlength: 50,
     },
     rentduration:{
-      type: Number,
+      type: String,
       default: null,
       maxlength: 50,
     },

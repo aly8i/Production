@@ -6,7 +6,7 @@ const NewSchema = new mongoose.Schema(
         maxlength: 60,
     },
     image: {
-        type: [String],
+        type: String,
         default: null,
         maxlength: 8000,
     },

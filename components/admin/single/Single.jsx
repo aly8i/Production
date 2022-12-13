@@ -1,15 +1,16 @@
 import styles from "../../../styles/adminSingle.module.scss";
-// import Chart from "../../../components/chart/Chart";
-// import List from "../../../components/table/Table";
+import Widget from "../../Widget";
+import EquipmentsDatatable from "../EquipmentsDatatable";
 import Link from "next/link";
+import JobsDatatable from "../JobsDatatable";
 
-const Single = ({ user , type }) => {
+const Single = ({ user ,jobs ,equipments , token , type }) => {
   return (
     <div className={styles.single}>
       <div className={styles.singleContainer}>
-        <div className={styles.top}>
-          <div className={styles.left}>
-            <Link href={type=="admin"?`/admin/users/edit/${user._id}`:`/user/edit/${user._id}`} passHref>
+          <div className={styles.top}>
+            <div className={styles.userinfo}>
+            <Link href={type=="admin"?`/users/profile/edit/${user._id}`:`/users/profile/edit/${user._id}`} passHref>
               <div className={styles.editButton}>Edit</div>
             </Link>
             <h1 className={styles.title}>Information</h1>
@@ -29,33 +30,39 @@ const Single = ({ user , type }) => {
                   <span className={styles.itemKey}>Phone:</span>
                   <span className={styles.itemValue}>{user.phonenumber?user.phonenumber:"NAN"}</span>
                 </div>
-                {/* <div className={styles.detailItem}>
-                  <span className={styles.itemKey}>Address:</span>
+                <div className={styles.detailItem}>
+                  <span className={styles.itemKey}>Country:</span>
                   <span className={styles.itemValue}>
-                    {user.address?user.address:"NAN"}
+                    {user.address?.country||"NAN"}
                   </span>
-                </div> */}
+                </div>
                 <div className={styles.detailItem}>
                   <span className={styles.itemKey}>Role:</span>
                   <span className={styles.itemValue}>{user.role}</span>
                 </div>
               </div>
             </div>
+
           </div>
-            {/* {user.role=="user"?(
-                <div className={styles.right}>
-                  <Chart aspect={3 / 1} title="User Spending ( Last 6 Months)" type="user"orders={orders}/>
-                </div>)
-            :(
-                <div className={styles.right}>
-                  <Chart aspect={3 / 1} title="Delivered Orders ( Last 6 Months)" type="delivery" orders={orders}/>
-                </div>
-            )} */}
+          <div className={styles.widgets}>
+              <Widget type="job" amount={jobs.length}/>
+              <Widget type="equipment" amount={equipments.length}/>
+          </div>
         </div>
-        {/* <div className={styles.bottom}> */}
-          {/* <h1 className={styles.title}>Last Transactions</h1> */}
-          {/* <List orders={orders}/> */}
-        {/* </div> */}
+        <div id="jobs" className={styles.bottom}>
+            <div className={styles.table}>
+            <h1 className={styles.title}>Jobs</h1>
+              <JobsDatatable className={styles.t} jobs={jobs} token={token} />
+            </div>
+
+        </div>
+        <div id="equipments" className={styles.bottom}>
+            <div className={styles.table}>
+            <h1 className={styles.title}>Equipments</h1>
+              <EquipmentsDatatable className={styles.t} equipments={equipments} token={token} />
+            </div>
+        </div>
+       
       </div>
     </div>
   );

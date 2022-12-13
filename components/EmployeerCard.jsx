@@ -2,13 +2,11 @@ import React from 'react'
 import styles from '../styles/Card.module.scss'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useEffect,useState } from 'react'
-
 const EmployeerCard = ({users}) => {
   const shorten =(str) =>{
     var result;
-    if(str.length>=60)
-      result = str.substring(0,60)+"...";
+    if(str.length>=89)
+      result = str.substring(0,86)+"...";
     else
       result = str
     return result
@@ -16,7 +14,7 @@ const EmployeerCard = ({users}) => {
   return (
     users.map((user)=>(
       <Link key={user._id} href={`/users/${user._id}`} passHref>
-        <div className={styles.card}>
+        <div className={`${styles.card} ${styles.user}`}>
           <h2>{user.fullname}</h2>
             <Image src={user.image} alt="" width={100} height={100} className={styles.profileImg}/>
           <div className={styles.sectionD}>
@@ -39,8 +37,10 @@ const EmployeerCard = ({users}) => {
             <p className={styles.col1}>Field of Study</p>
             <p className={styles.col2}>{user.education?.fieldofstudy||"NAN"}</p>
           </div>
-            <p className={styles.col1}>About</p>
-            <p className={styles.col2}>{user.about||"NAN"}</p>
+          <div className={styles.section}>
+            <p className={styles.col11}>About</p>
+            <p className={styles.col22}>{user.about?shorten(user.about):"NAN"}</p>
+          </div>
         </div>
       </Link>
     ))

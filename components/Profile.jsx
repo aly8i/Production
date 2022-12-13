@@ -26,7 +26,7 @@ const Profile = ({toggleProfile}) => {
                 <Image className={`${styles.profileImg} ${styles.img}`} width={180} height={180} src={user.image} alt=""/>
                 <div className={styles.section}>
                     <div onClick={()=>toggleProfile()}>
-                        <Link href={`/users/edit/${user.id}`} >
+                        <Link href={`/users/profile/${user.id}`} >
                             <p className={styles.name}>{user.username}</p>
                         </Link>
                     </div>

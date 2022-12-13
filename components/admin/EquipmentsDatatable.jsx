@@ -5,13 +5,7 @@ import axios from "axios";
 import { useState,useEffect } from "react";
 import Link from "next/link";
 import Search from "../Search";
-import { createTheme,ThemeProvider } from "@mui/material";
 const EquipmentsDatatable = ({equipments,token}) => {
-  const darkTheme = createTheme({
-    palette: {
-      mode: 'dark',
-    },
-  });
   const originalEquipments = equipments;
   const [rows, setRows] = useState(originalEquipments);
   const [searched, setSearched] = useState("");
@@ -64,7 +58,7 @@ const EquipmentsDatatable = ({equipments,token}) => {
       renderCell: (params) => {
         return (
           <div className={styles.cellAction}>
-            <Link href={`/admin/equipments/${params.row._id}`} passHref style={{ textDecoration: "none" }}>
+            <Link href={`/equipments/edit/${params.row._id}`} passHref style={{ textDecoration: "none" }}>
               <div className={styles.viewButton}>View</div>
             </Link>
             <div
@@ -84,11 +78,10 @@ const EquipmentsDatatable = ({equipments,token}) => {
           <div className={styles.search}>
             <Search setSearched={setSearched} searched={searched}/>
           </div>
-          <Link href="/admin/equipments/new" passHref >
+          <Link href="/equipments/add" passHref >
             <span className={styles.link}>Add New</span>
           </Link>
         </div>
-        <ThemeProvider theme={darkTheme}>
           <DataGrid
             className={styles.datagrid}
             getRowId={(row) => row._id}
@@ -98,7 +91,6 @@ const EquipmentsDatatable = ({equipments,token}) => {
             rowsPerPageOptions={[9]}
             checkboxSelection={false}
           />
-        </ThemeProvider>
       </div>
   );
 };

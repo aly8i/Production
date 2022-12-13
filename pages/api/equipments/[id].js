@@ -9,12 +9,16 @@ export default async function handler(req, res) {
   await dbConnect();
 
   if (method === "GET") {
-    try {
-      const equipment = await Equipment.findById(id);
-      res.status(200).json(equipment);
-    } catch (err) {
-      res.status(500).json(err);
-    }
+      try {
+        Equipment.findById(id)
+        .populate('userid')
+        .exec()
+        .then(docs=>{
+            res.status(200).json(docs);
+        })
+      } catch (err) {
+        res.status(500).json(err);
+      }
   }
 
   if (method === "PUT") {

@@ -9,7 +9,7 @@ const SingleEquipment = dynamic(
 
 const Page = ({ singleEq }) => {
   return (
-      <SingleEquipment singleEq={singleEq}/>
+    <SingleEquipment singleEq={singleEq}/>
   );
 };
 

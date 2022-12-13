@@ -1,7 +1,12 @@
 .new {
     width: 100%;
     display: flex;
-  
+    .side{
+      @media only screen  
+      and (max-width: 706px){
+        display: none;
+      }
+    }
     .newContainer {
       flex: 6;
   
@@ -21,16 +26,23 @@
   
         .up {
           flex: 1;
-        //   text-align: center;
         display: flex;
         flex-direction: column;
           margin-top: 5%;
           .slider{
             display: flex;
+            padding: 30px 60px;
+            min-height: 290px;
             flex-direction: row;
             align-items: center;
             justify-content: center;
             margin-bottom: 15px;
+            @media only screen  
+            and (max-width: 557px){
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+            }
             .text{
                 flex:1;
                 .icon{
@@ -41,12 +53,25 @@
                 flex:9;
                 text-align: center;
                 justify-content: center;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
                 gap: 20px;
                 img {
                   width: 200px;
                   height: 200px;
                   border-radius: 10px;
                   object-fit: cover;
+                  margin:15px 15px 15px 15px;
+                }
+                .loading {
+                  display: flex;
+                  flex-direction: row;
+                  align-items: center;
+                  justify-content: center;
+                  width: 200px;
+                  height: 200px;
+                  border-radius: 10px;
                   margin:15px 15px 15px 15px;
                 }
             }
@@ -60,6 +85,171 @@
           }
           
         }
+        .cardsSection{
+          display: flex;
+          flex-direction: row;
+          gap:30px;
+          padding: 30px 60px;
+          min-height: 300px;
+          @media only screen  
+          and (max-width: 557px){
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          }
+          .input{
+            flex:2;
+            display: flex;
+            gap:15px;
+            flex-direction: column;
+            .value{
+              width: 110px;
+              text-align: center;
+              background-color: transparent;
+              border: 1px solid grey;
+              padding: 8px 26px;
+              color: #fff;
+              border-radius: 20px;
+              cursor: pointer;
+              transition: 0.2s;
+              white-space: nowrap;
+              font-size: 15px;
+              margin-top: 15px;
+              padding: 6px 24px;
+              margin-right: 5px;
+            }        
+            .value:hover{
+              border-color: white;
+            }
+          }
+          .inputCard{
+            flex:3;
+            flex-wrap: wrap;
+            img {
+              width: 200px;
+              height: 200px;
+              padding-bottom: 10px;
+              border-radius: 10px;
+              object-fit: cover;
+            }
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+          }
+          .cards{
+            flex:6;
+            flex-wrap: wrap;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            .images{
+              text-align: center;
+              justify-content: center;
+              gap: 20px;
+              img {
+                scale:0.6;
+                width: 200px;
+                height: 200px;
+                border-radius: 10px;
+                object-fit: cover;
+                margin:15px 15px 15px 15px;
+              }
+          }
+          }
+        }
+          padding: 30px 60px;
+          .saveCon{
+            width:100%; 
+            margin-top: 100px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            button {
+              width:150px;
+              text-align: center;
+              align-self: center;
+              justify-self: center;
+              background-color: transparent;
+              border: 1px solid grey;
+              padding: 8px 26px;
+              color: #fff;
+              border-radius: 20px;
+              cursor: pointer;
+              transition: 0.2s;
+              white-space: nowrap;
+              font-size: 15px;
+              margin-top: 15px;
+              padding: 6px 24px;
+              margin-right: 5px;
+          }
+          button:hover{
+            border-color: white;
+          }
+          }
+        .middle{
+          display: flex;
+          flex-direction: row;
+          padding: 30px 60px;
+          @media only screen  
+          and (max-width: 557px){
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          }
+          .input{
+            flex:1;
+            display: flex;
+            flex-direction: column;
+            .value{
+              width:100%;
+              text-align: center;
+              background-color: transparent;
+              border: 1px solid grey;
+              padding: 8px 26px;
+              color: #fff;
+              border-radius: 20px;
+              cursor: pointer;
+              transition: 0.2s;
+              white-space: nowrap;
+              font-size: 15px;
+              margin-top: 15px;
+              padding: 6px 24px;
+              margin-right: 5px;
+            }        
+            .value:hover{
+              border-color: white;
+            }
+          }
+          .inputs{
+            flex:8;
+            flex-wrap: wrap;
+            flex-grow: gr;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            .value{
+                background-color: transparent;
+                border: 1px solid grey;
+                padding: 8px 26px;
+                color: #fff;
+                border-radius: 20px;
+                cursor: pointer;
+                transition: 0.2s;
+                white-space: nowrap;
+                font-size: 15px;
+                margin-top: 15px;
+                padding: 6px 24px;
+                margin-right: 5px;
+            }        
+            .value:hover{
+              border-color: white;
+            }
+          }
+        }
   
         .down {
           flex: 3;
@@ -69,6 +259,12 @@
             flex-wrap: wrap;
             gap: 30px;
             justify-content: space-around;
+              @media only screen  
+              and (max-width: 557px){
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+              }
             .sFormInput{
               width: 40%;
               display: flex;
@@ -88,6 +284,13 @@
               width: 40%;
               display: flex;
               gap:2%;
+              img {
+                width: 200px;
+                height: 200px;
+                padding-bottom: 10px;
+                border-radius: 10px;
+                object-fit: cover;
+              }
               .extraItems {
                 margin: 10px 0px;
                 display: flex;
@@ -120,16 +323,27 @@
                 }
               }
             }
+
             button {
-              width: 150px;
-              padding: 10px;
-              border: none;
-              background-color: red;
-              color: white;
-              font-weight: bold;
-              border-radius:8px;
-              cursor: pointer;
-              margin-top: 10px;
+                width:50%;
+                text-align: center;
+                align-self: center;
+                justify-self: center;
+                background-color: transparent;
+                border: 1px solid grey;
+                padding: 8px 26px;
+                color: #fff;
+                border-radius: 20px;
+                cursor: pointer;
+                transition: 0.2s;
+                white-space: nowrap;
+                font-size: 15px;
+                margin-top: 15px;
+                padding: 6px 24px;
+                margin-right: 5px;
+            }
+            button:hover{
+              border-color: white;
             }
           }
         }

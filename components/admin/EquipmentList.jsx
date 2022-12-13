@@ -5,7 +5,9 @@ import EquipmentsDatatable from "./EquipmentsDatatable"
 const EquipmentList = ({equipments,token}) => {
   return (
     <div className={styles.list}>
-      <Sidebar/>
+      <div className={styles.side}>
+        <Sidebar/>
+      </div>
       <div className={styles.listContainer}>
         <EquipmentsDatatable token={token} equipments={equipments}/>
       </div>

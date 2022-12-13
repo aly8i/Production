@@ -69,7 +69,7 @@ const UserDatatable = ({users,token}) => {
       renderCell: (params) => {
         return (
           <div className={styles.cellAction}>
-            <Link href={`/admin/users/${params.row._id}`} passHref style={{ textDecoration: "none" }}>
+            <Link href={`/users/profile/${params.row._id}`} passHref style={{ textDecoration: "none" }}>
               <div className={styles.viewButton}>View</div>
             </Link>
             <div
@@ -89,9 +89,6 @@ const UserDatatable = ({users,token}) => {
           <div className={styles.search}>
             <Search setSearched={setSearched} searched={searched}/>
           </div>
-          <Link href="/admin/users/new" passHref >
-            <span className={styles.link}>Add New</span>
-          </Link>
         </div>
         <ThemeProvider theme={darkTheme}>
           <DataGrid

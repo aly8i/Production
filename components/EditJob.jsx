@@ -14,6 +14,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import img from "../public/Camera.jpg"
+import Error from "./Error";
 const AddJob = ({crews,talents,providers,job,token}) => {
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState(job.title||"");
@@ -32,7 +33,7 @@ const AddJob = ({crews,talents,providers,job,token}) => {
     const hours = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24"];
     const router = useRouter();
     const user = useSelector((state) => state.user);
-
+    const [error,setError]= useState("");
     const server = axios.create({
       baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
       headers: {'Content-Type':'application/json'},
@@ -49,6 +50,35 @@ const AddJob = ({crews,talents,providers,job,token}) => {
         return Promise.reject(error);
       },
     );
+    const validate = ()=>{
+      if(title==""){
+        setError("Please add a title.")
+        return false;
+      }else if(title.length>20){
+        setError("Please shorten your title.")
+        return false;
+      }else if(description==""){
+        setError("Please add a description.")
+        return false;
+      }else if(category==""){
+        setError("Please add a category.")
+        return false;
+      }else if(department==""){
+          setError("Please add a department.")
+          return false;
+      }else if(employmentType==""){
+        setError("Please add an employment type .")
+        return false;
+      }else if(speciality==""){
+            setError("Please add a speciality.")
+            return false;
+      }else if(speciality.length>20){
+        setError("Please shorten your speciality.")
+        return false;
+      }else{
+        return true;
+      }
+    }
     const renderCategory = (dep) => {
       if(dep=="Talent")
       {
@@ -165,6 +195,8 @@ const AddJob = ({crews,talents,providers,job,token}) => {
         return res1;
     }
     const handleSave = async()=>{
+      const validated = validate();
+      if(!validated) return;
         setLoading(true);
         var img="";
         if(file!=null){
@@ -357,6 +389,7 @@ const AddJob = ({crews,talents,providers,job,token}) => {
               <div className={styles.saveSection}>
               {loading?(<Progress className={styles.progress}/>):<button className={styles.save} onClick={handleSave}>Save</button>}
               </div>
+              <Error error={error} setError={setError}/>
             </div>
           </div>
         </div>

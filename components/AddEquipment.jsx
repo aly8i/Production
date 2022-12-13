@@ -14,6 +14,7 @@ import Progress from "./Progress";
 import { useSelector } from 'react-redux';
 import Image from "next/image";
 import CancelIcon from '@mui/icons-material/Cancel';
+import Error from "./Error";
 const AddEquipment = () => {
     const user = useSelector((state) => state.user);
     const [name, setName] = useState("");
@@ -28,6 +29,8 @@ const AddEquipment = () => {
     const [loadingSR,setLoadingSR]= useState(false);
     const [tag, setTag] = useState("");
     const router = useRouter();
+    const [error, setError] = useState("");
+
     
     const handleFile1 = async (val) => {
       setLoadingSR(true);
@@ -68,6 +71,8 @@ const AddEquipment = () => {
     };
 
     const handleSave = async()=>{
+      const validated = validate();
+      if(!validated) return;
         setLoading(true);
         const payload = {userid:user.id,name,images,tags,category,price,forr,rentduration,warranty};
         try{
@@ -79,6 +84,36 @@ const AddEquipment = () => {
         }  
             
     }
+    const validate = ()=>{
+      if(name==""){
+        setError("Please add a name.")
+        return false;
+      }else if(name.length>20){
+        setError("Please shorten your name.")
+        return false;
+      }else if(images.length<1){
+        setError("Please add some images.")
+        return false;
+      }else if(category==""){
+        setError("Please add a category.")
+        return false;
+      }else if(category.length>20){
+        setError("Please shorten your category.")
+        return false;
+      }else if(price==""){
+          setError("Please add a price.")
+          return false;
+      }else if(price.length>8){
+        setError("Please enter a valide price.")
+        return false;
+      }else if(forr==""){
+            setError("Please add for what.")
+            return false;
+      }else{
+        return true;
+      }
+    }
+
 
     const handleImage = (index) => {
       const removedSlide = images.splice(index,1);
@@ -231,6 +266,7 @@ const AddEquipment = () => {
               <div className={styles.saveSection}>
               {loading?(<Progress className={styles.progress}/>):<button className={styles.save} onClick={handleSave}>Save</button>}
               </div>
+              <Error setError={setError} error={error}/>
             </div>
           </div>
         </div>

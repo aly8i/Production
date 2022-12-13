@@ -30,7 +30,7 @@ const SingleEquipment = ({user}) => {
                 <p className={styles.sectionHeading}>Address :</p>
               </div>
               <div className={styles.contentWrapper}>
-                <p className={styles.sectionContent}>{`${user.address?.city}, ${user.address?.country}`||"NAN"}</p>
+                <p className={styles.sectionContent}>{user.address?.city&&user.address?.country?`${user.address?.city}, ${user.address?.country}`:"NAN"}</p>
               </div>
             </div>
             <div className={styles.section}>

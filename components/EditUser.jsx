@@ -16,13 +16,14 @@ import Image from "next/image";
 import Autocomplete from '@mui/material/Autocomplete';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useEffect } from "react";
+import Error from "./Error";
 const EditUser = ({user,token,crews,providers,talents}) => {
     const [file, setFile] = useState(null);
     const [country, setCountry] = useState(user.address?.country);
     const [city, setCity] = useState(user.address?.city || "");
     const [lat, seLat] = useState(user.location?.lat);
     const [long, setLong] = useState(user.location?.long);
-    const [url, setUrl] = useState(user.url);
+    const [url, setUrl] = useState(user.url||"");
     const [department, setDepartment] = useState(user.department);
     const [speciality, setSpeciality] = useState(user.speciality);
     const [yearsofexperience, setYearsofexperience] = useState(user.yearsofexperience);
@@ -47,6 +48,7 @@ const EditUser = ({user,token,crews,providers,talents}) => {
     const [loading,setLoading] = useState (false);
     const [loadingSR,setLoadingSR]= useState(false);
     const router = useRouter();
+    const [error,setError]= useState("");
     const [options,setOptions] = useState ([]);
     useEffect(()=>{
       if(department=="Talents"){
@@ -120,24 +122,47 @@ const EditUser = ({user,token,crews,providers,talents}) => {
       const removedLanguage = languages.splice(index,1);
       setLanguages(languages.filter((option) =>(option!==removedLanguage[0])));
     };
-
+    const validate = ()=>{
+      if(city?.length>15){
+        setError("Please enter a valide city.")
+        return false;
+      }else if(username.length>20){
+        setError("Please shorten your username.")
+        return false;
+      }else if(graduationyear?.length>5){
+        setError("Please enter a valid year.")
+        return false;
+      }else if(fullname.length>20){
+        setError("Please shorten your fullname.")
+        return false;
+      }else if(email?.length>40){
+        setError("Please enter a valid email.")
+        return false;
+      }else if(phonenumber?.length>30){
+        setError("Please enter a valid phone number.")
+        return false;
+      }else{
+        return true;
+      }
+    }
     const handleSave = async()=>{
-        setLoading(true);
-        var img="";
-        if(file!=null){
-            img = await uploadFiles(file);
-        }else{
-            img = user.image;
-        }
-        const payload = {username,fullname,image:img,phonenumber,address:{country,city},email,url,view,about,department,speciality,yearsofexperience,interests,links:[{provider:"linkedin",link:linkedin},{provider:"imdb",link:imdb},{provider:"vimeo",link:vimeo}],education:{educationlevel,fieldofstudy,graduationyear},languages,showreel};
-        try{
-          postUser(payload);
-          setLoading(false);
-          router.push("/");
-        }catch(err){
-          console.log(err);
-        }  
-            
+      const validated = validate();
+      if(!validated) return;
+      setLoading(true);
+      var img="";
+      if(file!=null){
+          img = await uploadFiles(file);
+      }else{
+          img = user.image;
+      }
+      const payload = {username,fullname,image:img,phonenumber,address:{country,city},email,url,view,about,department,speciality,yearsofexperience,interests,links:[{provider:"linkedin",link:linkedin},{provider:"imdb",link:imdb},{provider:"vimeo",link:vimeo}],education:{educationlevel,fieldofstudy,graduationyear},languages,showreel};
+      try{
+        postUser(payload);
+        setLoading(false);
+        router.push("/");
+      }catch(err){
+        console.log(err);
+      }  
     }
 
     const handleShowreel = (index) => {
@@ -475,6 +500,7 @@ const EditUser = ({user,token,crews,providers,talents}) => {
               <div className={styles.saveSection}>
               {loading?(<Progress className={styles.progress}/>):<button className={styles.save} onClick={handleSave}>Save</button>}
               </div>
+              <Error error={error} setError={setError}/>
             </div>
           </div>
         </div>

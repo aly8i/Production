@@ -9,6 +9,7 @@ import axios from 'axios';
 import {getDownloadURL, ref, uploadBytesResumable} from "@firebase/storage";
 import Progress from "./Progress";
 import img from "../public/Camera.jpg"
+import Error from "./Error";
 const EditNew = ({obj,token}) => {
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState(obj.title||"");
@@ -20,6 +21,9 @@ const EditNew = ({obj,token}) => {
     const [sectionContent, setSectionContent] = useState("");
     const [loading,setLoading] = useState (false);
     const router = useRouter();
+    const [error, setError] = useState("");
+
+
     const server = axios.create({
       baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
       headers: {'Content-Type':'application/json'},
@@ -46,6 +50,30 @@ const EditNew = ({obj,token}) => {
       setArticle((prev) => [...prev, {sectionTitle,sectionContent}]);
       setSectionContent("");
       setSectionTitle("");
+    }
+    
+    const validate = ()=>{
+      if(file==null&&obj.image==null){
+        setError("Please add an image.")
+        return false;
+      }else if(title==""){
+        setError("Please add a title")
+        return false;
+      }else if(title.length>20){
+        setError("Please shorten your title")
+        return false;
+      }else if(description==""){
+        setError("Please add a description.")
+        return false;
+      }else if(tags.length<1){
+          setError("Please add some tags.")
+          return false;
+      }else if(article.length<1){
+            setError("Please add the article's sections.")
+            return false;
+      }else{
+        return true;
+      }
     }
 
     const handleTag = (index) => {
@@ -93,12 +121,14 @@ const EditNew = ({obj,token}) => {
         return res1;
     }
     const handleSave = async()=>{
+      const validated = validate();
+      if(!validated) return;
         setLoading(true);
         var img="";
         if(file!=null){
             img = await uploadFiles(file);
         }else{
-          img = article.image
+          img = obj.image
         }
         const payload = {title,image:img,description,tags,article};
         try{
@@ -235,6 +265,7 @@ const EditNew = ({obj,token}) => {
               <div className={styles.saveSection}>
               {loading?(<Progress className={styles.progress}/>):<button className={styles.save} onClick={handleSave}>Save</button>}
               </div>
+              <Error setError={setError} error={error}/>
             </div>
           </div>
         </div>

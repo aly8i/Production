@@ -55,7 +55,10 @@ const Statics = ({data,token}) => {
 
     const handleSave = async()=>{
       const validated = validateCube();
-      if(!validated) return;
+      const validated2 = validateServiceCards();
+      const validated3 = validateCategories();
+      const validated4 = validateLinks();
+      if(!validated||validated2||!validated3||!validated4) return;
       setLoading(true);
       var cs1 = true;
       var arr = [];
@@ -115,6 +118,36 @@ const Statics = ({data,token}) => {
         }else{
           setError("Cube Slider must be 6 Pictures in total.")
           return false;
+        }
+      }
+      const validateServiceCards = ()=>{
+        if(servicecards.length>=1) return true
+        else{
+          setError("Please add some Service Cards.")
+          return false;
+        }
+      }
+      const validateCategories = ()=>{
+        if(providers.length<1){
+          setError("Please add some Providers.")
+          return false;
+        }else if(crews.length<1){
+          setError("Please add some Crews.")
+          return false;
+        }else if(talents.length<1){
+          setError("Please add some Talents.")
+          return false;
+        }else{
+          return true;
+        }
+        
+      }
+      const validateLinks = ()=>{
+        if(facebook==""||linkedin==""||twitter==""||instagram==""){
+          setError("Please all your social links.")
+          return false;
+        }else{
+          return true;
         }
       }
       const handleClear = ()=>{

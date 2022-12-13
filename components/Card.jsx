@@ -27,7 +27,7 @@ const shorten =(str) =>{
           </div>
           <div className={styles.sectionD}>
             <p className={styles.col1}>Salary Duration</p>
-            <p className={styles.col2}>{`${job.salaryduration.value} ${job.salaryduration.unit}s`}</p>
+            <p className={styles.col2}>{`${job.salaryduration.value} ${job.salaryduration.unit}`}</p>
           </div>
           <div className={styles.sectionD}>
             <p className={styles.col1}>Work Days</p>

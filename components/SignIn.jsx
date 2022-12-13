@@ -20,7 +20,7 @@ const SignIn = () => {
                         <LinkedInIcon className={styles.icon}/>
                     </div>
                     <div className={styles.row}>
-                        <FacebookIcon className={`${styles.icon} ${styles.top}`}/>
+                        <FacebookIcon onClick={()=>{handleSignIn('facebook')}} className={`${styles.icon} ${styles.top}`}/>
                         <AppleIcon className={styles.icon}/>
                     </div>
                 </div>

@@ -17,7 +17,7 @@ const SignIn = () => {
                 <div className={styles.socialLinks}>
                     <div className={styles.row}>
                         <GoogleIcon className={`${styles.icon} ${styles.top}`} onClick={()=>{handleSignIn('google')}}/>
-                        <LinkedInIcon className={styles.icon}/>
+                        <LinkedInIcon onClick={()=>{handleSignIn('linkedin')}} className={styles.icon}/>
                     </div>
                     <div className={styles.row}>
                         <FacebookIcon onClick={()=>{handleSignIn('facebook')}} className={`${styles.icon} ${styles.top}`}/>

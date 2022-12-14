@@ -27,7 +27,7 @@ function MyApp({ Component,instagram,twitter,facebook,linkedin,logo, pageProps: 
 }
 
 export default MyApp
-
+//
 export const getServerSideProps = async () => {
   const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/statics`);
     return {

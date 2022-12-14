@@ -13,7 +13,7 @@ export const getServerSideProps = async () => {
   const res1 = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/equipments`);
   return {
     props: {
-      equipments: res1.data
+      equipments: res1.data.reverse()
     },
   };
 }

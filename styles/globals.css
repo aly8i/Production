@@ -95,7 +95,7 @@ a {
 			display: block;
 			width: inherit;
 			height: inherit;
-			background-color: black; 
+			/* background-color: black;  */
 			position: absolute;
 			-webkit-transform-style: preserve-3d;
 			transform-style: preserve-3d;
@@ -127,19 +127,19 @@ a {
 		  -webkit-transform: rotateX(90deg);
 		          transform: rotateX(90deg);
 		} 
-
+			/* fish */
 			.slide.y:after {
 				content: '';
 				background-image:  var(--image3);
 				-webkit-transform: translateZ(100px) scale(-1);
-				        transform: translateZ(100px) scale(-1);
+				transform: translateZ(100px) scale(-1);
 			}
-
+			/* jebne */
 			.slide.y:before {
 				content: '';
 				background-image:  var(--image4);
 				-webkit-transform: translateZ(-100px);
-				        transform: translateZ(-100px);
+				transform: translateZ(-100px);
 			}
 
 		.slide.z {
@@ -167,27 +167,25 @@ a {
 			animation: rotate 15s infinite cubic-bezier(1, -0.75, 0.5, 1.2);
 		}
 
-		@-webkit-keyframes rotate {
-			0%, 10% {-webkit-transform: rotateY(0deg) rotateX(0deg);transform: rotateY(0deg) rotateX(0deg);}
-			15%, 20% {-webkit-transform: rotateY(180deg) rotateX(0deg);transform: rotateY(180deg) rotateX(0deg);}
-			25%, 35% {-webkit-transform: rotateY(180deg) rotateX(270deg);transform: rotateY(180deg) rotateX(270deg);}
-			40%, 50% {-webkit-transform: rotateY(180deg) rotateX(90deg);transform: rotateY(180deg) rotateX(90deg);}
-			55%, 65% {-webkit-transform: rotateY(-90deg) rotateX(90deg);transform: rotateY(-90deg) rotateX(90deg);}
-			70%, 80% {-webkit-transform: rotateY(90deg) rotateX(90deg);transform: rotateY(90deg) rotateX(90deg);}
-			90%, 95% {-webkit-transform: rotateY(0deg) rotateX(90deg);transform: rotateY(0deg) rotateX(90deg);}
-		}
-
 		@keyframes rotate {
-			0%, 10% {-webkit-transform: rotateY(0deg) rotateX(0deg);transform: rotateY(0deg) rotateX(0deg);}
-			15%, 20% {-webkit-transform: rotateY(180deg) rotateX(0deg);transform: rotateY(180deg) rotateX(0deg);}
-			25%, 35% {-webkit-transform: rotateY(180deg) rotateX(270deg);transform: rotateY(180deg) rotateX(270deg);}
-			40%, 50% {-webkit-transform: rotateY(180deg) rotateX(90deg);transform: rotateY(180deg) rotateX(90deg);}
-			55%, 65% {-webkit-transform: rotateY(-90deg) rotateX(90deg);transform: rotateY(-90deg) rotateX(90deg);}
-			70%, 80% {-webkit-transform: rotateY(90deg) rotateX(90deg);transform: rotateY(90deg) rotateX(90deg);}
-			90%, 95% {-webkit-transform: rotateY(0deg) rotateX(90deg);transform: rotateY(0deg) rotateX(90deg);}
+				0%, 8% {-webkit-transform: rotateY(0deg) rotateX(0deg);transform: rotateY(0deg) rotateX(0deg);}
+				16%, 24% {-webkit-transform: rotateY(180deg) rotateX(0deg);transform: rotateY(180deg) rotateX(0deg);}
+				32%, 40% {-webkit-transform: rotateY(180deg) rotateX(270deg);transform: rotateY(180deg) rotateX(270deg);}
+				48%, 60% {-webkit-transform: rotateY(180deg) rotateX(90deg);transform: rotateY(180deg) rotateX(90deg);}
+				71%, 78% {-webkit-transform: rotateY(90deg) rotateX(90deg);transform: rotateY(90deg) rotateX(90deg);}
+				85%, 92% {-webkit-transform: rotateY(-90deg) rotateX(90deg);transform: rotateY(270deg) rotateX(90deg);}
+				/* 85%, 92% {-webkit-transform: rotateY(90deg) rotateX(90deg);transform: rotateY(90deg) rotateX(90deg);} */
+			}
+		
+		@-webkit-keyframes rotate {
+			0%, 8% {-webkit-transform: rotateY(0deg) rotateX(0deg);transform: rotateY(0deg) rotateX(0deg);}
+			16%, 24% {-webkit-transform: rotateY(180deg) rotateX(0deg);transform: rotateY(180deg) rotateX(0deg);}
+			32%, 40% {-webkit-transform: rotateY(180deg) rotateX(270deg);transform: rotateY(180deg) rotateX(270deg);}
+			48%, 60% {-webkit-transform: rotateY(180deg) rotateX(90deg);transform: rotateY(180deg) rotateX(90deg);}
+			71%, 78% {-webkit-transform: rotateY(90deg) rotateX(90deg);transform: rotateY(90deg) rotateX(90deg);}
+			85%, 92% {-webkit-transform: rotateY(-90deg) rotateX(90deg);transform: rotateY(270deg) rotateX(90deg);}
+			/* 85%, 92% {-webkit-transform: rotateY(90deg) rotateX(90deg);transform: rotateY(90deg) rotateX(90deg);} */
 		}
-
-
 .shadow {
 	display: block;
 	width: 200px;

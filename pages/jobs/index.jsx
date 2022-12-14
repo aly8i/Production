@@ -15,7 +15,7 @@ export const getServerSideProps = async () => {
   const options = res2.data.crews.concat(res2.data.talents).concat(res2.data.providers)
   return {
     props: {
-      jobs: res1.data,
+      jobs: res1.data.reverse(),
       options: options
     },
   };

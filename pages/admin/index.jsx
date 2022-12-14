@@ -14,6 +14,7 @@ export const getServerSideProps = async (context) => {
   var res1={};
   var res2={};
   var res3={};
+  var res4={};
   const server = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
     headers: {'Content-Type':'application/json'},
@@ -38,6 +39,8 @@ export const getServerSideProps = async (context) => {
     res2=res22;
     const res33 = await server.get("api/equipments/");
     res3=res33;
+    const res44 = await server.get("api/news/");
+    res4=res44;
   }catch(err){
     if(err.response.status>=300){
       return {
@@ -53,7 +56,7 @@ export const getServerSideProps = async (context) => {
       users: res1.data,
       jobs: res2.data,
       equipments: res3.data,
-      news: res3.data,
+      news: res4.data,
     },
   };
 };

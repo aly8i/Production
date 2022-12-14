@@ -3,11 +3,9 @@ import styles from '../styles/Jobs.module.css'
 import NewsCard from './NewsCard'
 import Search from './Search'
 import { useState,useEffect } from 'react'
-import DropDown from './DropDown'
 
 const News = ({news}) => {
     const [searched,setSearched] = useState("");
-    const [type,setType] = useState("");
     const [filteredNews,setFilteredNews] = useState(news);
     const requestSearch = (searchedVal) => {
       if(searchedVal == ""){
@@ -23,14 +21,11 @@ const News = ({news}) => {
         const filter1 = news.filter((obj) => {
           return obj.title?.toLowerCase().includes(searchedVal.toLowerCase());
         });
-        const filtered = filter1.filter((obj) => {
-          return obj.title?.toLowerCase().includes(type.toLowerCase());
-        });
-        setFilteredNews(filtered);
+        setFilteredNews(filter1);
     };
     useEffect(()=>{
       requestSearch(searched);
-    },[searched,type])
+    },[searched])
   return (
       <div className={styles.container}>
         <main className={styles.main}>

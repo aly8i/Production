@@ -117,7 +117,7 @@ const Navbar = ({nav}) => {
     <>
       <div className={styles.header}>
         <div className={styles.logo}>
-            <Image src={process.env.NEXT_PUBLIC_LOGO} alt="" width={180} height={50}/>
+            <Image src={logo2} alt="" width={180} height={50}/>
         </div>
         <div className={styles.headerMenu}>
             {getLinks()}

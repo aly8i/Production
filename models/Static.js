@@ -38,32 +38,17 @@ const StaticSchema = new mongoose.Schema(
       default: null,
       maxlength: 3000,
     },
-    facebook:{
-      type: String,
-      default: null,
-      maxlength: 3000,
-    },
-    instagram:{
-      type: String,
-      default: null,
-      maxlength: 3000,
-    },
-    linkedin:{
-      type: String,
-      default: null,
-      maxlength: 3000,
-    },
-    twitter:{
-      type: String,
-      default: null,
-      maxlength: 3000,
-    },
     leftquote:{
       type: String,
       default: null,
       maxlength: 3000,
     },
     rightquote:{
+      type: String,
+      default: null,
+      maxlength: 3000,
+    },
+    logo:{
       type: String,
       default: null,
       maxlength: 3000,

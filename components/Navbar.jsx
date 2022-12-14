@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from "../styles/Navbar.module.css"
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
-import logo from "../public/lightstudiosmall.png"
+import logo2 from "../public/lightstudiosmall.png"
 import Image from 'next/image';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter } from 'next/router';
@@ -117,7 +117,7 @@ const Navbar = ({nav}) => {
     <>
       <div className={styles.header}>
         <div className={styles.logo}>
-            <Image src={logo} alt="" width={180} height={50}/>
+            <Image src={process.env.NEXT_PUBLIC_LOGO} alt="" width={180} height={50}/>
         </div>
         <div className={styles.headerMenu}>
             {getLinks()}

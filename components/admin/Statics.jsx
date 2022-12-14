@@ -19,10 +19,6 @@ const Statics = ({data,token}) => {
     const [talents,setTalents]= useState(data.talents||[]);
     const [crews,setCrews]= useState(data.crews||[]);
     const [providers,setProviders]= useState(data.providers||[]);
-    const [facebook,setFacebook]= useState(data.facebook);
-    const [instagram,setInstagram]= useState(data.instagram);
-    const [linkedin,setLinkedin]= useState(data.linkedin);
-    const [twitter,setTwitter]= useState(data.twitter);
     const [files, setFiles] = useState([]);
     const [logofile, setLogofile] = useState(null);
     const [SCfile, setSCfile] = useState(null);
@@ -31,6 +27,8 @@ const Statics = ({data,token}) => {
     const [talent,setTalent]= useState("");
     const [crew,setCrew]= useState("");
     const [provider,setProvider]= useState("");
+    const [leftquote,setLeftquote] = useState("");
+    const [rightquote,setRightquote] = useState("");
     const [loading,setLoading] = useState(false);
     const [loadingSC,setLoadingSC]= useState(false);
     const [loadingCS,setLoadingCS]= useState(false);
@@ -57,8 +55,7 @@ const Statics = ({data,token}) => {
       const validated = validateCube();
       const validated2 = validateServiceCards();
       const validated3 = validateCategories();
-      const validated4 = validateLinks();
-      if(!validated||validated2||!validated3||!validated4) return;
+      if(!validated||!validated2||!validated3) return;
       setLoading(true);
       var cs1 = true;
       var arr = [];
@@ -69,7 +66,7 @@ const Statics = ({data,token}) => {
       }else{
           img = data.logo;
       }
-      const payload = {logo:img,cubeslider,servicecards,talents,crews,providers,facebook,instagram,linkedin,twitter};
+      const payload = {cubeslider,servicecards,talents,crews,providers,leftquote,rightquote,logo:img};
       try{
         postData(payload);
         setLoading(false);
@@ -121,10 +118,15 @@ const Statics = ({data,token}) => {
         }
       }
       const validateServiceCards = ()=>{
-        if(servicecards.length>=1) return true
-        else{
+        if(servicecards.length<1){
           setError("Please add some Service Cards.")
           return false;
+        }
+        else if(servicecards.length>9){
+          setError("Please remove some Service Cards.")
+          return false;
+        }else{
+          return true;
         }
       }
       const validateCategories = ()=>{
@@ -141,14 +143,6 @@ const Statics = ({data,token}) => {
           return true;
         }
         
-      }
-      const validateLinks = ()=>{
-        if(facebook==""||linkedin==""||twitter==""||instagram==""){
-          setError("Please all your social links.")
-          return false;
-        }else{
-          return true;
-        }
       }
       const handleClear = ()=>{
           setCubeslider([]);
@@ -387,39 +381,6 @@ const Statics = ({data,token}) => {
             />:<></>
             }
             </div>
-              <div className={styles.formInput}>
-                <TextField
-                  id="outlined-name"
-                  label="Facebook"
-                  value={facebook}
-                  onChange={(e) => setFacebook(e.target.value)}
-                />
-              </div>
-              <div className={styles.formInput}>
-              <TextField
-                id="outlined-name"
-                label="Twitter"
-                value={twitter}
-                onChange={(e) => setTwitter(e.target.value)}
-              />
-              </div>
-              <div className={styles.formInput}>
-              <TextField
-                id="outlined-name"
-                label="Instagram"
-                value={instagram}
-                onChange={(e) => setInstagram(e.target.value)}
-              />
-              </div>
-              <div className={styles.formInput}>
-              <TextField
-                id="outlined-name"
-                label="Linkedin"
-                value={linkedin}
-                onChange={(e) => setLinkedin(e.target.value)}
-              />
-              </div>
-
             </div>
             <div className={styles.saveCon}>
             {loading?(<Progress className={styles.progress}/>):<button onClick={handleSave}>Save</button>}

@@ -1,39 +1,30 @@
 import React from 'react'
 import styles from '../styles/AboutCards.module.css'
 import Image from 'next/image'
-
-const AboutCards = () => {
+import { useEffect } from 'react'
+const AboutCards = ({images}) => {
+    useEffect(()=>{
+        images.map((image,i)=>{
+          document.documentElement.style.setProperty('--img'+`${i+1}`, 'url('+ `${image}` +')');
+        })
+    },[])
   return (
     <div className={styles.container1}>
         <h4>Services</h4>
         <div className={styles.container2}>
-        <div className={`${styles.flip} ${styles.flipVertical}`}>
-            <div className={`${styles.front} ${styles.first}`} >
-                <h1 className={styles.textShadow}>Actors</h1>
-            </div>
-            <div className={styles.back}>
-            <h2>Actors</h2>
-            <p>Join our proffessional acting community and select performing roles based on previous experiences.</p>
-            </div>
-        </div>
-        <div className={`${styles.flip} ${styles.flipVertical}`}>
-            <div className={`${styles.front} ${styles.second}`}>
-            <h1 className={styles.textShadow}>Production</h1>
-            </div>
-            <div className={styles.back}>
-            <h2>Production</h2>
-            <p>Our production team will handle all the video editing tasks proffesionally, in order to maximize your product.</p>
-            </div>
-        </div>
-        <div className={`${styles.flip} ${styles.flipVertical}`}>
-            <div className={`${styles.front} ${styles.third}`}>
-            <h1 className={styles.textShadow}>Shooting</h1>
-            </div>
-            <div className={styles.back}>
-            <h2>Shooting</h2>
-            <p>Bring your script, your actors, and let our shooting scene transform your words into awesome scenes.</p>
-            </div>
-        </div>
+            {
+            images?.map((image,i)=>(
+                
+                <div key={i} className={`${styles.flip} ${styles.flipVertical}`}>
+                    <div className={`${styles.front} ${i==0?styles.image1:i==1?styles.image2:i==2?styles.image3:i==3?styles.image4:i==4?styles.image5:i==5?styles.image6:i==6?styles.image7:i==7?styles.image8:styles.image9}`} >
+                        <h1 className={styles.textShadow}>{image.title}</h1>
+                    </div>
+                    <div className={styles.back}>
+                        <h2>{image.title}</h2>
+                        <p>{image.description}</p>
+                    </div>
+                </div>
+            ))}
         </div>
     </div>
   )

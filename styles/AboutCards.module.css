@@ -16,21 +16,45 @@
     left: 0;
     gap: 5px;
 }
-.first{
+.image1{
     /* background-image: url("../public/About1.jpg") !important; */
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/hfc-resto.appspot.com/o/lightstudio%2FAbout1.jpg?alt=media&token=5a999d3a-4380-42b1-890f-94be422be745') !important;
+    background-image: var(--img1) !important;
     content: '';
     width: 100%;
     height: 100%;
     
 }
-.second{
-    background-image: url("https://firebasestorage.googleapis.com/v0/b/hfc-resto.appspot.com/o/lightstudio%2FAbout2.jpg?alt=media&token=4aa73fcc-255c-425b-8a09-01889379d7ae") !important;
+.image2{
+    background-image: var(--img2) !important;
     content: '';
 }
-.third{
-    background-image: url("https://firebasestorage.googleapis.com/v0/b/hfc-resto.appspot.com/o/lightstudio%2FAbout3.jpg?alt=media&token=bf61b5de-34ba-4518-aaeb-408b6d52a11e") !important;
+.image3{
+    background-image: var(--img3) !important;
     content: '';
+}
+.image4{
+  background-image: var(--img4) !important;
+  content: '';
+}
+.image5{
+  background-image: var(--img5) !important;
+  content: '';
+}
+.image6{
+  background-image: var(--img6) !important;
+  content: '';
+}
+.image7{
+  background-image: var(--img7) !important;
+  content: '';
+}
+.image8{
+  background-image: var(--img8) !important;
+  content: '';
+}
+.image9{
+  background-image: var(--img9) !important;
+  content: '';
 }
 .flip {
   position: relative;

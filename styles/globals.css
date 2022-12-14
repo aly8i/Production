@@ -1,4 +1,21 @@
 
+
+
+	:root {
+		--image1: url('../public/1.jpg');
+		--image2: url('../public/2.jpg');
+		--image3: url('../public/3.jpg');
+		--image4: url('../public/4.jpg');
+		--image5: url('../public/5.jpg');
+		--image6: url('../public/6.jpg');
+		--img1: url('../public/1.jpg');
+		--img2: url('../public/2.jpg');
+		--img3: url('../public/3.jpg');
+		--img4: url('../public/4.jpg');
+		--img5: url('../public/5.jpg');
+		--img6: url('../public/6.jpg');
+	  }
+
 html,
 body {
   padding: 0;
@@ -50,14 +67,14 @@ a {
 
 .slider {
 	position: absolute;
-  right:0;
-  left:0;
-  padding-top: 5rem;
+  	right:0;
+  	left:0;
+  	padding-top: 5rem;
 	width: 200px;
 	height: 200px;
  	margin: auto;
 	-webkit-perspective: 600px;
-	        perspective: 600px;
+	perspective: 600px;
 }
 
 	.slider * {
@@ -93,14 +110,15 @@ a {
 
 			.slide.x:after {
 				content: '';
-				background-image: url('../public/1.jpg');
+				background-image: var(--image1);
+				/* background-color: var(--colorPrimary); */
 				-webkit-transform: translateZ(100px) rotateZ(-90deg);
 				transform: translateZ(100px) rotateZ(-90deg);
 			}
 
 			.slide.x:before {
 				content: '';
-				background-image: url('../public/2.jpg');
+				background-image:  var(--image2);
 				-webkit-transform: translateZ(-100px) rotateZ(-90deg);
 				transform: translateZ(-100px) rotateZ(-90deg);
 			}
@@ -112,14 +130,14 @@ a {
 
 			.slide.y:after {
 				content: '';
-				background-image: url('../public/3.jpg');
+				background-image:  var(--image3);
 				-webkit-transform: translateZ(100px) scale(-1);
 				        transform: translateZ(100px) scale(-1);
 			}
 
 			.slide.y:before {
 				content: '';
-				background-image: url('../public/4.jpg');
+				background-image:  var(--image4);
 				-webkit-transform: translateZ(-100px);
 				        transform: translateZ(-100px);
 			}
@@ -131,14 +149,14 @@ a {
 
 			.slide.z:after {
 				content: '';
-				background-image: url('../public/5.jpg');
+				background-image:  var(--image5);
 				-webkit-transform: translateZ(100px);
 				        transform: translateZ(100px);
 			}
 
 			.slide.z:before {
 				content: '';
-				background-image: url('../public/6.jpg');
+				background-image:  var(--image6);
 				-webkit-transform: translateZ(-100px);
 				        transform: translateZ(-100px);
 			}

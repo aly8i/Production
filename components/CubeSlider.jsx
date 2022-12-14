@@ -1,7 +1,13 @@
 import React from 'react'
-
-const CubeSlider = () => {
+import { useEffect } from 'react';
+const CubeSlider = ({images}) => {
+useEffect(()=>{
+    images.map((image,i)=>{
+      document.documentElement.style.setProperty('--image'+`${i+1}`, 'url('+ `${image}` +')');
+    })
+},[])
   return (
+    <>
     <div class="wrapper">
         <div class="slider">
             <div class="container">
@@ -12,7 +18,14 @@ const CubeSlider = () => {
             <div class="shadow"></div>
         </div>
     </div>
+    </>
   )
 }
+
+
+
+
+
+
 
 export default CubeSlider

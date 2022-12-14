@@ -72,6 +72,11 @@ const UserSchema = new mongoose.Schema(
       default: null,
       maxlength: 100,
     },
+    category:{
+      type: String,
+      default: null,
+      maxlength: 100,
+    },
     yearsofexperience:{
       type: Number,
       default: null,

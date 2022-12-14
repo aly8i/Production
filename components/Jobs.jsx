@@ -12,8 +12,8 @@ export default function Jobs({jobs,options}) {
       setFilteredJobs(jobs)
     }
       const filter1 = jobs.filter((obj) => {
-        return obj.title.toLowerCase().includes(searchedVal.toLowerCase());
-      });
+        return (obj.title.toLowerCase().includes(searchedVal.toLowerCase()) || obj.speciality.toLowerCase().includes(searchedVal.toLowerCase()) || searchedVal.toLowerCase().includes(obj.category));
+      }); 
       setFilteredJobs(filter1);
       
       const filter3 = options.filter((option)=>{return option.toLowerCase().includes(searchedVal.toLowerCase())})

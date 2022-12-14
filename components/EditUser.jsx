@@ -26,6 +26,7 @@ const EditUser = ({user,token,crews,providers,talents}) => {
     const [url, setUrl] = useState(user.url||"");
     const [department, setDepartment] = useState(user.department);
     const [speciality, setSpeciality] = useState(user.speciality);
+    const [category, setCategory] = useState(user.category);
     const [yearsofexperience, setYearsofexperience] = useState(user.yearsofexperience);
     const [interests, setInterests] = useState(user.interests);
     const [interest, setInterest] = useState("");
@@ -155,7 +156,7 @@ const EditUser = ({user,token,crews,providers,talents}) => {
       }else{
           img = user.image;
       }
-      const payload = {username,fullname,image:img,phonenumber,address:{country,city},email,url,view,about,department,speciality,yearsofexperience,interests,links:[{provider:"linkedin",link:linkedin},{provider:"imdb",link:imdb},{provider:"vimeo",link:vimeo}],education:{educationlevel,fieldofstudy,graduationyear},languages,showreel};
+      const payload = {username,fullname,image:img,phonenumber,address:{country,city},email,url,view,about,department,speciality,category,yearsofexperience,interests,links:[{provider:"linkedin",link:linkedin},{provider:"imdb",link:imdb},{provider:"vimeo",link:vimeo}],education:{educationlevel,fieldofstudy,graduationyear},languages,showreel};
       try{
         postUser(payload);
         setLoading(false);
@@ -395,6 +396,7 @@ const EditUser = ({user,token,crews,providers,talents}) => {
                   </FormControl>
                 </div>
               ):(
+                
                 <div className={styles.formInput}>
                   <FormControl sx={{ minWidth: 210 }}>
                     <Select
@@ -411,23 +413,39 @@ const EditUser = ({user,token,crews,providers,talents}) => {
                   </FormControl>
                 </div>
               )}
-              <div className={styles.formInput}/>
-               <div className={styles.formInput}>  
+                <div className={styles.formInput}>
+                  
+                  <FormControl sx={{ minWidth: 210 }}>
+                  <InputLabel>Department</InputLabel>
+                    <Select
+                      id="outlined-name"
+                      label="Department"
+                      value={department}
+                      onChange={(e) => setDepartment(e.target.value)}
+                      renderValue={(value) => `${value}`}
+                    >
+                      <MenuItem value={'Talents'}>Talents</MenuItem>
+                      <MenuItem value={'Service Providers'}>Service Providers</MenuItem>
+                      <MenuItem value={'Crews'}>Crews</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+                <div className={styles.formInput}>  
                 <Autocomplete
                     disablePortal
-                    value={department}
-                    options={["Talents","Service Providers","Crews"]}
-                    onInputChange={(event,value) => setDepartment(value)}
-                    renderInput={(params) => <TextField {...params} label="Department" />}
+                    value={category}
+                    options={options}
+                    onInputChange={(event,value) => setCategory(value)}
+                    renderInput={(params) => <TextField {...params} label="Category" />}
                   />
-                  </div>
+                </div>
                 <div className={styles.formInput}>  
-                <TextField
-                  onChange={(e)=>setSpeciality(e.target.value)}
-                  id="outlined-name"
-                  label="Speciality"
-                  value={speciality}
-                />
+                  <TextField
+                    onChange={(e)=>setSpeciality(e.target.value)}
+                    id="outlined-name"
+                    label="Speciality"
+                    value={speciality}
+                  />
                 </div>
               <div className={styles.formInput}>  
                 <TextField

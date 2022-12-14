@@ -13,7 +13,7 @@ const Talents = ({users,options}) => {
         setFilteredUsers(users);
       }
         const filter1 = users.filter((obj) => {
-          return (obj.fullname?.toLowerCase().includes(searchedVal.toLowerCase())||obj.speciality?.toLowerCase().includes(searchedVal.toLowerCase()))&&obj.view?.toLowerCase().includes("talent");
+          return (obj.fullname?.toLowerCase().includes(searchedVal.toLowerCase())||obj.speciality?.toLowerCase().includes(searchedVal.toLowerCase()) || searchedVal.toLowerCase().includes(obj.category)) && obj.view?.toLowerCase().includes("talent");
         });
         setFilteredUsers(filter1);
         const filter3 = options.filter((option)=>{return option.toLowerCase().includes(searchedVal.toLowerCase())})

@@ -25,18 +25,18 @@ const Employeers = ({users,options}) => {
   return (
       <div className={styles.container}>
         <main className={styles.main}>
-            <div className={styles.searchSection}>
-                <div className={styles.searchWrapper}>
-                <Search searched={searched} setSearched={setSearched}/>
-            {
-              searched!=""?filteredOptions.length>0?filteredOptions[0].toLowerCase()!=searched.toLocaleLowerCase()?
-              <ul className={styles.autocomplete}>{filteredOptions.slice(0,5).map((option,i)=><li key={i} onClick={()=>{setSearched(option)}}className={styles.autocompleteoption}>{option}</li>)}</ul>:<></>:<></>:<></>
-            }
+          <div className={styles.searchSection}>
+            <div className={styles.searchWrapper}>
+              <Search searched={searched} setSearched={setSearched}/>
+              {
+                searched!=""?filteredOptions.length>0?filteredOptions[0].toLowerCase()!=searched.toLocaleLowerCase()?
+                <ul className={styles.autocomplete}>{filteredOptions.slice(0,5).map((option,i)=><li key={i} onClick={()=>{setSearched(option)}}className={styles.autocompleteoption}>{option}</li>)}</ul>:<></>:<></>:<></>
+              }
+            </div>
           </div>
-            </div>
-            <div className={styles.grid}>
-              <EmployeerCard users={filteredUsers} type="employeer"/>
-            </div>
+          <div className={styles.grid}>
+            <EmployeerCard users={filteredUsers} type="employeer"/>
+          </div>
         </main>
     </div>
   )

@@ -7,9 +7,8 @@ useEffect(()=>{
     })
 },[])
   return (
-    <>
     <div class="wrapper">
-        <h1 class="text1">The light is</h1>
+        <h1 class="text1">We produce in the dark</h1>
         <div class="slider">
             <div class="container">
                 <div class="slide x"></div>
@@ -18,9 +17,8 @@ useEffect(()=>{
             </div>
             <div class="shadow"></div>
         </div>
-          <h1 class="text2">in the dark</h1>
+          <h1 class="text2">and emmit the light</h1>
     </div>
-    </>
   )
 }
 

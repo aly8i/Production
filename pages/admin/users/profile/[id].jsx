@@ -52,7 +52,7 @@ export const getServerSideProps = async (context) => {
     const res22 = await server.get(`api/equipments/find/${context.params.id}`);
     res2=res22
   }catch(err){
-    if(err.response.status>=300){
+    if(err.response?.status>=300){
         res2=[]
       };
     }

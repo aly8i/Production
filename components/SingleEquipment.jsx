@@ -47,7 +47,7 @@ function SingleEquipment({ singleEq }) {
             <p className={styles.sectionHeading}>Category :</p>
           </div>
           <div className={styles.contentWrapper}>
-            <p className={styles.sectionContent}>{singleEq.category}</p>
+            <p className={styles.sectionContent}>{singleEq.category||"NAN"}</p>
           </div>
         </div>
         <div className={styles.section}>
@@ -55,7 +55,7 @@ function SingleEquipment({ singleEq }) {
             <p className={styles.sectionHeading}>Warranty :</p>
           </div>
           <div className={styles.contentWrapper}>
-            <p className={styles.sectionContent}>{singleEq.warranty}</p>
+            <p className={styles.sectionContent}>{singleEq.warranty||"NAN"}</p>
           </div>
         </div>
         <div className={styles.section}>
@@ -63,7 +63,7 @@ function SingleEquipment({ singleEq }) {
             <p className={styles.sectionHeading}>For :</p>
           </div>
           <div className={styles.contentWrapper}>
-            <p className={styles.sectionContent}>{singleEq.forr}</p>
+            <p className={styles.sectionContent}>{singleEq.forr||"NAN"}</p>
           </div>
         </div>
         {singleEq.rentduration ? (
@@ -72,11 +72,11 @@ function SingleEquipment({ singleEq }) {
               <p className={styles.sectionHeading}>Rent Duration :</p>
             </div>
             <div className={styles.contentWrapper}>
-              <p className={styles.sectionContent}>{singleEq.rentduration}</p>
+              <p className={styles.sectionContent}>{singleEq.rentduration||"NAN"}</p>
             </div>
           </div>) : (<></>)}
         <div className={styles.section}>
-          <Link href={`/users/${singleEq.userid._id}`} passHref>
+          <Link href={`/users/${singleEq.userid?._id}`} passHref>
             <div className={styles.gotowrapper}>
               <div className={styles.goto}>
                 Visit Owner

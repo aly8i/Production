@@ -36,14 +36,12 @@ export const getServerSideProps = async (context) => {
     const res11 = await server.get(`api/equipments/${context.params.id}`);
     res1=res11;
 }catch(err){
-  if(err.response.status>=300){
     return {
       redirect: {
         permanent: false,
         destination: "/"
       },
     };
-  }
 }
   return {
     props: {

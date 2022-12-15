@@ -50,7 +50,7 @@ const SingleJob = ({job}) => {
                 <p className={styles.sectionHeading}>Salary :</p>
               </div>
               <div className={styles.contentWrapper}>
-                <p className={styles.sectionContent}>{`${job.salary}$`||"NAN"}</p>
+                <p className={styles.sectionContent}>{job.salary?`${job.salary}$`:"NAN"}</p>
               </div>
             </div>
             <div className={styles.section}>
@@ -66,7 +66,7 @@ const SingleJob = ({job}) => {
                 <p className={styles.sectionHeading}>Salary Duration :</p>
               </div>
               <div className={styles.contentWrapper}>
-                <p className={styles.sectionContent}>{`every ${job.salaryduration?.value} ${job.salaryduration?.unit}`||"NAN"}</p>
+                <p className={styles.sectionContent}>{job.salaryduration?`every ${job.salaryduration?.value} ${job.salaryduration?.unit}`:"NAN"}</p>
               </div>
             </div>
             <div className={styles.section}>
@@ -74,7 +74,7 @@ const SingleJob = ({job}) => {
                 <p className={styles.sectionHeading}>Work Days :</p>
               </div>
               <div className={styles.contentWrapper}>
-                <p className={styles.sectionContent}>{job.workdays.map((day,i)=>i+1!=job.workdays.length?`${day} | `:`${day}`)}</p>
+                <p className={styles.sectionContent}>{job.workdays?job.workdays.map((day,i)=>i+1!=job.workdays.length?`${day} | `:`${day}`):"NAN"}</p>
               </div>
             </div>
             <div className={styles.section}>
@@ -82,11 +82,11 @@ const SingleJob = ({job}) => {
                 <p className={styles.sectionHeading}>Work Hours :</p>
               </div>
               <div className={styles.contentWrapper}>
-                <p className={styles.sectionContent}>{job.workhours.map((hour,i)=>i+1!=job.workhours.length?`${hour} | `:`${hour}`)}</p>
+                <p className={styles.sectionContent}>{job.workhours?job.workhours.map((hour,i)=>i+1!=job.workhours.length?`${hour} | `:`${hour}`):"NAN"}</p>
               </div>
             </div>
             <div className={styles.section}>
-              <Link href={`/users/${job.userid._id}`} passHref>
+              <Link href={`/users/${job.userid?._id}`} passHref>
                 <div className={styles.gotowrapper}>
                   <div className={styles.goto}>
                     Visit Employer

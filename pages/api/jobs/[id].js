@@ -1,7 +1,6 @@
 import dbConnect from "../../../util/mongo";
 import Job from "../../../models/Job";
 import { verify } from "jsonwebtoken";
-import axios from "axios";
 
 export default async function handler(req, res) {
 

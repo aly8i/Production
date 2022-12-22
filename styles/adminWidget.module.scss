@@ -21,7 +21,7 @@
     }
 
     .counter {
-      font-size: 28px;
+      font-size: 14px;
       font-weight: 300;
     }
 
@@ -35,7 +35,9 @@
     .percentage {
       display: flex;
       align-items: center;
-      font-size: 14px;
+      flex-direction: row;
+      width: max-content;
+      font-size: 9px;
 
       &.positive {
         color: lightblue;

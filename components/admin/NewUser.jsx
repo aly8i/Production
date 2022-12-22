@@ -135,9 +135,9 @@ const NewUser = () => {
                     setRole(e.target.value);
                   }}
                 >
-                  <FormControlLabel value="user" control={<Radio color="error"/>} label="User" />
-                  <FormControlLabel value="admin" control={<Radio color="error"/>} label="Admin" />
-                  <FormControlLabel value="delivery" control={<Radio color="error"/>} label="Delivery" />
+                  <FormControlLabel value="user" control={<Radio />} label="User" />
+                  <FormControlLabel value="admin" control={<Radio />} label="Admin" />
+                  <FormControlLabel value="delivery" control={<Radio />} label="Delivery" />
                 </RadioGroup>
               </div>
               <div className={styles.formInput}>

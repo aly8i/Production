@@ -36,7 +36,7 @@ const JobsDatatable = ({jobs,token}) => {
   const requestSearch = (searchedVal) => {
     if(searchedVal!=""){
       const filteredRows = rows.filter((row) => {
-        return row.name.toLowerCase().includes(searchedVal.toLowerCase());
+        return row.title.toLowerCase().includes(searchedVal.toLowerCase());
       });
       setRows(filteredRows);
     }else{

@@ -10,6 +10,9 @@ import Progress from "./Progress";
 import { useSelector } from 'react-redux';
 import Image from "next/image";
 import CancelIcon from '@mui/icons-material/Cancel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import Error from "./Error";
 const EditEquipment = ({equipment,token}) => {
     const user = useSelector((state) => state.user);
@@ -18,7 +21,7 @@ const EditEquipment = ({equipment,token}) => {
     const [tags, setTags] = useState(equipment.tags||[]);
     const [category, setCategory] = useState(equipment.category||"");
     const [price, setPrice] = useState(equipment.price||"");
-    const [forr,setForr] = useState(equipment.forr||"sell or rent");
+    const [forr,setForr] = useState(equipment.forr||"Sell or Rent");
     const [rentduration, setRentduration] = useState(equipment.rentduration||"");
     const [warranty, setWarranty] = useState(equipment.warranty||"");
     const [loading,setLoading] = useState (false);
@@ -200,14 +203,32 @@ const EditEquipment = ({equipment,token}) => {
                 />
               </div>
               <div className={styles.formInput}>
+                  <FormControl sx={{ minWidth: 210 }}>
+                    <Select
+                      id="outlined-name"
+                      value={forr}
+                      label="For"
+                      onChange={(e) => setForr(e.target.value)}
+                      renderValue={(value) => `${value}`}
+                    >
+                      <MenuItem value={'Sell'}>Sell</MenuItem>
+                      <MenuItem value={'Rent'}>Rent</MenuItem>
+                      <MenuItem value={'Sell or Rent'}>Sell or Rent</MenuItem>
+                    </Select>
+                  </FormControl>
+              </div>
+              {forr=="Sell"?(
+              <div className={styles.formInput}>
                 <TextField
                   id="outlined-name"
-                  label="For"
-                  value={forr}
-                  onChange={(e) => setForr(e.target.value)}
+                  label="Rent Duration"
+                  value={rentduration}
+                  disabled
+                  onChange={(e) => setRentduration(e.target.value)}
                 />
               </div>
-              <div className={styles.formInput}>
+              ):(
+                <div className={styles.formInput}>
                 <TextField
                   id="outlined-name"
                   label="Rent Duration"
@@ -215,7 +236,8 @@ const EditEquipment = ({equipment,token}) => {
                   onChange={(e) => setRentduration(e.target.value)}
                 />
               </div>
-              <div className={styles.formInput}>
+              )}
+               <div className={styles.formInput}>
                 <TextField
                   id="outlined-name"
                   label="Warranty"

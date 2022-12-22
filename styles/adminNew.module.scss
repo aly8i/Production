@@ -8,29 +8,38 @@
     .bottom {
       -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
       box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
-      padding: 10px;
-      margin: 20px;
+      padding: 10px 0px;
+      margin: 20px 0px;
       display: flex;
       flex-direction: column;
       h1 {
         color: lightgray;
         font-size: 20px;
+        padding: 10px;
+        width: 100%;
+        text-align: center;
+        margin: auto;
       }
 
       .left {
         flex: 1;
         justify-content: center;
-        margin-top: 5%;
+        align-items: center;
+        margin-top: 10px;
         position: relative;
+        padding-bottom: 20px;
         display: flex;
-
+        gap:20px;
+        display: flex;
+        flex-direction: column;
+        
         .imgCon {
           width: 200px;
           height: 200px;
           border-radius: 10px;
           background-color: aliceblue;
           overflow: hidden;
-          position: relative; 
+          position: relative;
         }
       }
 
@@ -40,7 +49,6 @@
         .form {
           display: flex;
           flex-wrap: wrap;
-          gap: 30px;
           justify-content: space-around;
           align-items: center;
 
@@ -48,21 +56,6 @@
           and (max-width: 548px){
               flex-direction: column;
               margin-top: 20px;
-          }
-          .sFormInput{
-            width: 40%;
-            display: flex;
-            gap:8%;
-            flex-direction: column;
-            .priceInput {
-              width: 100%;
-              display: flex;
-              flex-direction: row !important;
-              gap:10%;
-              .smallFormInput {
-                width: 30%;
-              }
-            }
           }
           .slider{
             display: flex;
@@ -175,6 +168,30 @@
               }
             }
           }
+          .section{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 100px;
+            margin: 0px 100px 100px 100px;
+            padding: 100px;
+            background: rgba(42, 42, 42, 0.24);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(6.2px);
+            -webkit-backdrop-filter: blur(6.2px);
+            border: 1px solid rgba(33, 33, 33, 0.3);
+            position: relative;
+            h1{
+              position: absolute;
+              top:0;
+              left:50%;
+              transform: translateX(-50%);
+              padding: 40px;
+            }
           .formInput {
             width: 40%;
             display: flex;
@@ -193,37 +210,37 @@
                 margin-top: 15px;
                 padding: 6px 24px;
                 margin-right: 5px;
-            }        
-            .btn:hover{
-              border-color: white;
-            }
-            .scroll{
-              position: relative;
-              scale: 0.7;
-              max-width: 500px;
-              left: -59px;
-              gap: 5px;
-              flex-wrap: wrap;
-              display: flex;
-              flex-direction: row;
-              .hour, .day{
-                background-color: transparent;
-                border: 1px solid grey;
-                padding: 8px 26px;
-                color: #fff;
-                border-radius: 20px;
-                cursor: pointer;
-                transition: 0.2s;
-                white-space: nowrap;
-                font-size: 15px;
-                margin-top: 15px;
-                padding: 6px 24px;
-                margin-right: 5px;
+              }        
+              .btn:hover{
+                border-color: white;
               }
+              .scroll{
+                position: relative;
+                scale: 0.7;
+                max-width: 500px;
+                left: -59px;
+                gap: 5px;
+                flex-wrap: wrap;
+                display: flex;
+                flex-direction: row;
+                  .hour, .day{
+                    background-color: transparent;
+                    border: 1px solid grey;
+                    padding: 8px 26px;
+                    color: #fff;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    transition: 0.2s;
+                    white-space: nowrap;
+                    font-size: 15px;
+                    margin-top: 15px;
+                    padding: 6px 24px;
+                    margin-right: 5px;
+                  }
               
-              .selected{
-                background-color: lightgreen;
-              }
+                  .selected{
+                    background-color: lightgreen;
+                  }
             }
             .extraItems {
               margin: 10px 0px;
@@ -261,6 +278,7 @@
               }
             }
           }
+        } 
         }
       }
     }

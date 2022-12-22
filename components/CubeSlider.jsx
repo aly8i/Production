@@ -22,10 +22,4 @@ useEffect(()=>{
   )
 }
 
-
-
-
-
-
-
 export default CubeSlider

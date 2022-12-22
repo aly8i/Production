@@ -210,10 +210,7 @@ const EditUser = ({user,token,crews,providers,talents}) => {
                 layout="fill"
               />
             </div>
-          </div>
-          <div className={styles.right}>
-            <div className={styles.form}>
-              <div className={styles.formInput}>
+            <div className={styles.imageInput}>
                 <label htmlFor="file">
                   Image: <DriveFolderUploadOutlinedIcon className={styles.icon} />
                 </label>    
@@ -224,8 +221,13 @@ const EditUser = ({user,token,crews,providers,talents}) => {
                     style={{ display: "none" }}
                   /> 
               </div>
-              <div className={styles.formInput}>  
-              </div>
+          </div>
+          <div className={styles.right}>
+            <div className={styles.form}>
+              
+             
+              <div className={styles.section}>
+              <h1>Credentials</h1>
               <div className={styles.formInput}> 
                 <TextField
                     id="outlined-name"
@@ -242,6 +244,26 @@ const EditUser = ({user,token,crews,providers,talents}) => {
                     onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
+
+              <div className={styles.formInput}>
+                <TextField
+                    id="outlined-name"
+                    label="Phone Number"
+                    value={phonenumber}
+                    onChange={(e) => setPhonenumber(e.target.value)}
+                />
+              </div>
+              <div className={styles.formInput}>
+                <TextField
+                    id="outlined-name"
+                    label="Email"
+                    value={email}
+                    disabled
+                />
+              </div>
+              </div>
+              <div className={styles.section}>
+              <h1>Location</h1>
               <div className={styles.formInput}>
               <Autocomplete
                   disablePortal
@@ -259,23 +281,9 @@ const EditUser = ({user,token,crews,providers,talents}) => {
                     onChange={(e) => setCity(e.target.value)}
                 />
               </div>
-              <div className={styles.formInput}>
-                <TextField
-                    id="outlined-name"
-                    label="Phone Number"
-                    value={phonenumber}
-                    onChange={(e) => setPhonenumber(e.target.value)}
-                />
               </div>
-              <div className={styles.formInput}>
-                <TextField
-                    id="outlined-name"
-                    label="Email"
-                    value={email}
-                    disabled
-                />
-              </div>
-              
+              <div className={styles.section}>
+              <h1>Social Links</h1>
               <div className={styles.formInput}>
                 <TextField
                     onChange={(e)=>setVimeo(e.target.value)}
@@ -300,6 +308,17 @@ const EditUser = ({user,token,crews,providers,talents}) => {
                     value={imdb}
                 />
               </div>
+              <div className={styles.formInput}>  
+                <TextField
+                  onChange={(e)=>setUrl(e.target.value)}
+                  id="outlined-name"
+                  label="URL"
+                  value={url}
+                />
+              </div>
+              </div>
+              <div className={styles.section}>
+              <h1>Display Info</h1>
               <div className={styles.formInput}>
                   <FormControl sx={{ minWidth: 210 }}>
                   <InputLabel>Type</InputLabel>
@@ -315,16 +334,73 @@ const EditUser = ({user,token,crews,providers,talents}) => {
                     </Select>
                   </FormControl>
                 </div>
-                <div className={styles.formInput}>  
-                <TextField
-                  onChange={(e)=>setUrl(e.target.value)}
-                  id="outlined-name"
-                  label="URL"
-                  value={url}
-                />
+
+              <div className={styles.formInput}>  
+                  <TextField
+                    onChange={(e)=>setSpeciality(e.target.value)}
+                    id="outlined-name"
+                    label="Speciality"
+                    value={speciality}
+                  />
               </div>
+              {user.role=="admin"?(
+                <div className={styles.formInput}>
+                  <FormControl sx={{ minWidth: 210 }}>
+                    <Select
+                      id="outlined-name"
+                      value={role}
+                      label="Role"
+                      onChange={(e) => setRole(e.target.value)}
+                      renderValue={(value) => `${value}`}
+                    >
+                      <MenuItem value={'admin'}>Admin</MenuItem>
+                      <MenuItem value={'user'}>User</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+              ):(
+                <></>
+              )}
               <div className={styles.formInput}>
                   <FormControl sx={{ minWidth: 210 }}>
+                  <InputLabel>Department</InputLabel>
+                    <Select
+                      id="outlined-name"
+                      label="Department"
+                      value={department}
+                      onChange={(e) => setDepartment(e.target.value)}
+                      renderValue={(value) => `${value}`}
+                    >
+                      <MenuItem value={'Talents'}>Talents</MenuItem>
+                      <MenuItem value={'Service Providers'}>Service Providers</MenuItem>
+                      <MenuItem value={'Crews'}>Crews</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+                <div className={styles.formInput}>  
+                  <Autocomplete
+                    disablePortal
+                    value={category}
+                    options={options}
+                    onInputChange={(event,value) => setCategory(value)}
+                    renderInput={(params) => <TextField {...params} label="Category" />}
+                  />
+                </div>
+              <div className={styles.formInput}>  
+                <TextField
+                  onChange={(e)=>setAbout(e.target.value)}
+                  id="outlined-name"
+                  label="About"
+                  value={about}
+                  multiline
+                  rows={4}
+                />
+              </div>
+              </div>
+              <div className={styles.section}>
+              <h1>Education & Experience</h1>
+              <div className={styles.formInput}>
+                <FormControl sx={{ minWidth: 210 }}>
                   <InputLabel>Years of Experience</InputLabel>
                     <Select
                       id="outlined-name"
@@ -370,84 +446,10 @@ const EditUser = ({user,token,crews,providers,talents}) => {
                   renderInput={(params) => <TextField {...params} label="Education Level" />}
                 />
               </div>
-              <div className={styles.formInput}>  
-                <TextField
-                    onChange={(e)=>setAbout(e.target.value)}
-                    id="outlined-name"
-                    label="About"
-                    value={about}
-                    multiline
-                    rows={4}
-                />
               </div>
-              {user.role=="admin"?(
-                <div className={styles.formInput}>
-                  <FormControl sx={{ minWidth: 210 }}>
-                    <Select
-                      id="outlined-name"
-                      value={role}
-                      label="Role"
-                      onChange={(e) => setRole(e.target.value)}
-                      renderValue={(value) => `${value}`}
-                    >
-                      <MenuItem value={'admin'}>Admin</MenuItem>
-                      <MenuItem value={'user'}>User</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-              ):(
-                
-                <div className={styles.formInput}>
-                  <FormControl sx={{ minWidth: 210 }}>
-                    <Select
-                      id="outlined-name"
-                      value={role}
-                      label="Role"
-                      onChange={(e) => setRole(e.target.value)}
-                      renderValue={(value) => `${value}`}
-                      disabled
-                    >
-                      <MenuItem value={'admin'}>Admin</MenuItem>
-                      <MenuItem value={'user'}>User</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-              )}
-                <div className={styles.formInput}>
-                  
-                  <FormControl sx={{ minWidth: 210 }}>
-                  <InputLabel>Department</InputLabel>
-                    <Select
-                      id="outlined-name"
-                      label="Department"
-                      value={department}
-                      onChange={(e) => setDepartment(e.target.value)}
-                      renderValue={(value) => `${value}`}
-                    >
-                      <MenuItem value={'Talents'}>Talents</MenuItem>
-                      <MenuItem value={'Service Providers'}>Service Providers</MenuItem>
-                      <MenuItem value={'Crews'}>Crews</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
+              <div className={styles.section}>
+                <h1>Skillset</h1>
                 <div className={styles.formInput}>  
-                <Autocomplete
-                    disablePortal
-                    value={category}
-                    options={options}
-                    onInputChange={(event,value) => setCategory(value)}
-                    renderInput={(params) => <TextField {...params} label="Category" />}
-                  />
-                </div>
-                <div className={styles.formInput}>  
-                  <TextField
-                    onChange={(e)=>setSpeciality(e.target.value)}
-                    id="outlined-name"
-                    label="Speciality"
-                    value={speciality}
-                  />
-                </div>
-              <div className={styles.formInput}>  
                 <TextField
                   onChange={(e)=>setInterest(e.target.value)}
                   id="outlined-name"
@@ -460,8 +462,7 @@ const EditUser = ({user,token,crews,providers,talents}) => {
                   </div>
                 </div>
               </div>
-
-              <div className={styles.formInput}>
+                <div className={styles.formInput}>
                 <Autocomplete
                   disablePortal
                   options={languagesOptions}
@@ -493,10 +494,16 @@ const EditUser = ({user,token,crews,providers,talents}) => {
                   }
                   </div>
                 </div>
-                <div className={styles.slider}>
+              </div>
+
+
+
+              <div className={styles.section}>
+              <h1>Show Reel</h1>
+              <div className={styles.slider}>
               <div className={styles.text}>
                 <label htmlFor="file1">
-                    Show Reel: <DriveFolderUploadOutlinedIcon className={styles.icon} />
+                    <DriveFolderUploadOutlinedIcon className={styles.icon} />
                 </label>
                 <input
                   type="file"
@@ -514,6 +521,7 @@ const EditUser = ({user,token,crews,providers,talents}) => {
               <div  className={styles.x} onClick={()=>handleClear()}>
                 {showreel.length!=0?(<CancelIcon className={styles.xIcon}/>):(showreel?(<CancelIcon className={styles.xIcon}/>):(<></>))}
               </div>
+            </div>
             </div>
               <div className={styles.saveSection}>
               {loading?(<Progress className={styles.progress}/>):<button className={styles.save} onClick={handleSave}>Save</button>}
